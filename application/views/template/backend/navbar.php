@@ -6,7 +6,7 @@
 				<a class="navbar-brand" href="../index.html" aria-label="Front">
 					<img class="navbar-brand-logo" src="<?= base_url();?><?= $web_logo;?>" alt="Logo"
 						data-hs-theme-appearance="default" />
-					<img class="navbar-brand-logo" src="<?= base_url();?>assets/svg/logos-light/logo.svg" alt="Logo"
+					<img class="navbar-brand-logo" src="<?= base_url();?><?= $web_logo_white;?>" alt="Logo"
 						data-hs-theme-appearance="dark" />
 				</a>
 				<!-- End Logo -->
@@ -675,7 +675,7 @@
 									id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false"
 									data-bs-auto-close="outside" data-bs-dropdown-animation>
 									<div class="avatar avatar-sm avatar-circle">
-										<img class="avatar-img" src="<?= base_url();?>assets/img/160x160/img6.jpg"
+										<img class="avatar-img" src="<?= base_url();?>assets/img/avatar-1.png"
 											alt="Image Description" />
 										<span class="avatar-status avatar-sm-status avatar-status-success"></span>
 									</div>
@@ -686,7 +686,7 @@
 									<div class="dropdown-item-text">
 										<div class="d-flex align-items-center">
 											<div class="avatar avatar-sm avatar-circle">
-												<img class="avatar-img" src="<?= base_url();?>assets/img/160x160/img6.jpg"
+												<img class="avatar-img" src="<?= base_url();?>assets/img/avatar-1.png"
 													alt="Image Description" />
 											</div>
 											<div class="flex-grow-1 ms-3">
@@ -698,8 +698,8 @@
 
 									<div class="dropdown-divider"></div>
 
-									<a class="dropdown-item" href="<?= site_url('user/profile');?>">Profile &amp; account</a>
-									<a class="dropdown-item" href="<?= site_url('user/settings');?>">Settings</a>
+									<a class="dropdown-item" href="<?= site_url('user/profile');?>">Profil &amp; akun</a>
+									<a class="dropdown-item" href="<?= site_url('user/settings');?>">Pengaturan</a>
 
 									<div class="dropdown-divider"></div>
 

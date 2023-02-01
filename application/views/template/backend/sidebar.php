@@ -67,9 +67,33 @@
 									<small class="bi-three-dots nav-subtitle-replacer"></small>
 
 									<div class="nav-item">
+										<a class="nav-link" href="<?= site_url('master/kategori');?>" data-placement="left">
+											<i class="bi-tags nav-icon"></i>
+											<span class="nav-link-title">Kategori</span>
+										</a>
+									</div>
+
+									<div class="nav-item">
 										<a class="nav-link" href="<?= site_url('master/materi');?>" data-placement="left">
 											<i class="bi-journal-bookmark nav-icon"></i>
 											<span class="nav-link-title">Materi</span>
+										</a>
+									</div>
+
+									<div class="nav-item">
+										<a class="nav-link" href="<?= site_url('master/midtrans');?>" data-placement="left">
+											<i class="bi-credit-card nav-icon"></i>
+											<span class="nav-link-title">Midtrans</span>
+										</a>
+									</div>
+
+									<span class="dropdown-header mt-4">Pengaturan</span>
+									<small class="bi-three-dots nav-subtitle-replacer"></small>
+
+									<div class="nav-item">
+										<a class="nav-link" href="<?= site_url('settings');?>" data-placement="left">
+											<i class="bi-window-dock nav-icon"></i>
+											<span class="nav-link-title">Website</span>
 										</a>
 									</div>
 								</div>

@@ -11,7 +11,7 @@
 	<meta property="og:title"
 		content="<?= ($this->uri->segment(1) ? ucwords(str_replace('-', ' ', $this->uri->segment(1)) . ' ' . ($this->uri->segment(2) ? str_replace('-', ' ', $this->uri->segment(2)) : "") . $web_title) : $web_title); ?>">
 	<meta property="og:description" content="<?= $web_desc; ?>">
-	<meta property="og:image" content="<?= base_url(); ?>assets/images/<?= $web_icon?>">
+	<meta property="og:image" content="<?= base_url(); ?><?= $web_icon?>">
 	<meta property="og:url" content="<?= base_url(uri_string()) ?>">
 
 	<title>
@@ -19,7 +19,7 @@
 	</title>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="<?= base_url(); ?>assets/images/<?= $web_icon;?>">
+	<link rel="shortcut icon" href="<?= base_url(); ?><?= $web_icon;?>">
 
 	<!-- Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />

@@ -352,7 +352,7 @@ class Auth extends CI_Controller
             $email = htmlspecialchars($this->input->post("email"), true);
 
             // setting data untuk dikirim ke email
-            $subject = "Perubahan password - ngodingin.indonesia";
+            $subject = "Perubahan password - lesson.sch.id";
             $message = 'Hai, kami menerima permintaan perubahan password untuk akun dengan email <b>' . $email . '</b>.<br>Harap click tombol dibawah ini untuk melanjutkan proses perubahan password anda<br><br><a href="' . base_url() . 'reset-password/' . $token . '" class="btn btn-soft-primary">Reset Password</a><br><br>atau click link berikut: <br>' . base_url() . 'reset-password/' . $token . '<br><br><small class="text-muted">Link tersebut hanya akan aktif selama 24 jam, jika link telah kadaluarsa harap ulangi proses perubahan password</small>';
 
             // mengirim ke email
@@ -423,7 +423,7 @@ class Auth extends CI_Controller
                     $now = date("d F Y - H:i");
                     $email = htmlspecialchars($this->input->post("email"), true);
 
-                    $subject = "Perubahan password - ngodingin.indonesia";
+                    $subject = "Perubahan password - lesson.sch.id";
                     $message = "Hai, password untuk akun anda dengan email <b>{$email}</b> telah dirubah pada {$now}. <br> jika anda tidak merasa melakukan perubahan password ini harap hubungi admin kami sesegera mungkin!";
 
                     // mengirimemailperubahan password

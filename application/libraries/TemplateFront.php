@@ -20,7 +20,10 @@ class TemplateFront
         $data['web_title'] = $this->getSettingsValue('web_title');
         $data['web_desc'] = $this->getSettingsValue('web_desc');
         $data['web_icon'] = $this->getSettingsValue('web_icon');
+        $data['web_icon_white'] = $this->getSettingsValue('web_icon_white');
         $data['web_logo'] = $this->getSettingsValue('web_logo');
+        $data['web_logo_white'] = $this->getSettingsValue('web_logo_white');
+        $data['sound_notif'] = $this->getSettingsValue('sound_notif');
 
         $this->_ci->load->view('template/frontend/header', $data);
         $this->_ci->load->view('template/alert', $data);
