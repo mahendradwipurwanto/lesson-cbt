@@ -690,36 +690,16 @@
 													alt="Image Description" />
 											</div>
 											<div class="flex-grow-1 ms-3">
-												<h5 class="mb-0">Mark Williams</h5>
-												<p class="card-text text-body">mark@site.com</p>
+												<h5 class="mb-0"><?php $name = explode(" ", $this->session->userdata('name'));echo $name[0]; ?></h5>
+												<p class="card-text text-body"><?= mb_substr($this->session->userdata('email'), 0, 4) ?>***@<?php $mail = explode("@", $this->session->userdata('email'));echo $mail[1]; ?></p>
 											</div>
 										</div>
 									</div>
 
 									<div class="dropdown-divider"></div>
 
-									<a class="dropdown-item" href="<?= site_url('user/profile');?>">Profil &amp; akun</a>
-									<a class="dropdown-item" href="<?= site_url('user/settings');?>">Pengaturan</a>
-
-									<div class="dropdown-divider"></div>
-
-									<a class="dropdown-item" href="#">
-										<div class="d-flex align-items-center">
-											<div class="flex-shrink-0">
-												<div class="avatar avatar-sm avatar-dark avatar-circle">
-													<span class="avatar-initials">HS</span>
-												</div>
-											</div>
-											<div class="flex-grow-1 ms-2">
-												<h5 class="mb-0">
-													Htmlstream
-													<span
-														class="badge bg-primary rounded-pill text-uppercase ms-1">PRO</span>
-												</h5>
-												<span class="card-text">hs.example.com</span>
-											</div>
-										</div>
-									</a>
+									<a class="dropdown-item" href="<?= site_url('admin');?>">Dashboard</a>
+									<a class="dropdown-item" href="<?= site_url('settings');?>">Pengaturan</a>
 
 									<div class="dropdown-divider"></div>
 

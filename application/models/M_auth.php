@@ -206,10 +206,10 @@ class M_auth extends CI_Model
 
     // LUPA password
 
-    public function cek_tokenRecovery($token)
+    public function cek_token($token, $type = 2)
     {
         $token = $this->db->escape($token);
-        $query = $this->db->query("SELECT * FROM tb_token a WHERE a.key = $token AND a.type = 2");
+        $query = $this->db->query("SELECT * FROM tb_token a WHERE a.key = $token AND a.type = {$type}");
 
         if ($query->num_rows() > 0) {
             return true;
@@ -218,10 +218,10 @@ class M_auth extends CI_Model
         }
     }
 
-    public function get_tokenRecovery($token)
+    public function get_token($token, $type = 2)
     {
         $token = $this->db->escape($token);
-        $query = $this->db->query("SELECT * FROM tb_token a WHERE a.key = $token AND a.type = 2");
+        $query = $this->db->query("SELECT * FROM tb_token a WHERE a.key = $token AND a.type = {$type}");
 
         if ($query->num_rows() > 0) {
             return $query->row();

@@ -29,36 +29,20 @@ class Auth extends CI_Controller
 
             // SUPER ADMIN
             if ($this->session->userdata('role') == 0) {
-                if ($this->session->userdata('redirect')) {
-                    $this->session->set_flashdata('toast', 'Hai, berhasil login, silahkan lanjutkan aktivitas anda !');
-                    redirect($this->session->userdata('redirect'));
-                } else {
-                    $this->session->set_flashdata('toast', "Selamat datang super admin, {$this->session->userdata('name')}");
-                    redirect(site_url('admin/dashboard'));
-                }
-
+				$this->session->set_flashdata('toast', "Selamat datang super admin, {$this->session->userdata('name')}");
+				redirect(site_url('admin'));
             // ADMIN
             } elseif ($this->session->userdata('role') == 1) {
-                if ($this->session->userdata('redirect')) {
-                    $this->session->set_flashdata('toast', 'Hai, berhasil login, silahkan lanjutkan aktivitas anda !');
-                    redirect($this->session->userdata('redirect'));
-                } else {
-                    $this->session->set_flashdata('toast', "Selamat datang admin, {$this->session->userdata('name')}");
-                    redirect(site_url('admin/dashboard'));
-                }
+				$this->session->set_flashdata('toast', "Selamat datang admin, {$this->session->userdata('name')}");
+				redirect(site_url('admin'));
 
             // USER
             } elseif ($this->session->userdata('role') == 2) {
-                if ($this->session->userdata('redirect')) {
-                    $this->session->set_flashdata('toast', 'Hai, berhasil login, anda dapat melanjutkan aktivitas anda !');
-                    redirect($this->session->userdata('redirect'));
-                } else {
-                    $this->session->set_flashdata('toast', "Selamat datang, {$this->session->userdata('name')}");
-                    redirect(site_url('pengguna'));
-                }
+				$this->session->set_flashdata('toast', "Selamat datang, {$this->session->userdata('name')}");
+				redirect(site_url('pengguna'));
             } else {
                 $this->session->set_flashdata('toast', "Selamat datang, {$this->session->userdata('name')}");
-                redirect(base_url());
+                redirect(site_url('home'));
             }
 
         } else {
@@ -111,6 +95,80 @@ class Auth extends CI_Controller
         $this->templateauth->view('auth/forgot_password');
     }
 
+    public function verificationEmail()
+    {
+
+        // cek apakah user sudah sign in
+        if ($this->session->userdata('logged_in') == true) {
+            $email = htmlspecialchars($this->session->userdata('email'), true);
+
+            // cek apakah terdapat data verifikasi
+            if ($this->M_auth->get_aktivasi(htmlspecialchars($this->session->userdata('user_id'), true)) != false) {
+                // mengambil data verifikasi
+                $aktivasi = $this->M_auth->get_aktivasi(htmlspecialchars($this->session->userdata('user_id'), true));
+
+                // cek apakah status masih belum verifikasi
+                if ($aktivasi->status == 0) {
+
+                    // cek apakah mengirim permintaan pengiriman email verifikasi
+                    if ($this->input->get('act') == "send-email" || $this->input->get('act') == "resend-email") {
+
+                        // menghapus token permintaan lupa password sebelumnya
+                        $this->M_auth->del_token($this->session->userdata('user_id'), 1);
+
+                        // create token 
+                        do {
+							$token = bin2hex(random_bytes(32));
+                        } while ($this->M_auth->cek_token($token, 1) == true);
+
+                        $token = $token;
+
+                        // atur data untuk menyimpan token 
+                        $data = [
+							'user_id' => $this->session->userdata('user_id'),
+							'key' => $token,
+							'type' => 1, //1. Verifikasi email
+							'date_created' => time()
+                        ];
+
+                        // simpan data token 
+                        $this->M_auth->insert_token($data);
+
+						$subject = "Verifikasi Email - Lesson";
+						$message = 'Hai, selamat bergabung bersama kami. Selesaikan pendaftaran akunmu dengan menekan tombol dibawah ini untuk memverifikasi email pendaftaran akunmu<br><br><a href="' . base_url() . 'verifikasi-email/' . $token . '" class="btn btn-soft-primary">Verifikasi Email</a><br><br>atau click link berikut: <br>' . base_url() . 'verifikasi-email/' . $token . '<br><br><small class="text-muted">Link tersebut hanya akan aktif selama 24 jam</small>';
+                        // mengirim email
+                        if (sendMail($email, $subject, $message) == true) {
+                            $this->session->set_flashdata('toast', 'Berhasil mengirim email ke ' . $email . ' !');
+                        } else {
+                            $this->session->set_flashdata('toast', 'Terjadi kesalahan saat mengirimkan email verifikasi pendaftaran ke email anda !');
+                            redirect(site_url('email-verification'));
+                        }
+                    }
+
+                    $this->templateauth->view('auth/verification');
+                } else {
+                    $this->session->set_flashdata('toast', 'Kamu telah melakukan verifikasi email !');
+                    redirect(base_url());
+                }
+
+            } else {
+                $this->session->set_flashdata('toast', 'Tidak dapat mengambil informasi akun !');
+                redirect(site_url('login'));
+
+            }
+        } else {
+            if (!empty($_SERVER['QUERY_STRING'])) {
+                $uri = uri_string() . '?' . $_SERVER['QUERY_STRING'];
+            } else {
+                $uri = uri_string();
+            }
+            $this->session->unset_userdata('redirect');
+            $this->session->set_userdata('redirect', $uri);
+            $this->session->set_flashdata('toast', "Please sign in to continue");
+            redirect('login');
+        }
+    }
+
     // proses login
     function proses_login()
     {
@@ -158,8 +216,8 @@ class Auth extends CI_Controller
 
                     // cek status dari user yang lagin - 0: BELUM AKTIF - 1: AKTIF - 2: SUSPEND;
                     if ($user->status == 0) {
-                        $this->session->set_flashdata('toast', "Hai {$user->name}, harap verifikasi akun anda. Hubungi kami untuk lebih lanjut");
-                        redirect(base_url());
+                        $this->session->set_flashdata('toast', "Hai {$user->name}, harap verifikasi akun anda");
+                        redirect(site_url('email-verification?act=send-email'));
                     } elseif ($user->status == 2) {
                         $this->session->set_flashdata('toast', "Hai {$user->name}, akun anda sedang dibekukan. Hubungi kami untuk lebih lanjut");
                         redirect(site_url('suspend'));
@@ -268,39 +326,34 @@ class Auth extends CI_Controller
                         // menyimpan data session
                         $this->session->set_userdata($sessiondata);
 
-                        // SUPER ADMIN
-                        if ($user->role == 0) {
-                            if ($this->session->userdata('redirect')) {
-                                $this->session->set_flashdata('toast', 'Hai, berhasil login, silahkan lanjutkan aktivitas anda !');
-                                redirect($this->session->userdata('redirect'));
-                            } else {
-                                $this->session->set_flashdata('toast', "Selamat datang super admin, {$user->name}");
-                                redirect(site_url('admin/dashboard'));
-                            }
+                        // menghapus token permintaan lupa password sebelumnya
+                        $this->M_auth->del_token($user->user_id, 1);
 
-                        // ADMIN
-                        } elseif ($user->role == 1) {
-                            if ($this->session->userdata('redirect')) {
-                                $this->session->set_flashdata('toast', 'Hai, berhasil login, silahkan lanjutkan aktivitas anda !');
-                                redirect($this->session->userdata('redirect'));
-                            } else {
-                                $this->session->set_flashdata('toast', "Selamat datang admin, {$user->name}");
-                                redirect(site_url('admin/dashboard'));
-                            }
+                        // create token 
+                        do {
+							$token = bin2hex(random_bytes(32));
+                        } while ($this->M_auth->cek_token($token, 1) == true);
 
-                        // USER
-                        } elseif ($user->role == 2) {
-                            if ($this->session->userdata('redirect')) {
-                                $this->session->set_flashdata('toast', 'Hai, berhasil login, anda dapat melanjutkan aktivitas anda !');
-                                redirect($this->session->userdata('redirect'));
-                            } else {
-                                $this->session->set_flashdata('toast', "Selamat datang, {$user->name}");
-                                redirect(site_url('pengguna'));
-                            }
-                        } else {
-                            $this->session->set_flashdata('toast', "Selamat datang, {$user->name}");
-                            redirect(base_url());
-                        }
+                        $token = $token;
+
+                        // atur data untuk menyimpan token 
+                        $data = [
+							'user_id' => $user->user_id,
+							'key' => $token,
+							'type' => 1, //1. Verifikasi email
+							'date_created' => time()
+                        ];
+
+                        // simpan data token 
+                        $this->M_auth->insert_token($data);
+
+                        // mengirimkan email selamat bergabung
+                        $subject = "Verifikasi Email - Lesson";
+                        $message = 'Hai, selamat bergabung bersama kami. Selesaikan pendaftaran akunmu dengan menekan tombol dibawah ini untuk memverifikasi email pendaftaran akunmu<br><br><a href="' . base_url() . 'verifikasi-email/' . $token . '" class="btn btn-soft-primary">Verifikasi email</a><br><br>atau click link berikut: <br>' . base_url() . 'verifikasi-email/' . $token . '<br><br><small class="text-muted">Link tersebut hanya akan aktif selama 24 jam</small>';
+
+                        sendMail($email, $subject, $message);
+
+                        redirect(site_url('email-verification'));
 
                     } else {
                         $this->session->set_flashdata('toast', 'Terjadi kesalahan saat mencoba mendaftarkan akun anda!');
@@ -331,13 +384,13 @@ class Auth extends CI_Controller
             // menghapus token permintaan lupa password sebelumnya
             $this->M_auth->del_token($user->user_id, 2);
 
-            // create token for recovery
+            // create token 
             do {
                 $token = bin2hex(random_bytes(32));
-            } while ($this->M_auth->cek_tokenRecovery($token) == true);
+            } while ($this->M_auth->cek_token($token) == true);
 
             $token = $token;
-            // atur data untuk menyimpan token recovery password
+            // atur data untuk menyimpan token 
             $data = [
                 'user_id' => $user->user_id,
                 'key' => $token,
@@ -345,7 +398,7 @@ class Auth extends CI_Controller
                 'date_created' => time()
             ];
 
-            // simpan data token recovery password
+            // simpan data token 
             $this->M_auth->insert_token($data);
 
             // memparse email yang diinputkan
@@ -373,13 +426,13 @@ class Auth extends CI_Controller
     {
 
         // cek apakah token valid
-        if ($this->M_auth->get_tokenRecovery($token) == false) {
+        if ($this->M_auth->get_token($token) == false) {
             $this->session->set_flashdata('toast', 'Link token tidak diketahui, harap hubungi admin');
             redirect(site_url('login'));
         } else {
 
             // mengambil data token
-            $data_token = $this->M_auth->get_tokenRecovery($token);
+            $data_token = $this->M_auth->get_token($token);
 
             // mengambil data user berdasarkan kode user
             $user = $this->M_auth->get_userByID($data_token->user_id);

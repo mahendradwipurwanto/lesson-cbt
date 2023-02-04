@@ -22,7 +22,7 @@
 	<link rel="shortcut icon" href="<?= base_url(); ?><?= $web_icon;?>">
 
 	<!-- Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 	<!-- CSS Implementing Plugins -->
 	<link rel="stylesheet" href="<?= base_url();?>assets/vendor/bootstrap-icons/font/bootstrap-icons.css" />
@@ -41,6 +41,7 @@
 		body {
 			opacity: 0;
 		}
+
 	</style>
 	<script src="<?= base_url();?>assets/js/main.js"></script>
 
@@ -56,21 +57,12 @@
 </head>
 
 <body>
+	<style type="text/css">
+		@media (min-width: 1400px) {
+			.container-lg {
+				max-width: 1140px;
+			}
+		}
+
+	</style>
 	<script src="<?= base_url();?>assets/js/hs.theme-appearance.js"></script>
-
-	<!-- ========== MAIN CONTENT ========== -->
-	<main id="content" role="main" class="main">
-		<div class="position-fixed top-0 end-0 start-0 bg-img-start"
-			style="height: 32rem; background-image: url(./assets/svg/components/card-6.svg);">
-			<!-- Shape -->
-			<div class="shape shape-bottom zi-1">
-				<svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-					viewBox="0 0 1921 273">
-					<polygon fill="#fff" points="0,273 1921,273 1921,0 " />
-				</svg>
-			</div>
-			<!-- End Shape -->
-		</div>
-
-		<!-- Content -->
-		<div class="container py-5 py-sm-7">

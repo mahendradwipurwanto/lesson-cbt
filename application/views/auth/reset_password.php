@@ -1,5 +1,5 @@
 <a class="d-flex justify-content-center mb-5" href="<?= base_url();?>">
-	<img class="zi-2" src="<?= base_url();?>/<?= $web_logo;?>" alt="Image Description" style="width: 8rem;">
+	<img class="zi-2" src="<?= base_url();?><?= $web_logo;?>" alt="Image Description" style="width: 8rem;">
 </a>
 
 <div class="mx-auto" style="max-width: 30rem;">
@@ -90,31 +90,6 @@
 	<!-- Footer -->
 	<div class="position-relative text-center zi-1">
 		<small class="text-cap text-body mb-4">Trusted by the world's best teams</small>
-
-		<div class="w-85 mx-auto">
-			<div class="row justify-content-between">
-				<div class="col">
-					<img class="img-fluid" src="<?= base_url();?>/assets/svg/brands/gitlab-gray.svg" alt="Logo">
-				</div>
-				<!-- End Col -->
-
-				<div class="col">
-					<img class="img-fluid" src="<?= base_url();?>/assets/svg/brands/fitbit-gray.svg" alt="Logo">
-				</div>
-				<!-- End Col -->
-
-				<div class="col">
-					<img class="img-fluid" src="<?= base_url();?>/assets/svg/brands/flow-xo-gray.svg" alt="Logo">
-				</div>
-				<!-- End Col -->
-
-				<div class="col">
-					<img class="img-fluid" src="<?= base_url();?>/assets/svg/brands/layar-gray.svg" alt="Logo">
-				</div>
-				<!-- End Col -->
-			</div>
-			<!-- End Row -->
-		</div>
 	</div>
 	<!-- End Footer -->
 </div>
