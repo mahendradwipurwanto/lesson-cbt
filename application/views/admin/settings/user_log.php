@@ -6,7 +6,7 @@
 			<div class="card-body p-4">
 				<table
 					class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table dataTables"
-					id="datatable">
+					id="table">
 					<thead class="thead-light">
 						<tr>
 							<th width="5%">No</th>

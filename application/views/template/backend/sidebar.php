@@ -57,7 +57,7 @@
 							<div class="navbar-vertical-content">
 								<div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">
 									<div class="nav-item">
-										<a class="nav-link <?= ($this->uri->segment(2) == "dashboard" || !$this->uri->segment(2) ? "active" : "") ?>" href="<?= site_url('admin');?>" data-placement="left">
+										<a class="nav-link <?= ($this->uri->segment(2) == "dashboard" || !$this->uri->segment(2) ? "active" : "") ?>" href="<?= site_url('admin');?>" data-placement="left" id="tour-dashboard">
 											<i class="bi-house-door nav-icon"></i>
 											<span class="nav-link-title">Dashboard</span>
 										</a>
@@ -65,7 +65,7 @@
 
 									<div class="nav-item">
 										<a class="nav-link <?= ($this->uri->segment(2) == "statistik" ? "active" : "") ?>" href="<?= site_url('admin/statistik');?>"
-											data-placement="left">
+											data-placement="left" id="tour-statistik">
 											<i class="bi-bar-chart nav-icon"></i>
 											<span class="nav-link-title">Statistik</span>
 										</a>
@@ -76,7 +76,7 @@
 
 									<div class="nav-item">
 										<a class="nav-link <?= ($this->uri->segment(2) == "member" ? "active" : "") ?>" href="<?= site_url('admin/member');?>"
-											data-placement="left">
+											data-placement="left" id="tour-member">
 											<i class="bi-people nav-icon"></i>
 											<span class="nav-link-title">Member</span>
 										</a>
@@ -87,14 +87,14 @@
 
 									<div class="nav-item">
 										<a class="nav-link <?= ($this->uri->segment(2) == "kategori" ? "active" : "") ?>" href="<?= site_url('master/kategori');?>"
-											data-placement="left">
+											data-placement="left" id="tour-kategori">
 											<i class="bi-tags nav-icon"></i>
 											<span class="nav-link-title">Kategori</span>
 										</a>
 									</div>
 
 									<div class="nav-item">
-										<a class="nav-link <?= ($this->uri->segment(2) == "materi" ? "active" : "") ?>" href="<?= site_url('master/materi');?>" data-placement="left">
+										<a class="nav-link <?= ($this->uri->segment(2) == "materi" ? "active" : "") ?>" href="<?= site_url('master/materi');?>" data-placement="left" id="tour-materi">
 											<i class="bi-journal-bookmark nav-icon"></i>
 											<span class="nav-link-title">Materi</span>
 										</a>
@@ -102,7 +102,7 @@
 
 									<div class="nav-item">
 										<a class="nav-link <?= ($this->uri->segment(2) == "midtrans" ? "active" : "") ?>" href="<?= site_url('master/midtrans');?>"
-											data-placement="left">
+											data-placement="left" id="tour-midtrans">
 											<i class="bi-credit-card nav-icon"></i>
 											<span class="nav-link-title">Midtrans</span>
 										</a>
@@ -112,7 +112,7 @@
 									<small class="bi-three-dots nav-subtitle-replacer"></small>
 
 									<div class="nav-item">
-										<a class="nav-link <?= ($this->uri->segment(1) == "settings" ? "active" : "") ?>" href="<?= site_url('settings');?>" data-placement="left">
+										<a class="nav-link <?= ($this->uri->segment(1) == "settings" ? "active" : "") ?>" href="<?= site_url('settings');?>" data-placement="left" id="tour-website">
 											<i class="bi-window-dock nav-icon"></i>
 											<span class="nav-link-title">Website</span>
 										</a>
@@ -173,7 +173,7 @@
 													<span class="text-truncate"
 														title="Resources &amp; tutorials">Documentation</span>
 												</a>
-												<a class="dropdown-item" href="#">
+												<a class="dropdown-item" role="button" onclick="tournow()">
 													<i class="bi-gift dropdown-item-icon"></i>
 													<span class="text-truncate" title="What's new?">Guidelines</span>
 												</a>

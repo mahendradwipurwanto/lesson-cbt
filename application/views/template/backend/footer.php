@@ -72,24 +72,50 @@
 <!-- ========== END SECONDARY CONTENTS ========== -->
 
 <!-- JS Global Compulsory  -->
-<script src="<?= base_url();?>assets/vendor/jquery/dist/jquery.min.js"></script>
-<script src="<?= base_url();?>assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
 <script src="<?= base_url();?>assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- JS Implementing Plugins -->
 <script src="<?= base_url();?>assets/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside.min.js"></script>
 <script src="<?= base_url();?>assets/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
 <script src="<?= base_url();?>assets/vendor/tom-select/dist/js/tom-select.complete.min.js"></script>
-<script src="<?= base_url();?>assets/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url();?>assets/vendor/datatables.net.extensions/select/select.min.js"></script>
-<script src="<?= base_url(); ?>assets/js/flatpickr.min.js"></script>
-
+<script src="<?= base_url();?>assets/js/flatpickr.min.js"></script>
+<script src="<?= base_url();?>assets/vendor/quill/dist/quill.min.js"></script>
 <!-- JS Front -->
 <script src="<?= base_url();?>assets/js/theme.min.js"></script>
 <script src="<?= base_url();?>assets/js/custom.js?<?=time();?>"></script>
 
 <!-- JS Plugins Init. -->
 <script>
+	function tournow() {
+		introJs().setOptions({
+			disableInteraction: true,
+			steps: [{
+				intro: "Selamat datang di aplikasi lesson.id, kami akan menjelaskan secara singkat mengenai semua fitur pada aplikasi ini"
+			}, {
+				element: document.querySelector('#tour-dashboard'),
+				intro: "Anda dapat melihat informasi umum pada halaman ini"
+			}, {
+				element: document.querySelector('#tour-statistik'),
+				intro: "Pantau statistik seputar informasi mengenai website anda"
+			}, {
+				element: document.querySelector('#tour-member'),
+				intro: "Kelola data member anda pada halaman ini"
+			}, {
+				element: document.querySelector('#tour-kategori'),
+				intro: "Kelolak kategori produk anda"
+			}, {
+				element: document.querySelector('#tour-materi'),
+				intro: "Kelola seluruh materi yang anda buat pada halaman ini"
+			}, {
+				element: document.querySelector('#tour-midtrans'),
+				intro: "Atur metode pembayaran midtrans anda"
+			}, {
+				element: document.querySelector('#tour-website'),
+				intro: "Atur seluruh pengaturan mengenai website anda disini"
+			}]
+		}).start();
+	};
+
 	(function () {
 		window.onload = function () {
 			// INITIALIZATION OF NAVBAR VERTICAL ASIDE
@@ -121,6 +147,9 @@
 			// =======================================================
 			HSCore.components.HSTomSelect.init('.js-select')
 
+			// INITIALIZATION OF QUILLJS EDITOR
+			// =======================================================
+			HSCore.components.HSQuill.init('.js-quill')
 
 			// INITIALIZATION OF DATATABLES
 			// =======================================================

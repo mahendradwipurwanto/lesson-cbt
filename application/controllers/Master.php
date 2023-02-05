@@ -33,7 +33,8 @@ class Master extends CI_Controller
 		$data['page_title'] = 'Kategori';
 		$data['sub_page_title'] = 'Kelola kategori materi anda';
 		
-        $this->templateback->view('master/kategori', $data);
+        $data['kategori'] = $this->M_master->getAllKategori();
+        $this->templateback->view('admin/master/kategori', $data);
     }
 
     public function materi()
@@ -41,7 +42,7 @@ class Master extends CI_Controller
 		$data['page_title'] = 'Materi';
 		$data['sub_page_title'] = 'Kelola seluruh data materi yang anda buat';
 		
-        $this->templateback->view('master/materi/list', $data);
+        $this->templateback->view('admin/master/materi/list', $data);
     }
 
     public function midtrans()
@@ -49,6 +50,28 @@ class Master extends CI_Controller
 		$data['page_title'] = 'Materi';
 		$data['sub_page_title'] = 'Kelola pengaturan midtrans';
 		
-        $this->templateback->view('master/midtrans', $data);
+        $this->templateback->view('admin/master/midtrans', $data);
+    }
+
+    public function saveKategori()
+    {
+        if ($this->M_master->saveKategori() == true) {
+            $this->session->set_flashdata('notif_success', 'Berhasil menyimpan kategori');
+            redirect($this->agent->referrer());
+        } else {
+            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba menyimpan kategori');
+            redirect($this->agent->referrer());
+        }
+    }
+
+    public function deleteKategori()
+    {
+        if ($this->M_master->deleteKategori() == true) {
+            $this->session->set_flashdata('notif_success', 'Berhasil menghapus kategori');
+            redirect($this->agent->referrer());
+        } else {
+            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba menghapus kategori');
+            redirect($this->agent->referrer());
+        }
     }
 }
