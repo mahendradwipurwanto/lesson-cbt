@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin extends CI_Controller
+class Master extends CI_Controller
 {
 
     // construct
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(['M_admin']);
+        $this->load->model(['M_master']);
 
         // cek apakah user sudah login
         if ($this->session->userdata('logged_in') == false || !$this->session->userdata('logged_in')) {
@@ -28,27 +28,27 @@ class Admin extends CI_Controller
         }
     }
 
-    public function index()
+    public function kategori()
     {
-		$data['page_title'] = 'Dashboard';
-		$data['sub_page_title'] = 'Selamat datang';
+		$data['page_title'] = 'Kategori';
+		$data['sub_page_title'] = 'Kelola kategori materi anda';
 		
-        $this->templateback->view('admin/dashboard', $data);
+        $this->templateback->view('master/kategori', $data);
     }
 
-    public function statistik()
+    public function materi()
     {
-		$data['page_title'] = 'Statistik';
-		$data['sub_page_title'] = 'Seluruh statistik tentang website anda';
+		$data['page_title'] = 'Materi';
+		$data['sub_page_title'] = 'Kelola seluruh data materi yang anda buat';
 		
-        $this->templateback->view('admin/statistik', $data);
+        $this->templateback->view('master/materi/list', $data);
     }
 
-    public function member()
+    public function midtrans()
     {
-		$data['page_title'] = 'Member';
-		$data['sub_page_title'] = 'Kelol seluruh data member yang telah terdaftar';
+		$data['page_title'] = 'Materi';
+		$data['sub_page_title'] = 'Kelola pengaturan midtrans';
 		
-        $this->templateback->view('admin/member', $data);
+        $this->templateback->view('master/midtrans', $data);
     }
 }

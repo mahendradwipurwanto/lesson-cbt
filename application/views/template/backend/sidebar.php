@@ -8,8 +8,15 @@
 					<div class="row align-items-center">
 						<div class="col">
 							<h1 class="page-header-title">
+								<?php if(isset($page_title)):?>
+									<?= $page_title;?>
+								<?php else:?>
 								<?= ($this->uri->segment(1) ? ucwords(str_replace('-', ' ', $this->uri->segment(1)) . ' ' . ($this->uri->segment(2) ? str_replace('-', ' ', $this->uri->segment(2)) : "")) : 'Dashboard'); ?>
+								<?php endif;?>
 							</h1>
+							<?php if(isset($sub_page_title)):?>
+							<p class="docs-page-header-text text-white"><?= $sub_page_title;?></p>
+							<?php endif;?>
 						</div>
 
 						<div class="col-auto">
@@ -50,16 +57,28 @@
 							<div class="navbar-vertical-content">
 								<div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">
 									<div class="nav-item">
-										<a class="nav-link" href="<?= site_url('admin');?>" data-placement="left">
+										<a class="nav-link <?= ($this->uri->segment(2) == "dashboard" || !$this->uri->segment(2) ? "active" : "") ?>" href="<?= site_url('admin');?>" data-placement="left">
 											<i class="bi-house-door nav-icon"></i>
 											<span class="nav-link-title">Dashboard</span>
 										</a>
 									</div>
 
 									<div class="nav-item">
-										<a class="nav-link" href="<?= site_url('admin/statistik');?>" data-placement="left">
+										<a class="nav-link <?= ($this->uri->segment(2) == "statistik" ? "active" : "") ?>" href="<?= site_url('admin/statistik');?>"
+											data-placement="left">
 											<i class="bi-bar-chart nav-icon"></i>
 											<span class="nav-link-title">Statistik</span>
+										</a>
+									</div>
+
+									<span class="dropdown-header mt-4">Member</span>
+									<small class="bi-three-dots nav-subtitle-replacer"></small>
+
+									<div class="nav-item">
+										<a class="nav-link <?= ($this->uri->segment(2) == "member" ? "active" : "") ?>" href="<?= site_url('admin/member');?>"
+											data-placement="left">
+											<i class="bi-people nav-icon"></i>
+											<span class="nav-link-title">Member</span>
 										</a>
 									</div>
 
@@ -67,21 +86,23 @@
 									<small class="bi-three-dots nav-subtitle-replacer"></small>
 
 									<div class="nav-item">
-										<a class="nav-link" href="<?= site_url('master/kategori');?>" data-placement="left">
+										<a class="nav-link <?= ($this->uri->segment(2) == "kategori" ? "active" : "") ?>" href="<?= site_url('master/kategori');?>"
+											data-placement="left">
 											<i class="bi-tags nav-icon"></i>
 											<span class="nav-link-title">Kategori</span>
 										</a>
 									</div>
 
 									<div class="nav-item">
-										<a class="nav-link" href="<?= site_url('master/materi');?>" data-placement="left">
+										<a class="nav-link <?= ($this->uri->segment(2) == "materi" ? "active" : "") ?>" href="<?= site_url('master/materi');?>" data-placement="left">
 											<i class="bi-journal-bookmark nav-icon"></i>
 											<span class="nav-link-title">Materi</span>
 										</a>
 									</div>
 
 									<div class="nav-item">
-										<a class="nav-link" href="<?= site_url('master/midtrans');?>" data-placement="left">
+										<a class="nav-link <?= ($this->uri->segment(2) == "midtrans" ? "active" : "") ?>" href="<?= site_url('master/midtrans');?>"
+											data-placement="left">
 											<i class="bi-credit-card nav-icon"></i>
 											<span class="nav-link-title">Midtrans</span>
 										</a>
@@ -91,7 +112,7 @@
 									<small class="bi-three-dots nav-subtitle-replacer"></small>
 
 									<div class="nav-item">
-										<a class="nav-link" href="<?= site_url('settings');?>" data-placement="left">
+										<a class="nav-link <?= ($this->uri->segment(1) == "settings" ? "active" : "") ?>" href="<?= site_url('settings');?>" data-placement="left">
 											<i class="bi-window-dock nav-icon"></i>
 											<span class="nav-link-title">Website</span>
 										</a>
@@ -149,7 +170,8 @@
 												<span class="dropdown-header">Help</span>
 												<a class="dropdown-item" href="#">
 													<i class="bi-journals dropdown-item-icon"></i>
-													<span class="text-truncate" title="Resources &amp; tutorials">Documentation</span>
+													<span class="text-truncate"
+														title="Resources &amp; tutorials">Documentation</span>
 												</a>
 												<a class="dropdown-item" href="#">
 													<i class="bi-gift dropdown-item-icon"></i>

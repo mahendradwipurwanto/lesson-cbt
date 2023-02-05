@@ -26,7 +26,13 @@
 
 	<!-- CSS Implementing Plugins -->
 	<link rel="stylesheet" href="<?= base_url();?>assets/vendor/bootstrap-icons/font/bootstrap-icons.css" />
-	<link rel="stylesheet" href="<?= base_url(); ?>assets/plugin/sweetalert2/sweetalert2.min.css">
+	<link rel="stylesheet" href="<?= base_url();?>assets/plugin/sweetalert2/sweetalert2.min.css">
+	<link rel="stylesheet" href="<?= base_url();?>assets/vendor/tom-select/dist/css/tom-select.bootstrap5.css">
+	<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+	<!-- Tagsinput -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css"
+		integrity="sha512-uKwYJOyykD83YchxJbUxxbn8UcKAQBu+1hcLDRKZ9VtWfpMb1iYfJ74/UIjXQXWASwSzulZEC1SFGj+cslZh7Q=="
+		crossorigin="anonymous" />
 	<link rel="stylesheet" href="<?= base_url();?>assets/css/custom.css?<?= time();?>">
 	<!-- CSS Front Template -->
 
@@ -41,6 +47,7 @@
 		body {
 			opacity: 0;
 		}
+
 	</style>
 	<script src="<?= base_url();?>assets/js/main.js"></script>
 
@@ -53,6 +60,10 @@
 	<script type="text/javascript" src="<?= base_url(); ?>assets/plugin/sweetalert2/sweetalert2.min.js"></script>
 	<!-- introjs -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/intro.js@5.0.0/minified/intro.min.js"></script>
+	<!-- Tagsinput -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"
+		integrity="sha512-wTIaZJCW/mkalkyQnuSiBodnM5SRT8tXJ3LkIUA/3vBJ01vWe5Ene7Fynicupjt4xqxZKXA97VgNBHvIf5WTvg=="
+		crossorigin="anonymous"></script>
 </head>
 
 <body class="bg-light">
