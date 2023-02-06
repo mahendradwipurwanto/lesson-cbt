@@ -71,7 +71,7 @@ class CreateDb
                 ('mailer_mode', '0', UNIX_TIMESTAMP(NOW())),
                 ('mailer_password', '1234', UNIX_TIMESTAMP(NOW())),
                 ('mailer_port', '587', UNIX_TIMESTAMP(NOW())),
-                ('mailer_username', 'lesson.sch.id@gmail.com', UNIX_TIMESTAMP(NOW())),
+                ('mailer_username', 'soalkupedia.com@gmail.com', UNIX_TIMESTAMP(NOW())),
                 ('web_title', 'Base Project', UNIX_TIMESTAMP(NOW())),
                 ('web_desc', 'This is Base Project Template', UNIX_TIMESTAMP(NOW())),
                 ('web_icon', 'favicon.ico', UNIX_TIMESTAMP(NOW())),
@@ -90,7 +90,7 @@ class CreateDb
             ");
 
             $dynamicDB->query("INSERT INTO `tb_auth` (`user_id`, `email`, `password`, `role`, `status`, `created_at`) VALUES
-                (1, 'lesson.sch.id@gmail.com', '$2y$10$1hg1pDmFo9NYLXLuKxr86.qZpBwWcFo.gQgLLye5Hsk9VXmZqdW12', 0, 1, {$now}),
+                (1, 'soalkupedia.com@gmail.com', '$2y$10$1hg1pDmFo9NYLXLuKxr86.qZpBwWcFo.gQgLLye5Hsk9VXmZqdW12', 0, 1, {$now}),
                 (2, 'info@admin.com', '$2y$10$1hg1pDmFo9NYLXLuKxr86.qZpBwWcFo.gQgLLye5Hsk9VXmZqdW12', 1, 1, {$now}),
                 (3, 'user@user.com', '$2y$10$1hg1pDmFo9NYLXLuKxr86.qZpBwWcFo.gQgLLye5Hsk9VXmZqdW12', 2, 1, {$now})
             ");

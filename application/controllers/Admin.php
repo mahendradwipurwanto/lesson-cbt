@@ -62,7 +62,7 @@ class Admin extends CI_Controller
             $now = date("d F Y - H:i");
             $email = htmlspecialchars($user->email, true);
 
-            $subject = "Perubahan password - Lesson.id";
+            $subject = "Perubahan password - soalkupedia.com";
             $message = "Hai, password untuk akun anda dengan email <b>{$email}</b> telah dirubah pada {$now} menjadi <b>{$this->input->post('pass')}</b>. <br> jika anda tidak merasa melakukan perubahan password ini harap hubungi admin kami sesegera mungkin!";
 
             // mengirimemailperubahan password
@@ -84,8 +84,8 @@ class Admin extends CI_Controller
                 $now = date("d F Y - H:i");
                 $email = htmlspecialchars($user->email, true);
 
-                $subject = "Perubahan email - Lesson.id";
-                $message = "Hai, email untuk akun Lesson anda telah dirubah pada {$now}. <br>Email baru mu adalah {$this->input->post('email')} <br><br> Jika anda tidak merasa meminta perubahan ini, harap segera hubungi admin Lesson kami.";
+                $subject = "Perubahan email - soalkupedia.com";
+                $message = "Hai, email untuk akun Soalkupedia anda telah dirubah pada {$now}. <br>Email baru mu adalah {$this->input->post('email')} <br><br> Jika anda tidak merasa meminta perubahan ini, harap segera hubungi admin Soalkupedia kami.";
 
                 // mengirimemailperubahan email
                 sendMail(htmlspecialchars($user->email, true), $subject, $message);

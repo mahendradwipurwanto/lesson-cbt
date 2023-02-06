@@ -90,7 +90,7 @@
 		introJs().setOptions({
 			disableInteraction: true,
 			steps: [{
-				intro: "Selamat datang di aplikasi lesson.id, kami akan menjelaskan secara singkat mengenai semua fitur pada aplikasi ini"
+				intro: "Selamat datang di aplikasi soalkupedia.com, kami akan menjelaskan secara singkat mengenai semua fitur pada aplikasi ini"
 			}, {
 				element: document.querySelector('#tour-dashboard'),
 				intro: "Anda dapat melihat informasi umum pada halaman ini"

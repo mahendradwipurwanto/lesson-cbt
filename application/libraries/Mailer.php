@@ -54,7 +54,7 @@ class Mailer
           $mail->SMTPSecure     = $this->get_settingsValue('mailer_connection');
           $mail->Port           = $this->get_settingsValue('mailer_port'); #587;
           $mail->Host           = $this->get_settingsValue('mailer_host'); #"smtp.gmail.com";
-          $mail->Username       = $this->get_settingsValue('mailer_username'); #"lesson.sch.id@gmail.com";
+          $mail->Username       = $this->get_settingsValue('mailer_username'); #"soalkupedia.com@gmail.com";
           $mail->Password       = $this->get_settingsValue('mailer_password'); #"hxexyuauljnejjmq";
 
           $mail->setFrom($this->get_settingsValue('mailer_username'), $this->get_settingsValue('mailer_alias'));
@@ -115,7 +115,7 @@ class Mailer
           $mail->SMTPSecure     = $this->get_settingsValue('mailer_connection');
           $mail->Port           = $this->get_settingsValue('mailer_port'); #587;
           $mail->Host           = $this->get_settingsValue('mailer_host'); #"smtp.gmail.com";
-          $mail->Username       = $this->get_settingsValue('mailer_username'); #"lesson.sch.id@gmail.com";
+          $mail->Username       = $this->get_settingsValue('mailer_username'); #"soalkupedia.com@gmail.com";
           $mail->Password       = $this->get_settingsValue('mailer_password'); #"hxexyuauljnejjmq";
 
           $mail->setFrom($this->get_settingsValue('mailer_username'), $this->get_settingsValue('mailer_alias'));

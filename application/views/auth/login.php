@@ -20,7 +20,7 @@
 				<div class="mb-4">
 					<label class="form-label" for="signinSrEmail">Your email</label>
 					<input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail"
-						tabindex="1" placeholder="email@address.com" aria-label="email@address.com" value="admin@lesson.sch.id" required>
+						tabindex="1" placeholder="email@address.com" aria-label="email@address.com" value="admin@soalkupedia.com" required>
 					<span class="invalid-feedback">Please enter a valid email address.</span>
 				</div>
 				<!-- End Form -->

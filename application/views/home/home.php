@@ -4,7 +4,7 @@
 				<div class="w-lg-75 text-center mx-lg-auto text-center mx-auto">
 					<!-- Heading -->
 					<div class="mb-7 animated fadeInUp">
-						<h1 class="display-2 mb-3">Lesson, Take a test practice <span
+						<h1 class="display-2 mb-3">Soalkupedia, Take a test practice <span
 								class="text-primary text-highlight-warning">for everyone!</span></h1>
 						<p class="fs-2">Developer friendly and highly test practice web app.</p>
 					</div>

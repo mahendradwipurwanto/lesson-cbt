@@ -85,7 +85,7 @@
 			<div class="collapse navbar-collapse" id="navbarContainerNavDropdown">
 				<!-- <ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link py-2 py-lg-3" href="<?= base_url();?>">Lesson <span
+						<a class="nav-link py-2 py-lg-3" href="<?= base_url();?>">Soalkupedia <span
 								class="badge bg-dark rounded-pill ms-1">v1.0.0</span></a>
 					</li>
 					<li class="nav-item">
