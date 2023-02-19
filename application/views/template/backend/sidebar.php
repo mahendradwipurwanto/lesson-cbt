@@ -82,6 +82,25 @@
 										</a>
 									</div>
 
+									<span class="dropdown-header mt-4">Pembayaran</span>
+									<small class="bi-three-dots nav-subtitle-replacer"></small>
+
+									<div class="nav-item">
+										<a class="nav-link <?= ($this->uri->segment(2) == "midtrans" ? "active" : "") ?>" href="<?= site_url('master/midtrans');?>"
+											data-placement="left" id="tour-midtrans">
+											<i class="bi-credit-card nav-icon"></i>
+											<span class="nav-link-title">Midtrans</span>
+										</a>
+									</div>
+
+									<div class="nav-item">
+										<a class="nav-link <?= ($this->uri->segment(2) == "transaksi" ? "active" : "") ?>"
+											href="<?= site_url('admin/transaksi');?>" data-placement="left" id="tour-transaksi">
+											<i class="bi-cash-stack nav-icon"></i>
+											<span class="nav-link-title">Transaksi</span>
+										</a>
+									</div>
+
 									<span class="dropdown-header mt-4">Master</span>
 									<small class="bi-three-dots nav-subtitle-replacer"></small>
 
@@ -97,14 +116,6 @@
 										<a class="nav-link <?= ($this->uri->segment(2) == "materi" ? "active" : "") ?>" href="<?= site_url('master/materi');?>" data-placement="left" id="tour-materi">
 											<i class="bi-journal-bookmark nav-icon"></i>
 											<span class="nav-link-title">Materi</span>
-										</a>
-									</div>
-
-									<div class="nav-item">
-										<a class="nav-link <?= ($this->uri->segment(2) == "midtrans" ? "active" : "") ?>" href="<?= site_url('master/midtrans');?>"
-											data-placement="left" id="tour-midtrans">
-											<i class="bi-credit-card nav-icon"></i>
-											<span class="nav-link-title">Midtrans</span>
 										</a>
 									</div>
 
