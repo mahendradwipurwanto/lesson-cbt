@@ -111,9 +111,9 @@
 				</div>
 				<div class="col-8">
 					<div class="input-group mb-3">
-						<input type="text" class="form-control form-control-sm" placeholder="Judul / Konten materi" name="search"
-							aria-label="Judul / Konten materi" aria-describedby="search-form" autocomplete="off"
-							value="<?= $this->session->userdata('search');?>" autofocus>
+						<input type="text" class="form-control form-control-sm" placeholder="Judul / Konten materi"
+							name="search" aria-label="Judul / Konten materi" aria-describedby="search-form"
+							autocomplete="off" value="<?= $this->session->userdata('search');?>" autofocus>
 						<button type="submit" role="button" class="input-group-text" id="search-form"><i
 								class="bi-search me-2"></i> cari</button>
 					</div>
@@ -213,7 +213,7 @@
 				</div>
 			</div>
 
-			<div id="delete-<?= $val->id; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delete"
+			<div id=" delete-<?= $val->id; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delete"
 						aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
 							<div class="modal-content">
@@ -251,7 +251,7 @@
 								<form action="<?= site_url('master/arsipMateri');?>" method="post"
 									class="js-validate need-validate" novalidate>
 									<input type="hidden" name="id" value="<?= $val->id;?>">
-									<p>Apakah kamu yakin ingin mengarsipkan data <?= $val->judul;?> ini?</p>
+									<p>Apakah kamu yakin ingin mengarsipkan data <b><?= $val->judul;?></b> ini?</p>
 									<small>Anda dapat arsip materi pada menu riwayat</small>
 									<div class="modal-footer px-0 pb-0">
 										<button type="button" class="btn btn-white btn-sm"

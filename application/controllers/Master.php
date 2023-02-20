@@ -223,9 +223,42 @@ class Master extends CI_Controller
     {
         if ($this->M_master->saveMateri() == true) {
             $this->session->set_flashdata('notif_success', 'Berhasil menyimpan materi');
-            redirect(site_url('master/materi'));
+            redirect($this->agent->referrer());
         } else {
             $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba menyimpan materi');
+            redirect($this->agent->referrer());
+        }
+    }
+
+    public function aktifMateri()
+    {
+        if ($this->M_master->aktifMateri() == true) {
+            $this->session->set_flashdata('notif_success', 'Berhasil mengaktifkan materi');
+            redirect($this->agent->referrer());
+        } else {
+            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba mengaktifkan materi');
+            redirect($this->agent->referrer());
+        }
+    }
+
+    public function arsipMateri()
+    {
+        if ($this->M_master->arsipMateri() == true) {
+            $this->session->set_flashdata('notif_success', 'Berhasil mengarsipkan materi');
+            redirect($this->agent->referrer());
+        } else {
+            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba mengarsipkan materi');
+            redirect($this->agent->referrer());
+        }
+    }
+
+    public function deleteMateri()
+    {
+        if ($this->M_master->deleteMateri() == true) {
+            $this->session->set_flashdata('notif_success', 'Berhasil menghapus materi');
+            redirect(site_url('master/materi'));
+        } else {
+            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba menghapus materi');
             redirect($this->agent->referrer());
         }
     }
@@ -266,39 +299,6 @@ class Master extends CI_Controller
             redirect($this->agent->referrer());
         } else {
             $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba menghapus kategori');
-            redirect($this->agent->referrer());
-        }
-    }
-
-    public function aktifMateri()
-    {
-        if ($this->M_master->aktifMateri() == true) {
-            $this->session->set_flashdata('notif_success', 'Berhasil mengaktifkan materi');
-            redirect($this->agent->referrer());
-        } else {
-            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba mengaktifkan materi');
-            redirect($this->agent->referrer());
-        }
-    }
-
-    public function arsipMateri()
-    {
-        if ($this->M_master->arsipMateri() == true) {
-            $this->session->set_flashdata('notif_success', 'Berhasil mengarsipkan materi');
-            redirect($this->agent->referrer());
-        } else {
-            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba mengarsipkan materi');
-            redirect($this->agent->referrer());
-        }
-    }
-
-    public function deleteMateri()
-    {
-        if ($this->M_master->deleteMateri() == true) {
-            $this->session->set_flashdata('notif_success', 'Berhasil menghapus materi');
-            redirect(site_url('master/materi'));
-        } else {
-            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba menghapus materi');
             redirect($this->agent->referrer());
         }
     }

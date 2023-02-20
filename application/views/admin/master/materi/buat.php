@@ -196,6 +196,10 @@
 					<div class="col-auto">
 						<div class="d-flex gap-3">
 							<a href="<?= site_url('master/materi');?>" class="btn btn-ghost-light">Kembali</a>
+							<?php if($materi->status == 1):?>
+							<button type="button" class="btn btn-warning" data-bs-toggle="modal"
+								data-bs-target="#arsip">arsipkan</button>
+							<?php endif;?>
 							<button type="submit" class="btn btn-primary">Simpan</button>
 						</div>
 					</div>
@@ -267,6 +271,28 @@
 	</div>
 </div>
 
+<div id="arsip" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="arsip" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="detailUserTitle">Arispkan data</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="<?= site_url('master/arsipMateri');?>" method="post" class="js-validate need-validate"
+					novalidate>
+					<input type="hidden" name="id" value="<?= $materi->id;?>">
+					<p>Apakah kamu yakin ingin mengarsipkan data <b><?= $materi->judul;?></b> ini?</p>
+					<small>Anda dapat arsip materi pada menu riwayat</small>
+					<div class="modal-footer px-0 pb-0">
+						<button type="button" class="btn btn-white btn-sm" data-bs-dismiss="modal">Tidak</button>
+						<button type="submit" class="btn btn-info btn-sm">Ya</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script>
 	function showIndexPanduan() {

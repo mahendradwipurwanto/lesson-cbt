@@ -281,6 +281,7 @@ class M_master extends CI_Model
             'poster' => $poster,
             'pratinjau' => $pratinjau,
             'tag' => $tag,
+            'status' => 1,
             'created_at' => time(),
             'created_by' => $this->session->userdata('user_id')
         ];
