@@ -13,25 +13,25 @@
 					id="table">
 					<thead>
 						<tr>
-							<th width="10%">No.</th>
+							<th width="5%">No.</th>
 							<th width="25%"></th>
-							<th>Kategori</th>
-							<th>Keterangan</th>
+							<th width="30%">Kategori</th>
+							<th width="40%">Keterangan</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php if(!empty($kategori)):?>
 						<?php $no = 1; foreach($kategori as $val):?>
 						<tr>
-							<td><?= $no++;?></td>
+							<td class="text-center"><?= $no++;?></td>
 							<td>
-								<button type="button" class="btn btn-soft-info btn-sm" data-bs-toggle="modal"
+								<button type="button" class="btn btn-ghost-info btn-sm" data-bs-toggle="modal"
 									data-bs-target="#edit-<?= $val->id;?>"><i class="bi-pencil-square"></i></button>
-								<button type="button" class="btn btn-soft-danger btn-sm" data-bs-toggle="modal"
+								<button type="button" class="btn btn-ghost-danger btn-sm" data-bs-toggle="modal"
 									data-bs-target="#delete-<?= $val->id;?>"><i class="bi-trash"></i></button>
 							</td>
 							<td><?= $val->categories;?></td>
-							<td><?= $val->description;?></td>
+							<td><?= substr($val->description, 0, 75);?></td>
 						</tr>
 
 						<!-- Modal -->

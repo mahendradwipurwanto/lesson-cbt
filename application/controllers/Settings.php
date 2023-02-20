@@ -107,9 +107,9 @@ class Settings extends CI_Controller
 				
 
                 if ($this->agent->is_mobile()) {
-                    $this->templatemobile->view('admin/settings/settings');
+                    $this->templatemobile->view('admin/settings/settings', $data);
                 } else {
-                    $this->templateback->view('admin/settings/settings');
+                    $this->templateback->view('admin/settings/settings', $data);
                 }
                 break;
         }

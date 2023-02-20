@@ -15,7 +15,7 @@ $(document).ready(function () {
 	//binds to onchange event of your input field
 	$('input.imgprev').each(function () {
 		$('#' + $(this).attr('id')).bind('change', function () {
-					console.log($(this).attr('id'));
+			console.log($(this).attr('id'));
 			var parent_id = $(this).attr('id').split('-')
 			//this.files[0].size gets the size of your file.
 			if (this.files[0].size > (1 * 1024 * 1024)) {
@@ -27,7 +27,7 @@ $(document).ready(function () {
 			} else {
 				const [file] = this.files
 				if (file) {
-					$('#'+parent_id[0]+'-preview').attr('src', URL.createObjectURL(file));
+					$('#' + parent_id[0] + '-preview').attr('src', URL.createObjectURL(file));
 				}
 			}
 		})
@@ -53,6 +53,34 @@ $(document).ready(function () {
 			$(".online-card").removeClass('maximized');
 			$(".online-card").addClass('minimized');
 		}
+	});
+	//  ckeditor
+	// Select all textareas with class "editor"
+	const textareas = document.querySelectorAll("textarea.editor");
+
+	// Loop through each textarea and initialize CKEditor 5
+	textareas.forEach((elem) => {
+		ClassicEditor
+			.create(elem, {
+				theme: 'bootstrap5',
+				toolbar: [
+					'heading',
+					'bold',
+					'italic',
+					'|',
+					'bulletedList',
+					'numberedList',
+					'|',
+					'blockQuote',
+					'mediaEmbed',
+					'|',
+					'undo',
+					'redo'
+				]
+			})
+			.catch(error => {
+				console.error(error);
+			});
 	});
 
 })
@@ -98,7 +126,7 @@ function addCommaNumeric(evt) {
 }
 
 function addThousandComma(event) {
-	event.target.value =  event.target.value.toLocaleString('en-US');
+	event.target.value = event.target.value.toLocaleString('en-US');
 }
 
 function numComma(evt) {

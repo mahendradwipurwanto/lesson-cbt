@@ -95,7 +95,7 @@ class M_master extends CI_Model
 
     }
 
-    public function countAllMateri($search = null, $status)
+    public function countAllMateri($search = null, $status = null)
     {
         $this->db->select('m_materi.*')
 		->from('m_materi')
@@ -114,6 +114,78 @@ class M_master extends CI_Model
 
 		return $data;
     }
+
+    public function getAllMateriRiwayat($limit = 12, $offset = 0, $search = null, $status = null)
+    {
+        $this->db->select('m_materi.*, m_categories.categories')
+		->from('m_materi')
+		->join('m_categories', 'm_materi.m_kategori_id = m_categories.id', 'left')
+		->where(['m_materi.is_deleted' => 0, 'status'=> 2]);
+		
+		if(!is_null($search) && $search != ''){
+			$this->db->like('m_materi.judul', $search);
+			$this->db->or_like('m_materi.deskripsi', $search);
+		}
+
+		if(!is_null($status) && $status != '' && $status != '-1'){
+			$this->db->where('m_materi.status', $status);
+		}
+		
+		$this->db->limit($limit, $offset);
+
+		$this->db->order_by('m_materi.created_at DESC');
+
+		$data = $this->db->get()->result();
+
+		$arr = [];
+		if(!empty($data)){
+			foreach($data as $key => $val){
+				$arr[$key] = $val;
+				$arr[$key]->konten = $this->countKontenByMateri($val->id);
+				$arr[$key]->soal = $this->countSoalByMateri($val->id);
+				$arr[$key]->peserta = $this->countPesertaByMateri($val->id);
+			}
+		}
+
+		return $arr;
+
+    }
+
+    public function countAllMateriRiwayat($search = null, $status = null)
+    {
+        $this->db->select('m_materi.*')
+		->from('m_materi')
+		->where(['m_materi.is_deleted' => 0, 'status' => 2]);
+
+		if(!is_null($search)){
+			$this->db->like('m_materi.judul', $search);
+			$this->db->or_like('m_materi.deskripsi', $search);
+		}
+
+		if(!is_null($status)){
+			$this->db->where('m_materi.status', $status);
+		}
+
+		$data = $this->db->get()->num_rows();
+
+		return $data;
+    }
+
+	public function getMateriById($id = null){
+		$this->db->select('m_materi.*')
+		->from('m_materi')
+		->where('m_materi.id', $id)
+		;
+
+		$data = $this->db->get()->row();
+
+		if(!is_null($data)){
+			$soal = $this->countSoalByMateri();
+			$data->is_soal = $soal > 0 ? true : false;
+		}
+
+		return $data;
+	}
 
     public function countKontenByMateri($m_materi_id = null)
     {
@@ -148,26 +220,87 @@ class M_master extends CI_Model
 		return $data;
     }
 
+	public function buatMateri(){
+        $materi = [
+            'judul' => 'Untitled Materi',
+            'status' => 0,
+            'created_at' => time(),
+            'created_by' => $this->session->userdata('user_id')
+        ];
+
+        $this->db->insert('m_materi', $materi);
+        $status = ($this->db->affected_rows() != 1) ? false : true;
+		if($status){
+			return [
+				'status' => true,
+				'data' => $this->getMateriById($this->db->insert_id())
+			];
+		}else{
+			return [
+				'status' => false,
+				'data' => null
+			];
+		}
+	}
+
+    public function savePanduan()
+    {
+        $id = htmlspecialchars($this->input->post('id'), true);
+        $is_panduan = htmlspecialchars($this->input->post('is_panduan'), true);
+        $panduan = htmlspecialchars($this->input->post('panduan'), true);
+		
+        $materi = [
+            'is_panduan' => ($is_panduan == 'on' ? 1 : 0),
+            'panduan' => $panduan,
+            'modified_at' => time(),
+            'modified_by' => $this->session->userdata('user_id')
+        ];
+		
+        $this->db->where('id', $id);
+        $this->db->update('m_materi', $materi);
+        return ($this->db->affected_rows() != 1) ? false : true;
+    }
+
     public function saveMateri()
     {
         $id = htmlspecialchars($this->input->post('id'), true);
-        $categories = htmlspecialchars($this->input->post('categories'), true);
-        $description = htmlspecialchars($this->input->post('description'), true);
+        $judul = htmlspecialchars($this->input->post('judul'), true);
+        $m_kategori_id = htmlspecialchars($this->input->post('m_kategori_id'), true);
+        $harga = htmlspecialchars($this->input->post('harga'), true);
+        $deskripsi = htmlspecialchars($this->input->post('deskripsi'), true);
+        $poster = htmlspecialchars($this->input->post('poster'), true);
+        $pratinjau = htmlspecialchars($this->input->post('pratinjau'), true);
+        $tag = htmlspecialchars($this->input->post('tag'), true);
 
-        $categories = [
-            'categories' => $categories,
-            'description' => $description,
+        $materi = [
+            'judul' => $judul,
+            'm_kategori_id' => $m_kategori_id,
+            'harga' => $harga,
+            'is_bayar' => $harga > 0 ? true : false,
+            'deskripsi' => $deskripsi,
+            'poster' => $poster,
+            'pratinjau' => $pratinjau,
+            'tag' => $tag,
             'created_at' => time(),
             'created_by' => $this->session->userdata('user_id')
         ];
         if (isset($id) && $id != '') {
             $this->db->where('id', $id);
-            $this->db->update('m_categories', $categories);
+            $this->db->update('m_materi', $materi);
             return ($this->db->affected_rows() != 1) ? false : true;
         } else {
-            $this->db->insert('m_categories', $categories);
+            $this->db->insert('m_materi', $materi);
             return ($this->db->affected_rows() != 1) ? false : true;
         }
+    }
+
+    public function aktifMateri()
+    {
+        $id = htmlspecialchars($this->input->post('id'), true);
+
+        $this->db->where('id', $id);
+        $this->db->update('m_materi', ['status' => 1]);
+        return ($this->db->affected_rows() != 1) ? false : true;
     }
 
     public function arsipMateri()

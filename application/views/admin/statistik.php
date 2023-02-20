@@ -54,7 +54,7 @@
 
 				<div class="row align-items-center gx-2 mb-1">
 					<div class="col-6">
-						<h2 class="card-title text-inherit"><?= number_format($count['member'],0,",",".")?></h2>
+						<h2 class="card-title text-inherit"><?= number_format($count['peserta'],0,",",".")?></h2>
 					</div>
 					<!-- End Col -->
 
@@ -77,7 +77,8 @@
 
 				<div class="row align-items-center gx-2 mb-1">
 					<div class="col-6">
-						<h2 class="card-title text-inherit">Rp. <?= number_format($count['transaksi'],0,",",".")?>
+						<h2 class="card-title text-inherit">Rp.
+							<?= number_format(($count['pendapatan'] > 0 ? $count['pendapatan'] : 0),0,",",".")?>
 						</h2>
 					</div>
 					<!-- End Col -->

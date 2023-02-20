@@ -80,6 +80,7 @@
 <script src="<?= base_url();?>assets/vendor/tom-select/dist/js/tom-select.complete.min.js"></script>
 <script src="<?= base_url();?>assets/js/flatpickr.min.js"></script>
 <script src="<?= base_url();?>assets/vendor/quill/dist/quill.min.js"></script>
+<script src="<?= base_url();?>assets/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
 <!-- JS Front -->
 <script src="<?= base_url();?>assets/js/theme.min.js"></script>
 <script src="<?= base_url();?>assets/js/custom.js?<?=time();?>"></script>
@@ -92,6 +93,9 @@
 			steps: [{
 				intro: "Selamat datang di aplikasi soalkupedia.com, kami akan menjelaskan secara singkat mengenai semua fitur pada aplikasi ini"
 			}, {
+				element: document.querySelector('#accountNavbarDropdown'),
+				intro: "Informasi singkat mengenai profil anda"
+			}, {
 				element: document.querySelector('#tour-dashboard'),
 				intro: "Anda dapat melihat informasi umum pada halaman ini"
 			}, {
@@ -101,17 +105,26 @@
 				element: document.querySelector('#tour-member'),
 				intro: "Kelola data member anda pada halaman ini"
 			}, {
+				element: document.querySelector('#tour-midtrans'),
+				intro: "Atur metode pembayaran midtrans anda"
+			}, {
+				element: document.querySelector('#tour-transaksi'),
+				intro: "Kelola seluruh data transaksi materi anda"
+			}, {
 				element: document.querySelector('#tour-kategori'),
 				intro: "Kelolak kategori produk anda"
 			}, {
 				element: document.querySelector('#tour-materi'),
 				intro: "Kelola seluruh materi yang anda buat pada halaman ini"
 			}, {
-				element: document.querySelector('#tour-midtrans'),
-				intro: "Atur metode pembayaran midtrans anda"
-			}, {
 				element: document.querySelector('#tour-website'),
 				intro: "Atur seluruh pengaturan mengenai website anda disini"
+			}, {
+				element: document.querySelector('#selectThemeDropdown'),
+				intro: "Pilih tema untuk tampilan website anda"
+			}, {
+				element: document.querySelector('#otherLinksDropdown'),
+				intro: "Cari tau bantuan lain disini"
 			}]
 		}).start();
 	};
@@ -151,42 +164,49 @@
 			// =======================================================
 			HSCore.components.HSQuill.init('.js-quill')
 
+			// INITIALIZATION OF FILE ATTACH
+			// =======================================================
+			new HSFileAttach('.js-file-attach')
+
 			// INITIALIZATION OF DATATABLES
 			// =======================================================
-			HSCore.components.HSDatatables.init($('#datatable'), {
-				select: {
-					style: 'multi',
-					selector: 'td:first-child input[type="checkbox"]',
-					classMap: {
-						checkAll: '#datatableCheckAll',
-						counter: '#datatableCounter',
-						counterInfo: '#datatableCounterInfo'
-					}
-				},
-				language: {
-					zeroRecords: `<div class="text-center p-4">
+			if (document.getElementById("datatable")) {
+				HSCore.components.HSDatatables.init($('#datatable'), {
+					select: {
+						style: 'multi',
+						selector: 'td:first-child input[type="checkbox"]',
+						classMap: {
+							checkAll: '#datatableCheckAll',
+							counter: '#datatableCounter',
+							counterInfo: '#datatableCounterInfo'
+						}
+					},
+					language: {
+						zeroRecords: `<div class="text-center p-4">
 				<img class="mb-3" src="./assets/svg/illustrations/oc-error.svg" alt="Image Description" style="width: 10rem;"
 					data-hs-theme-appearance="default">
 				<img class="mb-3" src="./assets/svg/illustrations-light/oc-error.svg" alt="Image Description"
 					style="width: 10rem;" data-hs-theme-appearance="dark">
 				<p class="mb-0">No data to show</p>
 			</div>`
-				}
-			});
+					}
+				});
 
-			const datatable = HSCore.components.HSDatatables.getItem(0)
+				const datatable = HSCore.components.HSDatatables.getItem(0)
 
-			document.querySelectorAll('.js-datatable-filter').forEach(function (item) {
-				item.addEventListener('change', function (e) {
-					const elVal = e.target.value,
-						targetColumnIndex = e.target.getAttribute('data-target-column-index'),
-						targetTable = e.target.getAttribute('data-target-table');
+				document.querySelectorAll('.js-datatable-filter').forEach(function (item) {
+					item.addEventListener('change', function (e) {
+						const elVal = e.target.value,
+							targetColumnIndex = e.target.getAttribute('data-target-column-index'),
+							targetTable = e.target.getAttribute('data-target-table');
 
-					HSCore.components.HSDatatables.getItem(targetTable).column(targetColumnIndex)
-						.search(elVal !==
-							'null' ? elVal : '').draw()
+						HSCore.components.HSDatatables.getItem(targetTable).column(
+								targetColumnIndex)
+							.search(elVal !==
+								'null' ? elVal : '').draw()
+					})
 				})
-			})
+			}
 		};
 	})();
 

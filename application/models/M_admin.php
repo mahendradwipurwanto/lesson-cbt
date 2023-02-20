@@ -12,7 +12,7 @@ class M_admin extends CI_Model
 
         $materi = $this->db->get_where('m_materi', ['is_deleted' => 0])->num_rows();
         $member = $this->db->get_where('tb_auth', ['role' => 2])->num_rows();
-        $transaksi = $this->db->get_where('tb_payments', ['is_deleted' => 0])->num_rows();
+        $peserta = $this->db->get_where('tb_peserta', ['is_deleted' => 0])->num_rows();
 
         $this->db->select_sum('amount')
         ->from('tb_payments')
@@ -24,7 +24,7 @@ class M_admin extends CI_Model
         return [
             'materi' => $materi,
             'member' => $member,
-            'transaksi' => $transaksi,
+            'peserta' => $peserta,
             'pendapatan' => $pendapatan->amount
         ];
     }

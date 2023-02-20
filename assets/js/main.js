@@ -42,8 +42,7 @@
 			skipFilesFromBundle: {
 				dist: [
 					"assets/js/hs.theme-appearance.js",
-					"assets/js/hs.theme-appearance-charts.js",
-					"assets/js/demo.js",
+					"assets/js/hs.theme-appearance-charts.js"
 				],
 				build: [
 					"assets/css/theme.css",
@@ -54,8 +53,6 @@
 					"assets/vendor/icon-set/style.css",
 					"assets/js/hs.theme-appearance.js",
 					"assets/js/hs.theme-appearance-charts.js",
-					"node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.min.js",
-					"assets/js/demo.js",
 				],
 			},
 			minifyCSSFiles: ["assets/css/theme.css", "assets/css/theme-dark.css"],

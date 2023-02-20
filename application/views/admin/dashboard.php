@@ -54,7 +54,7 @@
 
 				<div class="row align-items-center gx-2 mb-1">
 					<div class="col-6">
-						<h2 class="card-title text-inherit"><?= number_format($count['member'],0,",",".")?></h2>
+						<h2 class="card-title text-inherit"><?= number_format($count['peserta'],0,",",".")?></h2>
 					</div>
 					<!-- End Col -->
 
@@ -77,7 +77,8 @@
 
 				<div class="row align-items-center gx-2 mb-1">
 					<div class="col-6">
-						<h2 class="card-title text-inherit">Rp. <?= number_format($count['transaksi'],0,",",".")?>
+						<h2 class="card-title text-inherit">Rp.
+							<?= number_format(($count['pendapatan'] > 0 ? $count['pendapatan'] : 0),0,",",".")?>
 						</h2>
 					</div>
 					<!-- End Col -->
@@ -149,7 +150,7 @@
 								<div class="input-group-prepend input-group-text">
 									<i class="bi-search"></i>
 								</div>
-								<input id="datatableSearch" type="search" class="form-control"
+								<input id="datatableSearch" type="search" class="form-control form-control-sm"
 									placeholder="Search users" aria-label="Search users">
 							</div>
 							<!-- End Search -->
