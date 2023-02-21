@@ -209,117 +209,114 @@
 						</div>
 						<!-- End Row -->
 					</div>
-					<a class="stretched-link" href="<?= site_url('master/materi/detail/'.$val->id);?>""></a>
+					<a class="stretched-link" href="<?= site_url('master/materi/detail/'.$val->id);?>"></a>
 				</div>
 			</div>
 
-			<div id=" delete-<?= $val->id; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delete"
-						aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title" id="detailUserTitle">Hapus data</h4>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
-								</div>
-								<div class="modal-body">
-									<form action="<?= site_url('master/deleteMateri');?>" method="post"
-										class="js-validate need-validate" novalidate>
-										<input type="hidden" name="id" value="<?= $val->id;?>">
-										<p>Apakah kamu yakin ingin menghapus data <?= $val->judul;?> ini?</p>
-										<div class="modal-footer px-0 pb-0">
-											<button type="button" class="btn btn-white btn-sm"
-												data-bs-dismiss="modal">Tidak</button>
-											<button type="submit" class="btn btn-danger btn-sm">Ya</button>
-										</div>
-									</form>
-								</div>
-							</div>
+			<div id=delete-<?= $val->id; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delete"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="detailUserTitle">Hapus data</h4>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
-				</div>
-
-				<div id="arsip-<?= $val->id; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="arsip"
-					aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4 class="modal-title" id="detailUserTitle">Arispkan data</h4>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<form action="<?= site_url('master/arsipMateri');?>" method="post"
-									class="js-validate need-validate" novalidate>
-									<input type="hidden" name="id" value="<?= $val->id;?>">
-									<p>Apakah kamu yakin ingin mengarsipkan data <b><?= $val->judul;?></b> ini?</p>
-									<small>Anda dapat arsip materi pada menu riwayat</small>
-									<div class="modal-footer px-0 pb-0">
-										<button type="button" class="btn btn-white btn-sm"
-											data-bs-dismiss="modal">Tidak</button>
-										<button type="submit" class="btn btn-info btn-sm">Ya</button>
-									</div>
-								</form>
-							</div>
+						<div class="modal-body">
+							<form action="<?= site_url('master/deleteMateri');?>" method="post"
+								class="js-validate need-validate" novalidate>
+								<input type="hidden" name="id" value="<?= $val->id;?>">
+								<p>Apakah kamu yakin ingin menghapus data <?= $val->judul;?> ini?</p>
+								<div class="modal-footer px-0 pb-0">
+									<button type="button" class="btn btn-white btn-sm"
+										data-bs-dismiss="modal">Tidak</button>
+									<button type="submit" class="btn btn-danger btn-sm">Ya</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
-				<?php endforeach;?>
-
-				<?= $this->pagination->create_links();?>
-				<?php else:?>
-				<div class=" col-12">
-					<div class="row justify-content-sm-center text-center">
-						<div class="col-sm-7 col-md-5">
-							<div class="card card-body">
-								<img class="img-fluid mb-5"
-									src="<?= base_url();?>assets/svg/illustrations/oc-browse.svg"
-									alt="Image Description" data-hs-theme-appearance="default">
-								<img class="img-fluid mb-5"
-									src="<?= base_url();?>assets/svg/illustrations-light/oc-browse.svg"
-									alt="Image Description" data-hs-theme-appearance="dark">
-
-								<h3 class="mb-0">Tidak ada data</h3>
-							</div>
-						</div>
-					</div>
-					<!-- End Row -->
-				</div>
-				<?php endif;?>
 			</div>
+
+			<div id="arsip-<?= $val->id; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="arsip"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="detailUserTitle">Arispkan data</h4>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form action="<?= site_url('master/arsipMateri');?>" method="post"
+								class="js-validate need-validate" novalidate>
+								<input type="hidden" name="id" value="<?= $val->id;?>">
+								<p>Apakah kamu yakin ingin mengarsipkan data <b><?= $val->judul;?></b> ini?</p>
+								<small>Anda dapat arsip materi pada menu riwayat</small>
+								<div class="modal-footer px-0 pb-0">
+									<button type="button" class="btn btn-white btn-sm"
+										data-bs-dismiss="modal">Tidak</button>
+									<button type="submit" class="btn btn-info btn-sm">Ya</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php endforeach;?>
+
+			<?= $this->pagination->create_links();?>
+			<?php else:?>
+			<div class=" col-12">
+				<div class="row justify-content-sm-center text-center">
+					<div class="col-sm-7 col-md-5">
+						<div class="card card-body">
+							<img class="img-fluid mb-5" src="<?= base_url();?>assets/svg/illustrations/oc-browse.svg"
+								alt="Image Description" data-hs-theme-appearance="default">
+							<img class="img-fluid mb-5"
+								src="<?= base_url();?>assets/svg/illustrations-light/oc-browse.svg"
+								alt="Image Description" data-hs-theme-appearance="dark">
+
+							<h3 class="mb-0">Tidak ada data</h3>
+						</div>
+					</div>
+				</div>
+				<!-- End Row -->
+			</div>
+			<?php endif;?>
 		</div>
-		<div class="col-3">
-			<div class="card mb-3">
-				<!-- Header -->
-				<div class="card-header">
-					<h4 class="card-header-title">Kelola</h4>
-				</div>
-				<!-- End Header -->
-				<div class="card-body">
-					<!-- Card -->
-					<div class="card card-sm card-hover-shadow h-100 mb-3">
-						<div class="card-body">
-							<div class="d-flex align-items-center">
-								<i class="bi-bookmark-plus fs-2 text-body me-2"></i>
+	</div>
+	<div class="col-3">
+		<div class="card mb-3">
+			<!-- Header -->
+			<div class="card-header">
+				<h4 class="card-header-title">Kelola</h4>
+			</div>
+			<!-- End Header -->
+			<div class="card-body">
+				<!-- Card -->
+				<div class="card card-sm card-hover-shadow h-100 mb-3">
+					<div class="card-body">
+						<div class="d-flex align-items-center">
+							<i class="bi-bookmark-plus fs-2 text-body me-2"></i>
 
-								<h5 class="text-truncate ms-2 mb-0">Buat baru</h5>
-							</div>
+							<h5 class="text-truncate ms-2 mb-0">Buat baru</h5>
 						</div>
-						<a class="stretched-link" href="<?= site_url('master/initBuatMateri');?>"></a>
 					</div>
-					<!-- End Card -->
-					<!-- Card -->
-					<div class="card card-sm card-hover-shadow h-100">
-						<div class="card-body">
-							<div class="d-flex align-items-center">
-								<i class="bi-journal-bookmark-fill fs-2 text-body me-2"></i>
-
-								<h5 class="text-truncate ms-2 mb-0">Riwayat</h5>
-							</div>
-						</div>
-						<a class="stretched-link" href="<?= site_url('master/riwayat-materi');?>"></a>
-					</div>
-					<!-- End Card -->
+					<a class="stretched-link" href="<?= site_url('master/initBuatMateri');?>"></a>
 				</div>
+				<!-- End Card -->
+				<!-- Card -->
+				<div class="card card-sm card-hover-shadow h-100">
+					<div class="card-body">
+						<div class="d-flex align-items-center">
+							<i class="bi-journal-bookmark-fill fs-2 text-body me-2"></i>
+
+							<h5 class="text-truncate ms-2 mb-0">Riwayat</h5>
+						</div>
+					</div>
+					<a class="stretched-link" href="<?= site_url('master/riwayat-materi');?>"></a>
+				</div>
+				<!-- End Card -->
 			</div>
 		</div>
 	</div>
+</div>

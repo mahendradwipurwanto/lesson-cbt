@@ -321,4 +321,85 @@ class M_master extends CI_Model
         $this->db->update('m_materi', ['is_deleted' => 1]);
         return ($this->db->affected_rows() != 1) ? false : true;
     }
+
+	public function getListSoalByMateri($materi_id = null){
+		$this->db->select('*')
+		->from('m_materi_soal')
+		->where('m_materi_soal.m_materi_id', $materi_id);
+
+		$this->db->order_by('m_materi_soal.order', 'ASC');
+
+		$data = $this->db->get()->result();
+
+		return $data;
+	}
+
+	public function getDetailSoalById($materi_id = null, $id = null){
+		$this->db->select('*')
+		->from('m_materi_soal')
+		->where(['m_materi_soal.m_materi_id' => $materi_id, 'id' => $id]);
+
+		$data = $this->db->get()->row();
+
+		return $data;
+	}
+
+	public function tambahSoal($materi_id = null){
+		
+		$order = $this->countSoalByMateri($materi_id);
+
+		$data = [
+			'm_materi_id' => $materi_id,
+			'order' => $order+1,
+			'tipe' => '0',
+			'created_at' => time(),
+			'created_by' => $this->session->userdata('user_id')
+		];
+		
+		$this->db->insert('m_materi_soal', $data);
+
+		return [
+			'status' => true,
+			'data' => $this->getDetailSoalById($materi_id, $this->db->insert_id())
+		];
+	}
+
+    public function deleteSoal()
+    {
+        $id = htmlspecialchars($this->input->post('id'), true);
+
+        $this->db->where('id', $id);
+        $this->db->update('m_materi_soal', ['is_deleted' => 1]);
+        return ($this->db->affected_rows() != 1) ? false : true;
+    }
+
+    public function saveSoal()
+    {
+        $id = htmlspecialchars($this->input->post('id'), true);
+        $soal = htmlspecialchars($this->input->post('soal'), true);
+        $tipe = htmlspecialchars($this->input->post('tipe'), true);
+        $jawaban_a = htmlspecialchars($this->input->post('jawaban_a'), true);
+        $jawaban_b = htmlspecialchars($this->input->post('jawaban_b'), true);
+        $jawaban_c = htmlspecialchars($this->input->post('jawaban_c'), true);
+        $jawaban_d = htmlspecialchars($this->input->post('jawaban_d'), true);
+        $jawaban_e = htmlspecialchars($this->input->post('jawaban_e'), true);
+        $jawaban_benar = htmlspecialchars($this->input->post('jawaban_benar'), true);
+		
+        $materi = [
+            'soal' => $soal,
+            'tipe' => $tipe,
+            'jawaban_a' => $jawaban_a,
+            'jawaban_b' => $jawaban_b,
+            'jawaban_c' => $jawaban_c,
+            'jawaban_d' => $jawaban_d,
+            'jawaban_e' => $jawaban_e,
+            'jawaban_benar' => $jawaban_benar,
+            'modified_at' => time(),
+            'modified_by' => $this->session->userdata('user_id')
+        ];
+		
+        $this->db->where('id', $id);
+        $this->db->update('m_materi_soal', $materi);
+        return ($this->db->affected_rows() != 1) ? false : true;
+    }
 }

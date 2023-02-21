@@ -263,14 +263,52 @@ class Master extends CI_Controller
         }
     }
 
-    public function buatSoal($id = null)
+    public function buatSoal($id = null, $soal_id = null)
     {
 		$data['page_title'] = 'Buat Soal';
 		$data['sub_page_title'] = 'Buat soal untuk materi anda';
 		
         $data['kategori'] = $this->M_master->getAllKategori();
         $data['materi'] = $this->M_master->getMateriById($id);
+        $data['list_soal'] = $this->M_master->getListSoalByMateri($id);
+		$data['soal'] = $this->M_master->getDetailSoalById($id, $soal_id);
+		$data['soal_id'] = $soal_id;
         $this->templateback->view('admin/master/materi/soal', $data);
+    }
+
+	function tambahSoal($materi_id = null, $mode = 'buat-soal'){
+
+		$result = $this->M_master->tambahSoal($materi_id);
+
+        if ($result['status'] == true) {
+            $this->session->set_flashdata('notif_success', 'Berhasil menambahkan soal');
+            redirect(site_url('master/'.$mode.'/'.$materi_id.'/soal/'.$result['data']->id));
+        } else {
+            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba menambahkan soal');
+            redirect($this->agent->referrer());
+        }
+	}
+
+    public function deleteSoal()
+    {
+        if ($this->M_master->deleteSoal() == true) {
+            $this->session->set_flashdata('notif_success', 'Berhasil menghapus soal');
+            redirect(site_url('master/'.$this->input->post('mode').'/'.$this->input->post('materi_id').'/soal/'.$this->input->post('soal_id')));
+        } else {
+            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba menghapus soal');
+            redirect($this->agent->referrer());
+        }
+    }
+
+    public function saveSoal()
+    {
+        if ($this->M_master->saveSoal() == true) {
+            $this->session->set_flashdata('notif_success', 'Berhasil menyimpan soal');
+            redirect(site_url('master/'.$this->input->post('mode').'/'.$this->input->post('materi_id').'/soal/'.$this->input->post('soal_id')));
+        } else {
+            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba menyimpan soal');
+            redirect($this->agent->referrer());
+        }
     }
 
     public function midtrans()

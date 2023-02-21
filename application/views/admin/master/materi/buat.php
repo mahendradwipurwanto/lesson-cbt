@@ -1,5 +1,4 @@
-<form action="<?= site_url('master/saveMateri');?>" method="post" class="js-validate needs-validation" novalidate
-	enctype="multipart/form-data">
+<form class="save-materi">
 	<input type="hidden" name="id" value="<?= $materi->id;?>">
 	<div class="row">
 		<div class="col-lg-8 mb-3 mb-lg-0">
@@ -125,7 +124,7 @@
 								<?php endif;?>
 							</div>
 						</div>
-						<a class="stretched-link" href="<?= site_url('master/buat-materi/soal');?>"></a>
+						<a class="stretched-link" href="<?= site_url('master/buat-materi/'.$materi->id.'/soal');?>"></a>
 					</div>
 					<!-- End Card -->
 				</div>
@@ -200,7 +199,7 @@
 							<button type="button" class="btn btn-warning" data-bs-toggle="modal"
 								data-bs-target="#arsip">arsipkan</button>
 							<?php endif;?>
-							<button type="submit" class="btn btn-primary">Simpan</button>
+							<button type="submit" class="btn btn-primary" id="simpan-materi">Simpan</button>
 						</div>
 					</div>
 					<!-- End Col -->
@@ -295,6 +294,72 @@
 </div>
 
 <script>
+	function submitFormMateri(event) {
+		event.preventDefault(); // Prevent the default form submission
+
+		$('#simpan-materi').prop("disabled", true);
+		// add spinner to button
+		$('#simpan-materi').html(
+			`<span class="spinner-border spinner-border-sm text-white" role="status" aria-hidden="true"></span> loading...`
+		);
+
+		const form = event.target; // Get the form element
+		const formData = new FormData(form); // Get the form data
+
+		const xhr = new XMLHttpRequest(); // Create a new XMLHttpRequest object
+
+		xhr.open('POST', "<?= site_url('master/saveMateri');?>"); // Set the request method and URL
+
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+				// The request was successful, do something with the response
+
+				var Toast = Swal.mixin({
+					toast: true,
+					position: 'top-end',
+					showConfirmButton: false,
+					timer: 3000,
+					timerProgressBar: true,
+					didOpen: (toast) => {
+						toast.addEventListener('mouseenter', Swal.stopTimer)
+						toast.addEventListener('mouseleave', Swal.resumeTimer)
+					}
+				})
+
+				Toast.fire({
+					icon: 'success',
+					title: "Berhasil menyimpan materi materi"
+				})
+
+				$('#simpan-materi').prop("disabled", false);
+				// add spinner to button
+				$('#simpan-materi').html("simpan");
+			} else {
+				var Toast = Swal.mixin({
+					toast: true,
+					position: 'top-end',
+					showConfirmButton: false,
+					timer: 3000,
+					timerProgressBar: true,
+					didOpen: (toast) => {
+						toast.addEventListener('mouseenter', Swal.stopTimer)
+						toast.addEventListener('mouseleave', Swal.resumeTimer)
+					}
+				})
+
+				Toast.fire({
+					icon: 'error',
+					title: "Terjadi kesalahan saat menyimpan materi"
+				})
+			}
+		};
+
+		xhr.send(formData); // Send the form data
+	}
+
+	const formMateri = document.querySelector('.save-materi'); // Get the form element by class
+	formMateri.addEventListener('submit', submitFormMateri); // Attach the event listener
+	
 	function showIndexPanduan() {
 		jQuery.ajax({
 			url: "<?= site_url('ajax/master/getIndexPanduan') ?>",
@@ -310,7 +375,7 @@
 
 	showIndexPanduan()
 
-	function submitForm(event) {
+	function submitFormPanduan(event) {
 		event.preventDefault(); // Prevent the default form submission
 
 		$('#simpan-panduan').prop("disabled", true);
@@ -375,7 +440,7 @@
 		xhr.send(formData); // Send the form data
 	}
 
-	const form = document.querySelector('.save-panduan'); // Get the form element by class
-	form.addEventListener('submit', submitForm); // Attach the event listener
+	const formPanduan = document.querySelector('.save-panduan'); // Get the formPanduan element by class
+	formPanduan.addEventListener('submit', submitFormPanduan); // Attach the event listener
 
 </script>

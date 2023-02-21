@@ -16,9 +16,10 @@ $route['admin/dashboard'] = 'admin';
 // MATERI
 $route['master/riwayat-materi'] = 'master/riwayatMateri';
 $route['master/buat-materi'] = 'master/buatMateri';
-$route['master/buat-materi/soal'] = 'master/buatSoal';
-$route['master/buat-materi/(:any)'] = 'master/buatMateri/$1';
-$route['master/edit-materi/(:any)'] = 'master/buatMateri/$1';
+$route['master/buat-materi/(:num)/soal'] = 'master/buatSoal/$1';
+$route['master/buat-materi/(:num)/soal/(:num)'] = 'master/buatSoal/$1/$2';
+$route['master/buat-materi/(:num)'] = 'master/buatMateri/$1';
+$route['master/edit-materi/(:num)'] = 'master/buatMateri/$1';
 
 $route['default_controller'] = 'home';
 $route['404_override'] = 'utility/not_found';
