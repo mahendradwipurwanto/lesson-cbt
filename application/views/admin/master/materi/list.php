@@ -151,10 +151,10 @@
 
 									<div class="dropdown-menu dropdown-menu-end"
 										aria-labelledby="dropdown-menu-<?= $val->id;?>">
-										<a class="dropdown-item"
+										<!-- <a class="dropdown-item"
 											href="<?= site_url('master/materi/detail/'.$val->id);?>">
 											<i class="bi-eye dropdown-item-icon"></i> Detail
-										</a>
+										</a> -->
 										<a class="dropdown-item" href="<?= site_url('master/edit-materi/'.$val->id);?>">
 											<i class="bi-pencil dropdown-item-icon"></i> Edit
 										</a>
@@ -209,11 +209,11 @@
 						</div>
 						<!-- End Row -->
 					</div>
-					<a class="stretched-link" href="<?= site_url('master/materi/detail/'.$val->id);?>"></a>
+					<!-- <a class="stretched-link" href="<?= site_url('master/materi/detail/'.$val->id);?>"></a> -->
 				</div>
 			</div>
 
-			<div id=delete-<?= $val->id; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delete"
+			<div id="delete-<?= $val->id; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delete"
 				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
 					<div class="modal-content">
