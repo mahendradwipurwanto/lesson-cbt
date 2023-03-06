@@ -718,3 +718,9 @@ pre[class*=language-] {
 .bg-transparent {
 	background-color: transparent !important;
 }
+
+.page-header-subtitle {
+	font-weight: normal;
+	color: #677788;
+	margin-bottom: 0px !important;
+}

@@ -23,4 +23,4 @@ $route['master/edit-materi/(:num)'] = 'master/buatMateri/$1';
 
 $route['default_controller'] = 'home';
 $route['404_override'] = 'utility/not_found';
-$route['translate_uri_dashes'] = false;
+$route['translate_uri_dashes'] = true;
