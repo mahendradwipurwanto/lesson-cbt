@@ -26,6 +26,8 @@ class Master extends CI_Controller
             $this->session->set_flashdata('warning', "You don`t have access to this page");
             redirect(base_url());
         }
+		
+		$this->load->library('uploader');
     }
 
     public function kategori()
@@ -221,7 +223,15 @@ class Master extends CI_Controller
 
     public function saveMateri()
     {
-        if ($this->M_master->saveMateri() == true) {
+		// Check if file called "poster" exists and has been uploaded
+		if(isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE){
+			$path = 'berkas/materi/'.$this->input->post('id').'/';
+			$file = $this->uploader->uploadImage($_FILES['image'], $path)['filename'];
+		}else{
+			$file = null;
+		}
+
+        if ($this->M_master->saveMateri($file) == true) {
             $this->session->set_flashdata('notif_success', 'Berhasil menyimpan materi');
             redirect($this->agent->referrer());
         } else {

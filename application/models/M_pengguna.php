@@ -122,4 +122,146 @@ class M_pengguna extends CI_Model
         $this->db->update('tb_auth', $data);
         return ($this->db->affected_rows() != 1) ? false : true;
     }
+
+	public function getMateriSaya($user_id, $limit = 12, $offset = 0){
+        $this->db->select('tb_peserta.*, tb_peserta.status as status_peserta, tb_peserta.created_at as tanggal_pengambilan, m_materi.*, m_categories.categories')
+		->from('tb_peserta')
+		->join('m_materi', 'tb_peserta.m_materi_id = m_materi.id', 'left')
+		->join('m_categories', 'm_materi.m_kategori_id = m_categories.id', 'left')
+		->where(['m_materi.is_deleted' => 0, 'tb_peserta.user_id' => $user_id]);
+		
+		$this->db->limit($limit, $offset);
+
+		$this->db->order_by('m_materi.created_at DESC');
+
+		$data = $this->db->get()->result();
+
+		$arr = [];
+		if(!empty($data)){
+			foreach ($data as $key => $val) {
+				$arr[$key] = $val;
+
+				if($val->status_peserta == 0){
+					$status_txt = "Menunggu";
+				}else if($val->status_peserta == 1){
+					$status_txt = "Dalam pengerjaan";
+				}else if($val->status_peserta == 1){
+					$status_txt = "Sudah dikerjakan";
+				}else{
+					$status_txt = "Menunggu";
+				}
+
+				$arr[$key]->status_txt = $status_txt;
+
+				$tanggal_txt = date("d F Y", ($val->tanggal_pengambilan));
+
+				$arr[$key]->tanggal_txt = $tanggal_txt;
+			}
+		}
+
+		return $data;
+	}
+
+	public function getDetailSoalById($materi_id = null, $id = null){
+		$this->db->select('*')
+		->from('m_materi_soal')
+		->where(['m_materi_soal.m_materi_id' => $materi_id, 'id' => $id, 'm_materi_soal.is_deleted' => 0]);
+
+		$data = $this->db->get()->row();
+
+		if(!is_null($data)){
+			$jawaban = $this->getJawabanPeserta($this->session->userdata('user_id'), $materi_id, $id);
+
+			if(isset($jawaban->pilihan) && !is_null($jawaban->pilihan)){
+				$data->jawaban_peserta = $jawaban->pilihan;
+			}else{
+				$data->jawaban_peserta = 0;
+			}
+		}
+
+		return $data;
+	}
+
+	public function getJawabanPeserta($user_id, $materi_id, $id){
+		$this->db->select('tb_peserta.*, tb_jawaban.*')
+		->from('tb_peserta')
+		->join('tb_jawaban' , 'tb_peserta.id = tb_jawaban.t_peserta_id')
+		->where(['tb_peserta.user_id' => $user_id, 'tb_peserta.m_materi_id' => $materi_id, 'tb_jawaban.m_soal_id' => $id]);
+		$data = $this->db->get()->row();
+
+		return $data;
+	}
+
+    public function simpanJawbanSoal()
+    {
+        $t_peserta_id = htmlspecialchars($this->input->post('t_peserta_id'), true);
+        $soal_id = htmlspecialchars($this->input->post('soal_id'), true);
+        $is_essay = htmlspecialchars($this->input->post('is_essay'), true);
+        $pilihan = htmlspecialchars($this->input->post('jawaban'), true);
+        $essay = htmlspecialchars($this->input->post('essay'), true);
+        $is_benar = htmlspecialchars($this->input->post('is_benar'), true);
+        $jawaban_benar = htmlspecialchars($this->input->post('jawaban_benar'), true);
+		
+		if($jawaban_benar == 'jawaban_a'){
+			$benar = 1;
+		}else if($jawaban_benar == 'jawaban_b'){
+			$benar = 2;
+		}else if($jawaban_benar == 'jawaban_c'){
+			$benar = 3;
+		}else if($jawaban_benar == 'jawaban_d'){
+			$benar = 4;
+		}else if($jawaban_benar == 'jawaban_e'){
+			$benar = 5;
+		}
+
+		if($pilihan == $benar){
+			$is_benar = 1;
+		}else{
+			$is_benar = 0;
+		}
+
+		$cekPengerjaan = $this->cekPengerjaanSoal($t_peserta_id, $this->session->userdata('user_id'), $soal_id);
+		
+		if(!is_null($cekPengerjaan)){
+		
+			$jawaban = [
+				't_peserta_id' => $t_peserta_id,
+				'user_id' => $this->session->userdata('user_id'),
+				'm_soal_id' => $soal_id,
+				'is_essay' => $is_essay,
+				'pilihan' => $pilihan,
+				'essay' => $essay,
+				'is_benar' => $is_benar,
+				'updated_at' => time(),
+				'updated_by' => $this->session->userdata('user_id')
+			];
+
+			$this->db->where('id', $cekPengerjaan->id);
+			$this->db->update('tb_jawaban', $jawaban);
+		}else{
+		
+			$jawaban = [
+				't_peserta_id' => $t_peserta_id,
+				'user_id' => $this->session->userdata('user_id'),
+				'm_soal_id' => $soal_id,
+				'is_essay' => $is_essay,
+				'pilihan' => $pilihan,
+				'essay' => $essay,
+				'is_benar' => $is_benar,
+				'created_at' => time(),
+				'created_by' => $this->session->userdata('user_id')
+			];
+
+			$this->db->insert('tb_jawaban', $jawaban);
+		}
+        return ($this->db->affected_rows() != 1) ? false : true;
+    }
+
+	function cekPengerjaanSoal($t_peserta_id = null, $user_id = null, $soal_id = null){
+		return $this->db->get_where('tb_jawaban', ['t_peserta_id' => $t_peserta_id, 'user_id' => $user_id, 'm_soal_id' => $soal_id])->row();
+	}
+
+	function getPesertaMateri($user_id = null, $materi_id = null){
+		return $this->db->get_where('tb_peserta', ['user_id' => $user_id, 'm_materi_id' => $materi_id])->row();
+	}
 }

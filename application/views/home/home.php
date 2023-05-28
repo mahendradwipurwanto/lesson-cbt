@@ -1,1151 +1,227 @@
 		<!-- Hero -->
-		<div class="overflow-hidden gradient-radial-sm-primary">
-			<div class="container-lg content-space-t-3 content-space-t-lg-4 content-space-b-2">
-				<div class="w-lg-75 text-center mx-lg-auto text-center mx-auto">
-					<!-- Heading -->
-					<div class="mb-7 animated fadeInUp">
-						<h1 class="display-2 mb-3">Soalkupedia, Take a test practice <span
-								class="text-primary text-highlight-warning">for everyone!</span></h1>
-						<p class="fs-2">Developer friendly and highly test practice web app.</p>
-					</div>
-					<!-- End Heading -->
+		<div class="gradient-y-sm-primary position-relative zi-2 overflow-hidden">
+			<div class="container position-relative content-space-t-3 content-space-t-lg-4 content-space-b-2">
+				<!-- Heading -->
+				<div class="w-md-80 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+					<h1 class="display-4 mb-3">Soalkupedia</h1>
+					<p class="lead">Pelajari materi dan kerjakan soal latihan dengan mudah</p>
 				</div>
+				<!-- End Title & Description -->
 
-				<!-- Browser Device -->
-				<div class="animated fadeInUp">
-					<figure class="js-img-comp device-browser device-browser-lg">
-						<div class="device-browser-header">
-							<div class="device-browser-header-btn-list">
-								<span class="device-browser-header-btn-list-btn"></span>
-								<span class="device-browser-header-btn-list-btn"></span>
-								<span class="device-browser-header-btn-list-btn"></span>
-							</div>
-							<div class="device-browser-header-browser-bar">www.htmlstream.com/front/</div>
-						</div>
+				<!-- Swiper Slider -->
+				<!-- <div class="swiper zi-2">
+					<div class="swiper-wrapper">
+						<?php if(!empty($materi)):?>
+						<?php foreach ($materi as $key => $val):?>
+						<div class="swiper-slide m-2" style="max-width: 200px;">
+							<div class="card card-sm card-transition h-100 shadow-sm">
+								<img class="card-img-top" src="<?= base_url();?>assets-frontend/img/400x200/img1.jpg"
+									alt="Image Description">
 
-						<div class="position-relative">
-							<!-- Loader -->
-							<div
-								class="js-img-comp-loader position-absolute d-flex align-items-center justify-content-center bg-white w-100 h-100 zi-999">
-								<div class="spinner-border text-primary" role="status">
-									<span class="visually-hidden">Loading...</span>
-								</div>
-							</div>
-							<!-- End Loader -->
+								<div class="card-body">
+									<h4 class="card-title"><?= $val->judul;?></h4>
+									<p class="card-text small"><?= substr($val->deskripsi, 0, 20);?></p>
 
-							<div class="device-browser-frame">
-								<div class="js-img-comp-container hs-img-comp-container">
-									<img class="hs-img-comp hs-img-comp-a" src="<?= base_url();?>assets/img/1618x1010/img1.jpg"
-										alt="Image Description">
-
-									<div class="js-img-comp-wrapper hs-img-comp-wrapper">
-										<img class="hs-img-comp hs-img-comp-b" src="<?= base_url();?>assets/img/1618x1010/img2.jpg"
-											alt="Image Description">
+									<div class="d-grid">
+										<a class="btn btn-primary btn-sm" href="<?= site_url('materi/'.$val->id);?>">Ambil materi</a>
 									</div>
 								</div>
 							</div>
 						</div>
-					</figure>
+						<?php endforeach;?>
+						<?php endif;?>
+					</div>
+				</div> -->
+				<!-- ENd Swiper Slider -->
+
+				<div class="row mb-5 mb-md-0">
+					<?php if(!empty($materi)):?>
+					<?php foreach ($materi as $key => $val):?>
+					<div class="col-sm-6 col-lg-3 mb-4 mb-lg-0">
+						<!-- Card -->
+						<div class="card card-sm h-100 cursor" onclick="location.href = '<?= site_url('materi/'.$val->id);?>';">
+							<div class="p-2 center-cropped">
+								<img class="card-img" src="<?= base_url();?><?= $val->poster;?>"
+									onerror="this.onerror=null;this.src='<?= base_url();?><?= 'assets-frontend/img/placeholder.jpg'?>';"
+									alt="Image Description">
+							</div>
+
+							<div class="card-body">
+								<h4 class="card-title"><?= $val->judul;?></h4>
+								<p class="card-text"><?= $val->deskripsi == "" ? "-" : substr($val->deskripsi, 0, 50);?></p>
+							</div>
+
+							<a class="card-footer card-link border-top" href="<?= site_url('materi/'.$val->id);?>">Lebih
+								lanjut <i class="bi-chevron-right small ms-1"></i></a>
+						</div>
+						<!-- End Card -->
+					</div>
+					<?php endforeach;?>
+					<?php endif;?>
+					<!-- End Col -->
 				</div>
-				<!-- End Browser Device -->
+
+				<!-- SVG Shape -->
+				<figure class="position-absolute zi-n1" style="top: -35rem; left: 50rem; width: 62rem; height: 62rem;">
+					<svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 260 260">
+						<circle fill="#e7eaf3" opacity=".7" cx="130" cy="130" r="130" />
+					</svg>
+				</figure>
+				<!-- End SVG Shape -->
+
+				<!-- SVG Shape -->
+				<figure class="position-absolute zi-n1" style="top: 15rem; left: 70rem; width: 20rem; height: 20rem;">
+					<img class="img-fluid" src="<?= base_url();?>assets-frontend/svg/components/circled-stripe.svg"
+						alt="Image Description">
+				</figure>
+				<!-- End SVG Shape -->
+
 			</div>
+
+			<!-- Shape -->
+			<div class="shape shape-bottom">
+				<svg width="3000" height="500" viewBox="0 0 3000 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M0 500H3000V0L0 500Z" fill="#fff" />
+				</svg>
+			</div>
+			<!-- End Shape -->
 		</div>
 		<!-- End Hero -->
 
-		<!-- Card Grid -->
-		<div class="container-lg content-space-t-lg-2 content-space-b-2 content-space-b-lg-3">
-			<!-- Heading -->
-			<div class="w-lg-75 text-center mx-lg-auto mb-7 mb-md-10">
-				<h2 class="display-4">Creative <span class="text-primary">demos</span></h2>
-				<p class="lead">Hop in and see Front's power in action in these different layout options.</p>
-			</div>
-			<!-- End Heading -->
-
-			<div class="row">
-				<div class="col-md-6 mb-4">
-					<!-- Card -->
-					<a class="card card-lg card-transition h-100 bg-light border-0 shadow-none overflow-hidden"
-						href="./index.html">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Vertical Sidebar</h2>
-							<p class="card-text lead">Experience a native pilled-styled sidebar that can be minimized on
-								the fly.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img1.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img1-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</a>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6 mb-4">
-					<!-- Card -->
-					<a class="card card-lg card-transition h-100 bg-light border-0 shadow-none overflow-hidden"
-						href="./dashboard-default-dark.html">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Dark</h2>
-							<p class="card-text lead">Leverage Front's user-friendly and yet powerful dark mode, which
-								adapts to the browser's default mode.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img6.jpg" alt="Image Description">
-						</div>
-					</a>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6 mb-4">
-					<!-- Card -->
-					<a class="card card-lg card-transition h-100 bg-light border-0 shadow-none overflow-hidden"
-						href="./dashboard-default-dark-sidebar.html">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Dark Sidebar</h2>
-							<p class="card-text lead">Build a better experience - mix and match dark with light.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img12.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img12-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</a>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6 mb-4">
-					<!-- Card -->
-					<a class="card card-lg card-transition h-100 bg-light border-0 shadow-none overflow-hidden"
-						href="./dashboard-default-light-sidebar.html">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Light Sidebar</h2>
-							<p class="card-text lead">Link content types with a light gray sidebar color palette.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img11.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img11-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</a>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6 mb-4">
-					<!-- Card -->
-					<a class="card card-lg card-transition h-100 bg-light border-0 shadow-none overflow-hidden"
-						href="./dashboard-default-double-line.html">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Double Line</h2>
-							<p class="card-text lead">Present web app in full content with a double line collapsible
-								navigation bar.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img3.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img3-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</a>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6 mb-4">
-					<!-- Card -->
-					<a class="card card-lg card-transition h-100 bg-light border-0 shadow-none overflow-hidden"
-						href="./dashboard-default-collapsible-layout.html">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Collapsible Navbar</h2>
-							<p class="card-text lead">Present web app in full content with a single collapsible
-								navigation bar.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img2.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img2-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</a>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6 mb-4 mb-md-0">
-					<!-- Card -->
-					<a class="card card-lg card-transition h-100 bg-light border-0 shadow-none overflow-hidden"
-						href="./dashboard-default-sidebar-detached.html">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Sidebar Detached</h2>
-							<p class="card-text lead">Choose one of two detached sidebar options to create better
-								navigation options and usability.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img13.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img13-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</a>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6">
-					<!-- Card -->
-					<a class="card card-lg card-transition h-100 bg-light border-0 shadow-none overflow-hidden"
-						href="./dashboard-default-sidebar-detached-overlay.html">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Sidebar Detached Overlay</h2>
-							<p class="card-text lead">Provide more navigation options and usability on page level with
-								overlay sidebar detached.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img5.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img5-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</a>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-			</div>
-			<!-- End Row -->
-		</div>
-		<!-- End Card Grid -->
-
-		<!-- Testimonials -->
-		<div class="container-lg">
-			<div class="bg-light content-space-2 rounded-3 px-5">
-				<div class="w-md-70 text-center mx-md-auto">
-					<div class="mb-4">
-						<img class="img-fluid mx-auto" src="<?= base_url();?>assets/svg/illustrations/oc-review.svg" alt="Image Description"
-							data-hs-theme-appearance="default" style="max-width: 10rem;">
-						<img class="img-fluid mx-auto" src="<?= base_url();?>assets/svg/illustrations-light/oc-review.svg"
-							alt="Image Description" data-hs-theme-appearance="dark" style="max-width: 10rem;">
-					</div>
-
-					<p class="fs-2 text-dark mb-4"><em>This is a perfect theme for a modern web application. <span
-								class="text-highlight-warning">There was clearly a lot of thought that went into
-								designing</span> all of the components to look coherent and work well together in
-							various grid layouts.</em></p>
-
-					<h3 class="mb-0">Anton</h3>
-					<p class="fs-4 mb-0">Happy customer</p>
-				</div>
-			</div>
-		</div>
-		<!-- End Testimonials -->
-
-		<!-- Card Grid -->
-		<div class="container-lg content-space-2 content-space-lg-3">
-			<!-- Heading -->
-			<div class="w-lg-75 text-center mx-lg-auto mb-7 mb-md-10">
-				<h2 class="display-4">Packed with <span class="text-primary">features</span> you already love</h2>
-				<p class="lead">The Front features can be flexed according to your needs with dozens of options
-					available and mix-and-match possibilities.</p>
-			</div>
-			<!-- End Heading -->
-
-			<div class="row">
-				<div class="col-md-7 mb-4">
-					<!-- Card -->
-					<div class="card card-lg h-100 bg-light border-0 shadow-none overflow-hidden">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Calendars</h2>
-							<p class="card-text lead">Front offers all kinds of calendar components for choosing date
-								ranges, dates and times.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img4.png" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img4-dark.png" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</div>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-5 mb-4">
-					<!-- Card -->
-					<div class="card card-lg h-100 bg-light border-0 shadow-none overflow-hidden">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">2 Sidebar menu options</h2>
-							<p class="card-text lead">Choose between pill or tab navigation style on the sidebar.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img3.png" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img3-dark.png" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</div>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-5 mb-4">
-					<!-- Card -->
-					<div class="card card-lg h-100 bg-light border-0 shadow-none overflow-hidden">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Datatables</h2>
-							<p class="card-text lead">Showcase your latest work with datatable options that provide a
-								powerful portfolio system, beautiful content designs or any other ordered grid content.
-							</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img6.png" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img6-dark.png" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</div>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-7 mb-4">
-					<!-- Card -->
-					<div class="card card-lg h-100 bg-light border-0 shadow-none overflow-hidden">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Chart.js</h2>
-							<p class="card-text lead">Allow cross-functional charts to deliver stunning content, data
-								and all kinds of information faster no matter use cases and devices.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img5.png" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img5-dark.png" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</div>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-7 mb-4 mb-md-0">
-					<!-- Card -->
-					<div class="card card-lg h-100 bg-light border-0 shadow-none overflow-hidden">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Advanced Forms</h2>
-							<p class="card-text lead">Upload images, videos or any files, copy to clipboard, toggle
-								passwords, search, add fields, count characters and discover more customizable and
-								feature-rich plugins.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img8.png" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img8-dark.png" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</div>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-5">
-					<!-- Card -->
-					<div class="card card-lg h-100 bg-light border-0 shadow-none overflow-hidden">
-						<div class="card-body">
-							<h2 class="card-title h1 text-inherit">Step Forms (Wizards)</h2>
-							<p class="card-text lead">Create multi-step forms, validate and navigate through steps to
-								get more leads and increase engagement.</p>
-						</div>
-						<div class="card-footer border-0 pt-0 mb-n4 me-n6">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img7.png" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid" src="<?= base_url();?>assets/img/others/img7-dark.png" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-					</div>
-					<!-- End Card -->
-				</div>
-				<!-- End Col -->
-			</div>
-			<!-- End Row -->
-		</div>
-		<!-- End Card Grid -->
-
-		<!-- Features -->
-		<div class="container-lg content-space-b-2 content-space-b-lg-3">
-			<ul class="list-inline list-py-2 list-px-1 text-center mb-0">
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Bootstrap Icons</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Illustrations</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Accordion</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Alerts</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Avatars</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Badge</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Breadcrumb</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Buttons</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Cards</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Collapse</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Column Divider</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Divider</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Dropdowns</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Icons</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">List Group</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Lists</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Legend Indicator</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Modal</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Offcanvas</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Page Header</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Pagination</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Popovers</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Progress</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Profile</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Shapes</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Spinners</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Steps</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Tab</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Toasts</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Tooltips</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Typography</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Navbar</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Navs</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Mega Menu</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Navbar Vertical Aside</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Scrollspy</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Tables</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Sticky Header</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Basic Forms</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Checks &amp; Switches</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Input Group</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Advanced Select</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">File Attachments</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Drag' n' Drop File Uploads</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">WYSIWYG Editor</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Quantity Counter</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Copy to Clipboard</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Input Mask</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Step Forms (Wizards)</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Add Field</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Toggle Password</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Count Characters</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Form Search</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Toggle Switch</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Google reCAPTCHA</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Counter</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Circles.js (Pie Chart)</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Fullscreen Lightbox</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Leaflet</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">JSVectorMap</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Sticky Block</span>
-				</li>
-				<li class="list-inline-item">
-					<span class="badge bg-soft-secondary text-dark fs-4 py-2 px-3">Go To</span>
-				</li>
-			</ul>
-		</div>
-		<!-- End Features -->
-
-		<!-- Sliding Image -->
-		<div class="content-space-b-2">
-			<!-- Heading -->
-			<div class="container-lg">
-				<div class="w-lg-75 text-center mx-lg-auto mb-7 mb-md-10">
-					<h2 class="display-4">Design solutions for any use cases</h2>
-					<p class="lead">Whether you're creating a web application, dashboard, admin panels, or SASS based
-						interface — Front Dashboard helps you create the best possible web application projects.</p>
-				</div>
-			</div>
-			<!-- End Heading -->
-
-			<div class="sliding-img mb-5">
-				<div class="sliding-img-frame-to-start" style="background-image: url(<?= base_url();?>assets/img/others/img1.png);"
-					data-hs-theme-appearance="default"></div>
-				<div class="sliding-img-frame-to-start" style="background-image: url(<?= base_url();?>assets/img/others/img1-dark.png);"
-					data-hs-theme-appearance="dark">
-				</div>
-			</div>
-
-			<div class="sliding-img">
-				<div class="sliding-img-frame-to-end" style="background-image: url(<?= base_url();?>assets/img/others/img2.png);"
-					data-hs-theme-appearance="default"></div>
-				<div class="sliding-img-frame-to-end" style="background-image: url(<?= base_url();?>assets/img/others/img2-dark.png);"
-					data-hs-theme-appearance="dark"></div>
-			</div>
-		</div>
-		<!-- End Sliding Image -->
-
-		<!-- Stats -->
-		<div class="container-lg content-space-b-2 content-space-b-lg-3">
-			<div class="row">
-				<div class="col-sm-6 col-lg-3 mb-5 mb-lg-0">
-					<div class="text-center">
-						<span class="display-3 fw-normal text-dark">60+</span>
-						<p class="fs-3 mb-0">Components</p>
-					</div>
-				</div>
-				<!-- End Col -->
-
-				<div class="col-sm-6 col-lg-3 mb-5 mb-lg-0">
-					<div class="text-center">
-						<span class="display-3 fw-normal text-dark">50+</span>
-						<p class="fs-3 mb-0">Plugins</p>
-					</div>
-				</div>
-				<!-- End Col -->
-
-				<div class="col-sm-6 col-lg-3 mb-5 mb-sm-0">
-					<div class="text-center">
-						<span class="display-3 fw-normal text-dark">450+</span>
-						<p class="fs-3 mb-0">Combinations</p>
-					</div>
-				</div>
-				<!-- End Col -->
-
-				<div class="col-sm-6 col-lg-3">
-					<div class="text-center">
-						<span class="display-3 fw-normal text-dark">47k+</span>
-						<p class="fs-3 mb-0">Happy customers</p>
-					</div>
-				</div>
-				<!-- End Col -->
-			</div>
-			<!-- End Row -->
-		</div>
-		<!-- End Stats -->
-
-		<!-- Testimonials -->
-		<div class="container-lg">
-			<div class="bg-light content-space-2 rounded-3 px-5">
-				<div class="w-md-70 text-center mx-md-auto">
-					<div class="mb-4">
-						<img class="img-fluid mx-auto" src="<?= base_url();?>assets/svg/illustrations/oc-review.svg" alt="Image Description"
-							data-hs-theme-appearance="default" style="max-width: 10rem;">
-						<img class="img-fluid mx-auto" src="<?= base_url();?>assets/svg/illustrations-light/oc-review.svg"
-							alt="Image Description" data-hs-theme-appearance="dark" style="max-width: 10rem;">
-					</div>
-
-					<p class="fs-2 text-dark mb-4"><em>The theme has a very professional look, bringing a more modern
-							and clean style to the application. <span class="text-highlight-warning">The documentation
-								is extraordinarily rich and complete</span>, helping implementation.</em></p>
-
-					<h3 class="mb-0">Marcos</h3>
-					<p class="fs-4 mb-0">Happy customer</p>
-				</div>
-			</div>
-		</div>
-		<!-- End Testimonials -->
-
-		<!-- Features -->
-		<div class="container-lg content-space-2 content-space-lg-4">
-			<!-- Heading -->
-			<div class="w-lg-75 text-center mx-lg-auto mb-7 mb-md-10">
-				<h2 class="display-4">Applications</h2>
-				<p class="lead">Made for everyone, build anything with multiple pre-built applications.</p>
-			</div>
-			<!-- End Heading -->
-
-			<!-- Card Grid -->
-			<div class="row align-items-md-center content-space-b-1 content-space-b-lg-2">
-				<div class="col-md-6 order-md-2 mb-10 mb-md-0">
-					<!-- Browser Device -->
-					<figure class="device-browser">
-						<div class="device-browser-header">
-							<div class="device-browser-header-btn-list">
-								<span class="device-browser-header-btn-list-btn"></span>
-								<span class="device-browser-header-btn-list-btn"></span>
-								<span class="device-browser-header-btn-list-btn"></span>
-							</div>
-							<div class="device-browser-header-browser-bar">www.htmlstream.com/front/</div>
-						</div>
-
-						<div class="device-browser-frame">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img7.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img7-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-
-						<div class="position-absolute bottom-0 start-0 w-100 h-100 bg-soft-primary zi-n1 mb-n6 ms-n6">
-						</div>
-					</figure>
-					<!-- End Browser Device -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6">
-					<div class="pe-md-7">
-						<div class="mb-5">
-							<div class="mb-5">
-								<span class="badge border border-dark text-dark">Application</span>
-							</div>
-
-							<h2 class="mb-3">Kanban</h2>
-							<p class="fs-4">A board that visually depicts work at various stages of a process using
-								cards to represent work items and columns to represent each stage of the process.</p>
-						</div>
-						<a class="btn btn-primary" target="_blank" href="./apps-kanban.html">Preview Kanban <i
-								class="bi-box-arrow-up-right ms-2"></i></a>
-					</div>
-				</div>
-				<!-- End Col -->
-			</div>
-			<!-- End Card Grid -->
-
-			<!-- Card Grid -->
-			<div class="row align-items-md-center content-space-1 content-space-b-lg-2">
-				<div class="col-md-6 order-md-2 mb-10 mb-md-0">
-					<!-- Browser Device -->
-					<figure class="device-browser">
-						<div class="device-browser-header">
-							<div class="device-browser-header-btn-list">
-								<span class="device-browser-header-btn-list-btn"></span>
-								<span class="device-browser-header-btn-list-btn"></span>
-								<span class="device-browser-header-btn-list-btn"></span>
-							</div>
-							<div class="device-browser-header-browser-bar">www.htmlstream.com/front/</div>
-						</div>
-
-						<div class="device-browser-frame">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img8.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img8-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-
-						<div class="position-absolute bottom-0 start-0 w-100 h-100 bg-soft-danger zi-n1 mb-n6 ms-n6">
-						</div>
-					</figure>
-					<!-- End Browser Device -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6">
-					<div class="pe-md-7">
-						<div class="mb-5">
-							<div class="mb-5">
-								<span class="badge border border-dark text-dark">Application</span>
-							</div>
-
-							<h2 class="mb-3">Calendar</h2>
-							<p class="fs-4">Multiple views of your day, week and month, guest invites, calendar on the
-								web and more. It allows users to create, edit events, fill in quickly and easily.</p>
-						</div>
-						<a class="btn btn-primary" target="_blank" href="./apps-calendar.html">Preview Calendar <i
-								class="bi-box-arrow-up-right ms-2"></i></a>
-					</div>
-				</div>
-				<!-- End Col -->
-			</div>
-			<!-- End Card Grid -->
-
-			<!-- Card Grid -->
-			<div class="row align-items-md-center content-space-1 content-space-b-lg-2">
-				<div class="col-md-6 order-md-2 mb-10 mb-md-0">
-					<!-- Browser Device -->
-					<figure class="device-browser">
-						<div class="device-browser-header">
-							<div class="device-browser-header-btn-list">
-								<span class="device-browser-header-btn-list-btn"></span>
-								<span class="device-browser-header-btn-list-btn"></span>
-								<span class="device-browser-header-btn-list-btn"></span>
-							</div>
-							<div class="device-browser-header-browser-bar">www.htmlstream.com/front/</div>
-						</div>
-
-						<div class="device-browser-frame">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img9.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img9-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-
-						<div class="position-absolute bottom-0 start-0 w-100 h-100 bg-soft-warning zi-n1 mb-n6 ms-n6">
-						</div>
-					</figure>
-					<!-- End Browser Device -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6">
-					<div class="pe-md-7">
-						<div class="mb-5">
-							<div class="mb-5">
-								<span class="badge border border-dark text-dark">Application</span>
-							</div>
-
-							<h2 class="mb-3">Invoice Generator</h2>
-							<p class="fs-4">Quickly make invoices with Front's attractive invoice template straight from
-								your web browser.</p>
-						</div>
-						<a class="btn btn-primary" target="_blank" href="./apps-invoice-generator.html">Preview Invoice
-							Generator <i class="bi-box-arrow-up-right ms-2"></i></a>
-					</div>
-				</div>
-				<!-- End Col -->
-			</div>
-			<!-- End Card Grid -->
-
-			<!-- Card Grid -->
-			<div class="row align-items-md-center content-space-t-1">
-				<div class="col-md-6 order-md-2 mb-10 mb-md-0">
-					<!-- Browser Device -->
-					<figure class="device-browser">
-						<div class="device-browser-header">
-							<div class="device-browser-header-btn-list">
-								<span class="device-browser-header-btn-list-btn"></span>
-								<span class="device-browser-header-btn-list-btn"></span>
-								<span class="device-browser-header-btn-list-btn"></span>
-							</div>
-							<div class="device-browser-header-browser-bar">www.htmlstream.com/front/</div>
-						</div>
-
-						<div class="device-browser-frame">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img10.jpg" alt="Image Description"
-								data-hs-theme-appearance="default">
-							<img class="img-fluid shadow-lg" src="<?= base_url();?>assets/img/900x562/img10-dark.jpg" alt="Image Description"
-								data-hs-theme-appearance="dark">
-						</div>
-
-						<div class="position-absolute bottom-0 start-0 w-100 h-100 bg-soft-success zi-n1 mb-n6 ms-n6">
-						</div>
-					</figure>
-					<!-- End Browser Device -->
-				</div>
-				<!-- End Col -->
-
-				<div class="col-md-6">
-					<div class="pe-md-7">
-						<div class="mb-5">
-							<div class="mb-5">
-								<span class="badge border border-dark text-dark">Application</span>
-							</div>
-
-							<h2 class="mb-3">File Manager</h2>
-							<p class="fs-4">Please your visitors with eye-catching and exciting file manager. Different
-								options and settings to manage your site.</p>
-						</div>
-						<a class="btn btn-primary" target="_blank" href="./apps-file-manager.html">Preview File Manager
-							<i class="bi-box-arrow-up-right ms-2"></i></a>
-					</div>
-				</div>
-				<!-- End Col -->
-			</div>
-			<!-- End Card Grid -->
-		</div>
-		<!-- End Features -->
-
-		<!-- Documentation -->
-		<div class="container-lg">
-			<div class="bg-dark position-relative rounded overflow-hidden pt-4 px-4 pt-sm-10 px-sm-10">
+		<!-- Icon Blocks -->
+		<div class="overflow-hidden">
+			<div class="container content-space-t-2 content-space-t-lg-3 content-space-b-1 content-space-b-lg-3">
 				<!-- Heading -->
-				<div class="w-lg-75 text-center mx-lg-auto mb-7 mb-md-10">
-					<h2 class="display-4 text-white">Documentation</h2>
-					<p class="lead text-white-70">Get started with Front - Multipurpose Responsive Template for building
-						responsive, mobile-first sites, with Bootstrap and a template starter page.</p>
+				<div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+					<h2>Belajar Tanpa Batas!</h2>
+					<p>Sekolah di mana saja, kapan saja dengan materi pembelajaran dan soal online kami!</p>
 				</div>
 				<!-- End Heading -->
 
-				<img class="img-fluid" src="<?= base_url();?>assets/svg/illustrations/docs-main-page.svg" alt="Image Description"
-					data-hs-theme-appearance="default">
-				<img class="img-fluid" src="<?= base_url();?>assets/svg/illustrations/docs-main-page-dark.svg" alt="Image Description"
-					data-hs-theme-appearance="dark">
+				<div class="row">
+					<div class="col-lg-4 d-none d-lg-block">
+						<!-- Card -->
+						<div class="position-relative pe-lg-4">
+							<a class="card card-transition shadow-none bg-img-start" href="#"
+								style="background-image: url(<?= base_url();?>assets-frontend/img/400x500/img26.jpg); min-height: 27rem;">
+								<div class="card-body">
+									<h4 class="card-title">Mengapa SOALKUPEDIA</h4>
+									<p class="card-text text-body">Mengapa harus memilih layanan dari Soalkupedia</p>
+								</div>
+							</a>
 
-				<div class="gradient-y-lg-dark position-absolute bottom-0 start-0 end-0 w-100 d-flex justify-content-center zi-1 pb-8"
-					style="padding-top: 13rem;">
-					<a class="btn btn-primary btn-lg" href="./documentation/index.html">Browse Documentation</a>
-				</div>
-			</div>
-		</div>
-		<!-- End Documentation -->
-
-		<!-- Tools -->
-		<div class="container-lg content-space-2 content-space-lg-3">
-			<!-- Heading -->
-			<div class="w-lg-75 text-center mx-lg-auto mb-7 mb-md-10">
-				<h2 class="display-4">Build <span class="text-primary">tools</span> and full <span
-						class="text-primary">documention</span></h2>
-				<p class="lead">Components, plugins, and build tools are all thoroughly documented with live examples
-					and markup for easier use and customization.</p>
-			</div>
-			<!-- End Heading -->
-
-			<div class="w-md-75 w-lg-50 mx-md-auto mb-5 mb-md-9">
-				<!-- Code Sample -->
-				<div class="card bg-dark mb-5">
-					<div class="card-body font-monospace">
-						<div class="d-grid gap-6">
-							<span class="d-grid gap-1">
-								<span class="d-block text-white-70">&gt; $ npm install</span>
-								<span class="d-block text-success">Everything installed!</span>
-							</span>
-							<span class="d-grid gap-1">
-								<span class="d-block text-white-70">&gt; $ gulp</span>
-								<span class="d-block text-success">scss watching</span>
-								<span class="d-block text-success">LiveReload started</span>
-								<span class="d-block text-success">Opening localhost:3000</span>
-							</span>
-							<span class="d-grid gap-1">
-								<span class="d-block text-white-70">&gt; $ that's it?!</span>
-								<span class="d-block text-success">Yup, that's it.</span>
-							</span>
+							<!-- SVG Shape -->
+							<div class="position-absolute bottom-0 start-0 zi-n1 mb-n7 ms-n7" style="width: 12rem;">
+								<img class="w-100" src="<?= base_url();?>assets-frontend/svg/components/dots-lg.svg"
+									alt="SVG">
+							</div>
+							<!-- End SVG Shape -->
 						</div>
-					</div>
-				</div>
-				<!-- End Code Sample -->
-
-				<div class="text-center mb-7">
-					<p>Not comfortable diving that deep? No worries, you just use the compiled CSS and examples pages!
-						<a class="link" href="./documentation/gulp.html">Learn more <i class="bi-chevron-right small"></i></a>
-					</p>
-				</div>
-
-				<div class="row justify-content-center">
-					<div class="col-auto col-sm-3 col-sm py-3">
-						<img class="avatar avatar-xl avatar-4x3" src="<?= base_url();?>assets/svg/brands/bootstrap-gray.svg" alt="Logo">
+						<!-- End Card -->
 					</div>
 					<!-- End Col -->
 
-					<div class="col-auto col-sm-3 col-sm py-3">
-						<img class="avatar avatar-xl avatar-4x3" src="<?= base_url();?>assets/svg/brands/sass-gray.svg" alt="Logo">
-					</div>
-					<!-- End Col -->
+					<div class="col-lg-8">
+						<div class="row">
+							<div class="col-sm-6 mb-3 mb-sm-7">
+								<!-- Icon Blocks -->
+								<div class="pe-lg-6">
+									<span class="svg-icon text-primary mb-4">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path opacity="0.3"
+												d="M10.9607 12.9128H18.8607C19.4607 12.9128 19.9607 13.4128 19.8607 14.0128C19.2607 19.0128 14.4607 22.7128 9.26068 21.7128C5.66068 21.0128 2.86071 18.2128 2.16071 14.6128C1.16071 9.31284 4.96069 4.61281 9.86069 4.01281C10.4607 3.91281 10.9607 4.41281 10.9607 5.01281V12.9128V12.9128Z"
+												fill="#035A4B" />
+											<path
+												d="M12.9607 10.9128V3.01281C12.9607 2.41281 13.4607 1.91281 14.0607 2.01281C16.0607 2.21281 17.8607 3.11284 19.2607 4.61284C20.6607 6.01284 21.5607 7.91285 21.8607 9.81285C21.9607 10.4129 21.4607 10.9128 20.8607 10.9128H12.9607V10.9128Z"
+												fill="#035A4B" />
+										</svg>
 
-					<div class="col-auto col-sm-3 col-sm py-3">
-						<img class="avatar avatar-xl avatar-4x3" src="<?= base_url();?>assets/svg/brands/gulp-gray.svg" alt="Logo">
-					</div>
-					<!-- End Col -->
+									</span>
 
-					<div class="col-auto col-sm-3 col-sm py-3">
-						<img class="avatar avatar-xl avatar-4x3" src="<?= base_url();?>assets/svg/brands/npm-gray.svg" alt="Logo">
+									<h3 class="h4">Materi Pembelajaran yang Lengkap</h3>
+									<p>Materi yang disediakan juga disesuaikan dengan kurikulum yang berlaku, sehingga anda
+										dapat belajar dengan
+										lebih efektif dan efisien.</p>
+								</div>
+								<!-- End Icon Blocks -->
+							</div>
+
+							<div class="col-sm-6 mb-3 mb-sm-7">
+								<!-- Icon Blocks -->
+								<div class="pe-lg-6">
+									<span class="svg-icon text-primary mb-4">
+										<svg width="20" height="21" viewBox="0 0 20 21" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path opacity="0.3"
+												d="M16 0.200012H4C1.8 0.200012 0 2.00001 0 4.20001V16.2C0 18.4 1.8 20.2 4 20.2H16C18.2 20.2 20 18.4 20 16.2V4.20001C20 2.00001 18.2 0.200012 16 0.200012ZM15 10.2C15 10.9 14.8 11.6 14.6 12.2H18V16.2C18 17.3 17.1 18.2 16 18.2H12V14.8C11.4 15.1 10.7 15.2 10 15.2C9.3 15.2 8.6 15 8 14.8V18.2H4C2.9 18.2 2 17.3 2 16.2V12.2H5.4C5.1 11.6 5 10.9 5 10.2C5 9.50001 5.2 8.80001 5.4 8.20001H2V4.20001C2 3.10001 2.9 2.20001 4 2.20001H8V5.60001C8.6 5.30001 9.3 5.20001 10 5.20001C10.7 5.20001 11.4 5.40001 12 5.60001V2.20001H16C17.1 2.20001 18 3.10001 18 4.20001V8.20001H14.6C14.8 8.80001 15 9.50001 15 10.2Z"
+												fill="#035A4B" />
+											<path
+												d="M12 1.40002C15.4 2.20002 18 4.80003 18.8 8.20003H14.6C14.1 7.00003 13.2 6.10003 12 5.60003V1.40002V1.40002ZM5.40001 8.20003C5.90001 7.00003 6.80001 6.10003 8.00001 5.60003V1.40002C4.60001 2.20002 2.00001 4.80003 1.20001 8.20003H5.40001ZM14.6 12.2C14.1 13.4 13.2 14.3 12 14.8V19C15.4 18.2 18 15.6 18.8 12.2H14.6V12.2ZM8.00001 14.8C6.80001 14.3 5.90001 13.4 5.40001 12.2H1.20001C2.00001 15.6 4.60001 18.2 8.00001 19V14.8V14.8Z"
+												fill="#035A4B" />
+										</svg>
+
+									</span>
+
+									<h4>Soal Latihan yang Beragam</h4>
+									<p>Soal-soal ini terdiri dari berbagai tingkat kesulitan, sehingga anda dapat menyesuaikan
+										dengan kemampuan
+										masing-masing.</p>
+								</div>
+								<!-- End Icon Blocks -->
+							</div>
+
+							<div class="col-sm-6 mb-3 mb-sm-0">
+								<!-- Icon Blocks -->
+								<div class="pe-lg-6">
+									<span class="svg-icon text-primary mb-4">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M6 8.725C6 8.125 6.4 7.725 7 7.725H14L18 11.725V12.925L22 9.725L12.6 2.225C12.2 1.925 11.7 1.925 11.4 2.225L2 9.725L6 12.925V8.725V8.725Z"
+												fill="#035A4B" />
+											<path opacity="0.3"
+												d="M22 9.72498V20.725C22 21.325 21.6 21.725 21 21.725H3C2.4 21.725 2 21.325 2 20.725V9.72498L11.4 17.225C11.8 17.525 12.3 17.525 12.6 17.225L22 9.72498ZM15 11.725H18L14 7.72498V10.725C14 11.325 14.4 11.725 15 11.725Z"
+												fill="#035A4B" />
+										</svg>
+
+									</span>
+
+									<h4>Pembelajaran yang Interaktif</h4>
+									<p>Anda dapat mempelajari materi dengan cara yang lebih interaktif, seperti melalui video
+										pembelajaran,
+										gambar, dan animasi.</p>
+								</div>
+								<!-- End Icon Blocks -->
+							</div>
+
+							<div class="col-sm-6">
+								<!-- Icon Blocks -->
+								<div class="pe-lg-6">
+									<span class="svg-icon text-primary mb-4">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+											xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" clip-rule="evenodd"
+												d="M15 19.5229C15 20.265 15.9624 20.5564 16.374 19.9389L22.2227 11.166C22.5549 10.6676 22.1976 10 21.5986 10H17V4.47708C17 3.73503 16.0376 3.44363 15.626 4.06106L9.77735 12.834C9.44507 13.3324 9.80237 14 10.4014 14H15V19.5229Z"
+												fill="#035A4B" />
+											<path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+												d="M3 6.5C3 5.67157 3.67157 5 4.5 5H9.5C10.3284 5 11 5.67157 11 6.5C11 7.32843 10.3284 8 9.5 8H4.5C3.67157 8 3 7.32843 3 6.5ZM3 18.5C3 17.6716 3.67157 17 4.5 17H9.5C10.3284 17 11 17.6716 11 18.5C11 19.3284 10.3284 20 9.5 20H4.5C3.67157 20 3 19.3284 3 18.5ZM2.5 11C1.67157 11 1 11.6716 1 12.5C1 13.3284 1.67157 14 2.5 14H6.5C7.32843 14 8 13.3284 8 12.5C8 11.6716 7.32843 11 6.5 11H2.5Z"
+												fill="#035A4B" />
+										</svg>
+
+									</span>
+
+									<h4>Akses Tanpa Batas</h4>
+									<p>Anda dapat mengakses layanan ini kapan saja dan di mana saja, selama memiliki akses
+										internet.</p>
+								</div>
+								<!-- End Icon Blocks -->
+							</div>
+						</div>
 					</div>
 					<!-- End Col -->
 				</div>
 				<!-- End Row -->
 			</div>
-
-			<div class="d-grid mx-auto" style="max-width: 15rem;">
-				<a class="btn btn-primary btn-lg" href="./documentation/gulp.html">Learn more</a>
-			</div>
 		</div>
-		<!-- End Tools -->
-
-		<!-- Testimonials -->
-		<div class="container-lg">
-			<div class="bg-light content-space-2 rounded-3 px-5">
-				<div class="w-md-70 text-center mx-md-auto">
-					<div class="mb-4">
-						<img class="img-fluid mx-auto" src="<?= base_url();?>assets/svg/illustrations/oc-review.svg" alt="Image Description"
-							data-hs-theme-appearance="default" style="max-width: 10rem;">
-						<img class="img-fluid mx-auto" src="<?= base_url();?>assets/svg/illustrations-light/oc-review.svg"
-							alt="Image Description" data-hs-theme-appearance="dark" style="max-width: 10rem;">
-					</div>
-
-					<p class="fs-2 text-dark mb-4"><em>This theme is really great, as back end developer <span
-								class="text-highlight-warning">I was able to build an impressive front end using this
-								theme in plain JavaScript vanilla. The source code is clear and the documentation as
-								well, for me it's the best purchase I made with this team and I am watching
-								evolution.</span> Thank you so much for such quality and price. Keep going!</em></p>
-
-					<h3 class="mb-0">David</h3>
-					<p class="fs-4 mb-0">Happy customer</p>
-				</div>
-			</div>
-		</div>
-		<!-- End Testimonials -->
-
-		<!-- Pricing -->
-		<div class="overflow-hidden">
-			<div class="container-lg content-space-t-2 content-space-t-lg-3">
-				<!-- Heading -->
-				<div class="w-lg-75 text-center mx-lg-auto mb-7 mb-md-10">
-					<h2 class="display-4">Pricing</h2>
-					<p class="lead">Whatever your status, our offers evolve according to your needs.</p>
-				</div>
-				<!-- End Heading -->
-
-				<div class="w-md-75 mx-md-auto">
-					<div class="position-relative">
-						<div class="bg-dark rounded-2 p-5">
-							<div class="row align-items-sm-center">
-								<div class="col">
-									<h3 class="text-white mb-1">Single</h3>
-									<span class="d-block text-white-70">Single site</span>
-								</div>
-								<!-- End Col -->
-
-								<div class="col-sm-7 col-md-5">
-									<p class="text-white-70 mb-0">Ideal for corporate, portfolio, blog, shop and many
-										more.</p>
-								</div>
-								<!-- End Col -->
-
-								<div class="col-12 col-md col-lg-4 text-lg-end mt-3 mt-lg-0">
-									<div class="d-grid">
-										<a class="btn btn-primary"
-											href="https://themes.getbootstrap.com/product/front-admin-dashboard-template/"
-											target="_blank">Buy for $49</a>
-									</div>
-								</div>
-								<!-- End Col -->
-							</div>
-							<!-- End Row -->
-
-							<hr class="bg-soft-light opacity-50">
-
-							<div class="row align-items-sm-center">
-								<div class="col">
-									<h3 class="text-white mb-1">Multisite</h3>
-									<span class="d-block text-white-70">Unlimited sites</span>
-								</div>
-								<!-- End Col -->
-
-								<div class="col-sm-7 col-md-5">
-									<p class="text-white-70 mb-0">All the same examples as the Standard License, but you
-										could build all of them with a single Multisite license.</p>
-								</div>
-								<!-- End Col -->
-
-								<div class="col-12 col-md col-lg-4 text-lg-end mt-3 mt-lg-0">
-									<div class="d-grid">
-										<a class="btn btn-primary"
-											href="https://themes.getbootstrap.com/product/front-admin-dashboard-template/"
-											target="_blank">Buy for $149</a>
-									</div>
-								</div>
-								<!-- End Col -->
-							</div>
-							<!-- End Row -->
-
-							<hr class="bg-soft-light opacity-50">
-
-							<div class="row align-items-sm-center">
-								<div class="col">
-									<h3 class="text-white mb-1">Extended</h3>
-									<span class="d-block text-white-70">For paying users</span>
-								</div>
-								<!-- End Col -->
-
-								<div class="col-sm-7 col-md-5">
-									<p class="text-white-70 mb-0">Best suited for "paid subscribers" and SaaS analytics
-										applications.</p>
-								</div>
-								<!-- End Col -->
-
-								<div class="col-12 col-md col-lg-4 text-lg-end mt-3 mt-lg-0">
-									<div class="d-grid">
-										<a class="btn btn-primary"
-											href="https://themes.getbootstrap.com/product/front-admin-dashboard-template/"
-											target="_blank">Buy for $599</a>
-									</div>
-								</div>
-								<!-- End Col -->
-							</div>
-							<!-- End Row -->
-						</div>
-
-						<div class="d-none d-md-block position-absolute bottom-0 start-0">
-							<img class="img-fluid" src="<?= base_url();?>assets/svg/illustrations/oc-peeking.svg" alt="Image Description"
-								data-hs-theme-appearance="default" style="max-width: 8rem; margin-left: -7.8125rem;">
-							<img class="img-fluid" src="<?= base_url();?>assets/svg/illustrations-light/oc-peeking.svg"
-								alt="Image Description" data-hs-theme-appearance="dark"
-								style="max-width: 8rem; margin-left: -7.8125rem;">
-						</div>
-
-						<div class="d-none d-md-block position-absolute top-50 end-0 translate-middle-y">
-							<img class="img-fluid" src="<?= base_url();?>assets/svg/illustrations/oc-on-the-go.svg" alt="Image Description"
-								data-hs-theme-appearance="default" style="max-width: 15rem; margin-right: -15rem;">
-							<img class="img-fluid" src="<?= base_url();?>assets/svg/illustrations-light/oc-on-the-go.svg"
-								alt="Image Description" data-hs-theme-appearance="dark"
-								style="max-width: 15rem; margin-right: -15rem;">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Pricing -->
-
-		<!-- FAQ -->
-		<div class="container-lg content-space-t-2 content-space-t-lg-3">
-			<!-- Heading -->
-			<div class="w-lg-75 text-center mx-lg-auto mb-7 mb-md-10">
-				<h2 class="display-4">Frequently Asked <span class="text-primary">Questions</span></h2>
-			</div>
-			<!-- End Heading -->
-
-			<div class="w-md-75 mx-md-auto">
-				<!-- List -->
-				<ul class="list-unstyled list-py-3 mb-0">
-					<li>
-						<h2 class="h1">How can I get a refund?</h2>
-						<p class="fs-4">If you'd like a refund please reach out to us at <a class="link"
-								href="mailto:themes@getbootstrap.com">themes@getbootstrap.com</a>. If you need technical
-							help with the theme before a refund please reach out to us first.</p>
-					</li>
-
-					<li>
-						<h2 class="h1">How do I get access to a theme I purchased?</h2>
-						<p class="fs-4">If you lose the link for a theme you purchased, don't panic! We've got you
-							covered. You can login to your account, tap your avatar in the upper right corner, and tap
-							Purchases. If you didn't create a <a class="link"
-								href="https://marketplace.getbootstrap.com/signin/" target="_blank">login</a> or can't
-							remember the information, you can use our handy <a class="link"
-								href="https://themes.getbootstrap.com/redownload/" target="_blank">Redownload page</a>,
-							just remember to use the same email you originally made your purchases with.</p>
-					</li>
-
-					<li>
-						<h2 class="h1">How do I get help with the theme I purchased?</h2>
-						<p class="fs-4">Technical support for each theme is given directly by the creator of the theme.
-							You can contact us <a class="link" href="https://htmlstream.com/contact-us"
-								target="_blank">here</a></p>
-					</li>
-
-					<li>
-						<h2 class="h1">Is Front Admin available on other web application platforms?</h2>
-						<p class="fs-4">Since the theme is a static HTML template, we do not offer any tutorials or any
-							other materials on how to integrate our templates with any CMS, Web Application framework,
-							or any other similar technology. However, since our templates are static HTML/CSS and JS
-							templates, then they should be compatible with any backend technology.</p>
-					</li>
-
-					<li>
-						<h2 class="h1">How can I access a Figma or Sketch file?</h2>
-						<p class="fs-4">Unfortunately, the design files are not available. We will consider the
-							possibility of adding this option in the near future. However, we cannot provide any ETA
-							regarding the release.</p>
-					</li>
-				</ul>
-				<!-- End List -->
-
-				<hr class="my-7">
-
-				<div class="text-center">
-					<h3>Haven't found an answer to your question?</h3>
-					<p><a class="link" href="https://htmlstream.com/contact-us" target="_blank">Send us a message</a>
-						and we'll get back to you.</p>
-				</div>
-			</div>
-		</div>
-		<!-- End FAQ -->
+		<!-- End Icon Blocks -->

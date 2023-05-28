@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="">
 
 <head>
 	<!-- Required Meta Tags Always Come First -->
@@ -25,44 +25,14 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 	<!-- CSS Implementing Plugins -->
-	<link rel="stylesheet" href="<?= base_url();?>assets/vendor/bootstrap-icons/font/bootstrap-icons.css" />
-	<link rel="stylesheet" href="<?= base_url(); ?>assets/plugin/sweetalert2/sweetalert2.min.css">
-	<link rel="stylesheet" href="<?= base_url();?>assets/css/custom.css?<?= time();?>">
+	<link rel="stylesheet" href="<?= base_url();?>assets-frontend/vendor/bootstrap-icons/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="<?= base_url();?>assets-frontend/vendor/hs-mega-menu/dist/hs-mega-menu.min.css">
+	<link rel="stylesheet" href="<?= base_url();?>assets-frontend/vendor/aos/dist/aos.css">
+	<link rel="stylesheet" href="<?= base_url();?>assets-frontend/vendor/swiper/swiper-bundle.min.css">
+	
 	<!-- CSS Front Template -->
-
-	<link rel="preload" href="<?= base_url();?>assets/css/theme.min.css" data-hs-appearance="default" as="style" />
-	<link rel="preload" href="<?= base_url();?>assets/css/theme-dark.min.css" data-hs-appearance="dark" as="style" />
-
-	<style data-hs-appearance-onload-styles>
-		* {
-			transition: unset !important;
-		}
-
-		body {
-			opacity: 0;
-		}
-
-	</style>
-	<script src="<?= base_url();?>assets/js/main.js"></script>
-
-	<!-- javascript -->
-	<script type="text/javascript" src="<?= base_url();?>assets/js/jquery-3.6.0.min.js"></script>
-	<!-- data tables -->
-	<script type="text/javascript" src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="//cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-	<!-- sweetalert2 -->
-	<script type="text/javascript" src="<?= base_url(); ?>assets/plugin/sweetalert2/sweetalert2.min.js"></script>
-	<!-- introjs -->
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/intro.js@5.0.0/minified/intro.min.js"></script>
+	<link rel="stylesheet" href="<?= base_url();?>assets-frontend/css/theme.min.css">
+	<link rel="stylesheet" href="<?= base_url();?>assets/css/custom.css?<?= time();?>">
 </head>
 
 <body>
-	<style type="text/css">
-		@media (min-width: 1400px) {
-			.container-lg {
-				max-width: 1140px;
-			}
-		}
-
-	</style>
-	<script src="<?= base_url();?>assets/js/hs.theme-appearance.js"></script>

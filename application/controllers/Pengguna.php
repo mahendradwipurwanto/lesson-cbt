@@ -9,7 +9,7 @@ class Pengguna extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(['M_pengguna', 'M_auth']);
+        $this->load->model(['M_pengguna', 'M_auth', 'M_master', 'M_home']);
 
         // cek apakah user sudah login
         if ($this->session->userdata('logged_in') == false || !$this->session->userdata('logged_in')) {
@@ -43,12 +43,57 @@ class Pengguna extends CI_Controller
 
     public function materi_saya()
     {
+		$limit = 20;
+		$offset = 0;
+		
 		$data['page_title'] = 'Materi saya';
 		$data['sub_page_title'] = 'Daftar riwayat materi yang pernah anda ambil pada akun anda';
 
 		$data['user'] = $this->M_pengguna->getUserProfile($this->session->userdata('user_id'))['data'];
+		$data['materi'] = $this->M_pengguna->getMateriSaya($this->session->userdata('user_id'), $limit, $offset);
 		
-        $this->templatepengguna->view('pengguna/materi', $data);
+        $this->templatepengguna->view('pengguna/materi/materi', $data);
+    }
+
+    public function detail_materi($id = null)
+    {
+		$data['materi'] = $this->M_master->getMateriById($id);
+		$data['cek_materi'] = $this->M_home->cekAmbilMateri($id);
+		
+		$data['page_title'] = 'Materi - '.($data['materi']->judul ?? '');
+		$data['sub_page_title'] = 'Daftar riwayat materi yang pernah anda ambil pada akun anda';
+		
+        $this->templatepengguna->view('pengguna/materi/detail', $data);
+    }
+
+	public function kerjakan_soal($id = null, $soal_id = null){
+		$data['materi'] = $this->M_master->getMateriById($id);
+		$data['page_title'] = 'Kerjakan Soal - '.($data['materi']->judul ?? '');
+		$data['sub_page_title'] = 'Buat soal untuk materi anda';
+
+		$data['kategori'] = $this->M_master->getAllKategori();
+		$data['list_soal'] = $this->M_master->getListSoalByMateri($id);
+		$data['soal'] = $this->M_pengguna->getDetailSoalById($id, $soal_id);
+
+		$data['peserta'] = $this->M_pengguna->getPesertaMateri($this->session->userdata('user_id'), $id);
+		
+		$data['soal_id'] = $soal_id;
+		$this->templatepengguna->view('pengguna/materi/soal', $data);
+	}
+
+    public function simpanJawbanSoal()
+    {
+        if ($this->M_pengguna->simpanJawbanSoal() == true) {
+            $this->session->set_flashdata('notif_success', 'Berhasil menyimpan jawaban');
+			if($this->input->post('is_selesai')){
+				redirect(site_url('pengguna/materi/'.$this->input->post('materi_id')));
+			}else{
+				redirect(site_url('pengguna/materi/kerjakan-soal/'.$this->input->post('materi_id').'/'.$this->input->post('soal_id')));
+			}
+        } else {
+            $this->session->set_flashdata('notif_warning', 'Terjadi kesalahan saat mencoba menyimpan soal');
+            redirect($this->agent->referrer());
+        }
     }
 
     public function pembayaran()

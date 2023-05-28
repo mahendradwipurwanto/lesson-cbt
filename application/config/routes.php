@@ -10,8 +10,18 @@ $route['forgot-password'] = 'auth/forgotPassword';
 $route['reset-password/(:any)'] = 'auth/ubah_password/$1';
 $route['logout'] = 'auth/logout';
 
+// HOME
+$route['materi'] = 'home/materi';
+$route['materi/(:any)'] = 'home/detail_materi/$1';
+$route['tentang-kami'] = 'home/tentang_kami';
+
 // ADMIN
 $route['admin/dashboard'] = 'admin';
+
+// PENGGUNA
+$route['pengguna/materi/(:any)'] = 'pengguna/detail_materi/$1';
+$route['pengguna/materi/kerjakan-soal/(:any)'] = 'pengguna/kerjakan_soal/$1';
+$route['pengguna/materi/kerjakan-soal/(:any)/(:num)'] = 'pengguna/kerjakan_soal/$1/$2';
 
 // MATERI
 $route['master/riwayat-materi'] = 'master/riwayatMateri';

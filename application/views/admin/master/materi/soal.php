@@ -13,7 +13,7 @@
 				<div class="card-header card-header-content-between">
 					<h4 class="card-header-title">Soal</h4>
 
-					<button class="btn btn-ghost-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">
+					<button type="button" class="btn btn-ghost-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete">
 						<i class="bi-clipboard-minus me-2"></i> Hapus
 					</button>
 				</div>

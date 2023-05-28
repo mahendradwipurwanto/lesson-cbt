@@ -172,16 +172,23 @@ class M_master extends CI_Model
     }
 
 	public function getMateriById($id = null){
-		$this->db->select('m_materi.*')
+		$this->db->select('m_materi.*, m_categories.categories')
 		->from('m_materi')
+		->join('m_categories', 'm_materi.m_kategori_id = m_categories.id', 'left')
 		->where('m_materi.id', $id)
 		;
 
 		$data = $this->db->get()->row();
 
 		if(!is_null($data)){
-			$soal = $this->countSoalByMateri();
+			$soal = $this->countSoalByMateri($id);
 			$data->is_soal = $soal > 0 ? true : false;
+			if($data->harga > 0 || is_null($data->harga)){
+				$harga = number_format($data->harga,0,",",".");
+				$data->harga_txt = "Rp. {$harga}";
+			}else{
+				$data->harga_txt = '<span class="badge bg-success">gratis</span>';
+			}
 		}
 
 		return $data;
@@ -261,14 +268,13 @@ class M_master extends CI_Model
         return ($this->db->affected_rows() != 1) ? false : true;
     }
 
-    public function saveMateri()
+    public function saveMateri($file = null)
     {
         $id = htmlspecialchars($this->input->post('id'), true);
         $judul = htmlspecialchars($this->input->post('judul'), true);
         $m_kategori_id = htmlspecialchars($this->input->post('m_kategori_id'), true);
         $harga = htmlspecialchars($this->input->post('harga'), true);
-        $deskripsi = htmlspecialchars($this->input->post('deskripsi'), true);
-        $poster = htmlspecialchars($this->input->post('poster'), true);
+        $deskripsi = $this->input->post('deskripsi');
         $pratinjau = htmlspecialchars($this->input->post('pratinjau'), true);
         $tag = htmlspecialchars($this->input->post('tag'), true);
 
@@ -278,7 +284,7 @@ class M_master extends CI_Model
             'harga' => $harga,
             'is_bayar' => $harga > 0 ? true : false,
             'deskripsi' => $deskripsi,
-            'poster' => $poster,
+            'poster' => $file,
             'pratinjau' => $pratinjau,
             'tag' => $tag,
             'status' => 1,
@@ -325,7 +331,7 @@ class M_master extends CI_Model
 	public function getListSoalByMateri($materi_id = null){
 		$this->db->select('*')
 		->from('m_materi_soal')
-		->where('m_materi_soal.m_materi_id', $materi_id);
+		->where(['m_materi_soal.m_materi_id' => $materi_id, 'm_materi_soal.is_deleted' => 0]);
 
 		$this->db->order_by('m_materi_soal.order', 'ASC');
 
@@ -337,7 +343,7 @@ class M_master extends CI_Model
 	public function getDetailSoalById($materi_id = null, $id = null){
 		$this->db->select('*')
 		->from('m_materi_soal')
-		->where(['m_materi_soal.m_materi_id' => $materi_id, 'id' => $id]);
+		->where(['m_materi_soal.m_materi_id' => $materi_id, 'id' => $id, 'm_materi_soal.is_deleted' => 0]);
 
 		$data = $this->db->get()->row();
 

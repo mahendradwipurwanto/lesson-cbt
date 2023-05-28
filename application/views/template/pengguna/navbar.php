@@ -4,7 +4,7 @@
 		<div class="container">
 			<div class="navbar-nav-wrap">
 				<!-- Logo -->
-				<a class="navbar-brand" href="../index.html" aria-label="Front">
+				<a class="navbar-brand" href="<?= base_url();?>" aria-label="Front">
 					<img class="navbar-brand-logo" src="<?= base_url();?><?= $web_logo;?>" alt="Logo"
 						data-hs-theme-appearance="default" />
 					<img class="navbar-brand-logo" src="<?= base_url();?><?= $web_logo_white;?>" alt="Logo"

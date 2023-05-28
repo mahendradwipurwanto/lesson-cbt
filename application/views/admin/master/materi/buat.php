@@ -1,4 +1,4 @@
-<form class="save-materi">
+<form  action="<?= site_url('master/saveMateri');?>" method="POST" enctype="multipart/form-data" class="js-validate needs-validation save-materi" novalidate>
 	<input type="hidden" name="id" value="<?= $materi->id;?>">
 	<div class="row">
 		<div class="col-lg-8 mb-3 mb-lg-0">
@@ -143,10 +143,10 @@
 				<!-- Body -->
 				<div class="card-body">
 					<!-- Form -->
-					<div class="mb-4 d-none">
+					<div class="mb-4">
 						<label for="posterMateri" class="form-label">Poster <small
 								class="text-secondary">(optional)</small></label>
-						<input class="form-control form-control-sm" type="file" name="poster" id="posterMateri">
+						<input class="form-control form-control-sm" type="file" name="image" accept="image/*" id="posterMateri">
 					</div>
 					<!-- End Form -->
 					<!-- Form -->
@@ -357,8 +357,8 @@
 		xhr.send(formData); // Send the form data
 	}
 
-	const formMateri = document.querySelector('.save-materi'); // Get the form element by class
-	formMateri.addEventListener('submit', submitFormMateri); // Attach the event listener
+	// const formMateri = document.querySelector('.save-materi'); // Get the form element by class
+	// formMateri.addEventListener('submit', submitFormMateri); // Attach the event listener
 	
 	function showIndexPanduan() {
 		jQuery.ajax({

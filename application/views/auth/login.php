@@ -20,7 +20,7 @@
 				<div class="mb-4">
 					<label class="form-label" for="signinSrEmail">Your email</label>
 					<input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail"
-						tabindex="1" placeholder="email@address.com" aria-label="email@address.com" value="admin@soalkupedia.com" required>
+						tabindex="1" placeholder="email@address.com" aria-label="email@address.com" required>
 					<span class="invalid-feedback">Please enter a valid email address.</span>
 				</div>
 				<!-- End Form -->
@@ -37,7 +37,7 @@
 
 					<div class="input-group input-group-merge" data-hs-validation-validate-class>
 						<input type="password" class="js-toggle-password form-control form-control-lg" name="password"
-							id="signupSrPassword" placeholder="8+ characters required" value="12341234"
+							id="signupSrPassword" placeholder="8+ characters required"
 							aria-label="8+ characters required" required minlength="8" data-hs-toggle-password-options='{
 					"target": "#changePassTarget",
 					"defaultClass": "bi-eye-slash",
