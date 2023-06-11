@@ -48,9 +48,11 @@ class M_pengguna extends CI_Model
 	}
 
 	public function getMateriUser(string $user_id, array $filter = null){
-		$this->db->select('m_materi.*, tb_peserta.status as status_peserta, tb_peserta.created_at as take_at')
+        $this->db->select('tb_peserta.status as status_peserta, tb_peserta.created_at as tanggal_pengambilan, m_materi.*, m_materi.type as materi_type, m_categories.categories, m_materi_level.level')
 		->from('tb_peserta')
-		->join('m_materi', 'tb_peserta.m_materi_id = m_materi.id', 'inner')
+		->join('m_materi', 'tb_peserta.m_materi_id = m_materi.id', 'left')
+		->join('m_categories', 'm_materi.m_kategori_id = m_categories.id', 'left')
+		->join('m_materi_level', 'm_materi.m_level_id = m_materi_level.id', 'left')
 		->where('tb_peserta.user_id', $user_id);
 
 		if(!is_null($filter)){
@@ -59,11 +61,59 @@ class M_pengguna extends CI_Model
 			}
 		}
 
-		$data = $this->db->get();
+		$data = $this->db->get()->result();
+
+		$arr = [];
+		if(!empty($data)){
+			foreach ($data as $key => $val) {
+				$arr[$key] = $val;
+
+				$detail = $this->getDetailSoal($val->id, $val->materi_type);
+
+				$arr[$key]->total_peserta = $detail['total_peserta'];
+				$arr[$key]->total_module = $detail['total_module'];
+				$arr[$key]->rating = $detail['rating'];
+
+				if($val->status_peserta == 0){
+					$status_txt = "Menunggu";
+				}else if($val->status_peserta == 1){
+					$status_txt = "Dalam pengerjaan";
+				}else if($val->status_peserta == 1){
+					$status_txt = "Sudah dikerjakan";
+				}else{
+					$status_txt = "Menunggu";
+				}
+
+				$arr[$key]->status_txt = $status_txt;
+
+				$tanggal_txt = date("d F Y", ($val->tanggal_pengambilan));
+
+				$arr[$key]->tanggal_txt = $tanggal_txt;
+			}
+		}
 
 		return [
-			'list' => $data->result(),
-			'totalItem' => $data->num_rows()
+			'list' => $arr,
+			'totalItem' => count($arr)
+		];
+	}
+
+	function getDetailSoal($id = null, $type = null){
+		$total_peserta = $this->db->get_where('tb_peserta', ['m_materi_id' => $id, 'is_deleted' => 0])->num_rows();
+
+		if($type == 0){
+			$table_module = 'm_materi_soal';
+		}else{
+			$table_module = 'm_materi_konten';
+		}
+		$total_module = $this->db->get_where($table_module, ['m_materi_id' => $id, 'is_deleted' => 0])->num_rows();
+
+		$rating = $this->db->select_avg('rate')->get_where('tb_rating', ['m_materi_id' => $id, 'is_deleted' => 0])->row()->rate;
+
+		return [
+			'total_peserta' => $total_peserta,
+			'total_module' => $total_module,
+			'rating' => !is_null($rating) ? $rating : 0
 		];
 	}
 

@@ -8,53 +8,60 @@
 				</div>
 				<!-- End Title & Description -->
 
-				<!-- Swiper Slider -->
-				<!-- <div class="swiper zi-2">
-					<div class="swiper-wrapper">
-						<?php if(!empty($materi)):?>
-						<?php foreach ($materi as $key => $val):?>
-						<div class="swiper-slide m-2" style="max-width: 200px;">
-							<div class="card card-sm card-transition h-100 shadow-sm">
-								<img class="card-img-top" src="<?= base_url();?>assets-frontend/img/400x200/img1.jpg"
-									alt="Image Description">
-
-								<div class="card-body">
-									<h4 class="card-title"><?= $val->judul;?></h4>
-									<p class="card-text small"><?= substr($val->deskripsi, 0, 20);?></p>
-
-									<div class="d-grid">
-										<a class="btn btn-primary btn-sm" href="<?= site_url('materi/'.$val->id);?>">Ambil materi</a>
+				<div class="row mb-5 mb-md-0 d-none d-sm-none d-md-flex">
+					<?php if(!empty($materi_overview)):?>
+					<?php foreach ($materi_overview as $key => $val):?>
+					<div class="col-sm-6 col-lg-3 mb-4 mb-lg-0">
+						<div class="card-course shadow-sm cursor"
+							onclick="location.href = '<?= site_url('materi/'.$val->id);?>';">
+							<div class="card-content">
+								<div class="image-box">
+									<img src="<?= base_url();?><?= $val->poster;?>" alt=""
+										onerror="this.onerror=null;this.src='<?= base_url();?><?= 'assets-frontend/img/placeholder-soal.jpg'?>';">
+								</div>
+								<div class="card-course-content">
+									<span class="tag"><?= $val->categories;?></span>
+									<h2 class="card-course-title"><?= $val->judul;?></h2>
+									<div class="rating">
+										<i class="bi bi-star-fill text-warning"></i>
+										<i class="bi bi-star-fill text-warning"></i>
+										<i class="bi bi-star"></i>
+										<i class="bi bi-star"></i>
+										<i class="bi bi-star"></i>
+									</div>
+									<div class="price-box">
+										<p><?= $val->harga;?></p>
+									</div>
+									<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
+										class="course-card__icon text-gray-400" width="16" height="16">
+										<rect width="2.667" height="4.667" x="2.667" y="8" rx="1" class="text-blue-400"
+											fill="currentColor">
+										</rect>
+										<rect width="2.667" height="6.667" x="6.667" y="6" rx="1" class="text-gray-200"
+											fill="currentColor">
+										</rect>
+										<rect width="2.667" height="9.333" x="10.667" y="3.333" rx="1" class="text-gray-200"
+											fill="currentColor"></rect>
+									</svg>
+									<span>Level - <?= $val->level;?></span>
+								</div>
+							</div>
+							<div class="card-description">
+								<small
+									class="sub-title"><?= $val->deskripsi == "" ? "-" : substr($val->deskripsi, 0, 50);?></small>
+								<div class="d-flex justify-content-between">
+									<div class="course-card__info-item">
+										<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
+											class="course-card__icon text-gray-500" width="16" height="16">
+											<path fill-rule="evenodd"
+												d="M5 2.667a2.333 2.333 0 100 4.666 2.333 2.333 0 000-4.666zM4 5a1 1 0 112 0 1 1 0 01-2 0zM11 2.667a2.333 2.333 0 100 4.666 2.333 2.333 0 000-4.666zM10 5a1 1 0 112 0 1 1 0 01-2 0zM8 9.558a3.667 3.667 0 00-6.667 2.109V14c0 .368.299.667.667.667h12a.667.667 0 00.667-.667v-2.333A3.667 3.667 0 008 9.558zm-.667 3.775v-1.668a2.333 2.333 0 00-4.666.002v1.666h4.666zm1.334-1.668v1.668h4.666v-1.666a2.333 2.333 0 00-4.666-.002z"
+												clip-rule="evenodd"></path>
+										</svg>
+										<span class="mr-3 ms-2"><?= $val->total_peserta;?> Peserta Terdaftar</span>
 									</div>
 								</div>
 							</div>
 						</div>
-						<?php endforeach;?>
-						<?php endif;?>
-					</div>
-				</div> -->
-				<!-- ENd Swiper Slider -->
-
-				<div class="row mb-5 mb-md-0">
-					<?php if(!empty($materi)):?>
-					<?php foreach ($materi as $key => $val):?>
-					<div class="col-sm-6 col-lg-3 mb-4 mb-lg-0">
-						<!-- Card -->
-						<div class="card card-sm h-100 cursor" onclick="location.href = '<?= site_url('materi/'.$val->id);?>';">
-							<div class="p-2 center-cropped">
-								<img class="card-img" src="<?= base_url();?><?= $val->poster;?>"
-									onerror="this.onerror=null;this.src='<?= base_url();?><?= 'assets-frontend/img/placeholder.jpg'?>';"
-									alt="Image Description">
-							</div>
-
-							<div class="card-body">
-								<h4 class="card-title"><?= $val->judul;?></h4>
-								<p class="card-text"><?= $val->deskripsi == "" ? "-" : substr($val->deskripsi, 0, 50);?></p>
-							</div>
-
-							<a class="card-footer card-link border-top" href="<?= site_url('materi/'.$val->id);?>">Lebih
-								lanjut <i class="bi-chevron-right small ms-1"></i></a>
-						</div>
-						<!-- End Card -->
 					</div>
 					<?php endforeach;?>
 					<?php endif;?>
@@ -87,6 +94,105 @@
 			<!-- End Shape -->
 		</div>
 		<!-- End Hero -->
+		<!-- Clients -->
+		<div class="border-bottom">
+			<div class="container pb-3 pb-lg-5">
+				<div class="w-lg-75 mx-lg-auto">
+					<div class="row">
+					</div>
+					<!-- End Row -->
+				</div>
+			</div>
+		</div>
+		<!-- End Clients -->
+		<!-- Card Grid -->
+		<div class="container content-space-2">
+			<div class="row justify-content-lg-between align-items-center" style="background: #f4f4f5; padding: 10px">
+				<div class="col-sm-12 col-lg-5 mb-9 mb-lg-0">
+					<img class="avatar avatar-xxl avatar-4x3 mb-4 d-none d-sm-none d-md-block" src="<?= base_url();?>assets-frontend/svg/illustrations/app-wreath.svg" alt="SVG">
+
+					<!-- Heading -->
+					<div class="mb-5">
+						<h2>Bank soal untuk kamu</h2>
+						<p>Dengan layanan terpercaya dan berbagai pilihan soal berkualitas, siap membantu meraih prestasi
+							terbaikmu. Tingkatkan
+							kemampuanmu dalam menghadapi ujian dan tes dengan akses mudah ke ribuan soal latihan.</p>
+					</div>
+					<!-- End Heading -->
+
+					<a class="btn btn-primary btn-transition" href="<?= site_url('materi');?>">Lihat semua soal</a>
+				</div>
+				<!-- End Col -->
+
+				<div class="col-sm-12 col-lg-6">
+					<div class="row mb-5 mb-md-0">
+						<div class="owl-carousel">
+							<?php if(!empty($materi_soal)):?>
+							<?php foreach ($materi_soal as $key => $val):?>
+							<div class="col-sm-12 col-lg-12 mb-4 mb-lg-0">
+								<div class="card-course shadow-sm cursor"
+									onclick="location.href = '<?= site_url('materi/'.$val->id);?>';">
+									<div class="card-content">
+										<div class="image-box">
+											<img src="<?= base_url();?><?= $val->poster;?>" alt=""
+												onerror="this.onerror=null;this.src='<?= base_url();?><?= 'assets-frontend/img/placeholder-soal.jpg'?>';">
+										</div>
+										<div class="card-course-content">
+											<span class="tag"><?= $val->categories;?></span>
+											<h2 class="card-course-title"><?= $val->judul;?></h2>
+											<div class="rating">
+												<i class="bi bi-star-fill text-warning"></i>
+												<i class="bi bi-star-fill text-warning"></i>
+												<i class="bi bi-star"></i>
+												<i class="bi bi-star"></i>
+												<i class="bi bi-star"></i>
+											</div>
+											<div class="price-box">
+												<p><?= $val->harga;?></p>
+											</div>
+											<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
+												class="course-card__icon text-gray-400" width="16" height="16">
+												<rect width="2.667" height="4.667" x="2.667" y="8" rx="1"
+													class="text-blue-400" fill="currentColor">
+												</rect>
+												<rect width="2.667" height="6.667" x="6.667" y="6" rx="1"
+													class="text-gray-200" fill="currentColor">
+												</rect>
+												<rect width="2.667" height="9.333" x="10.667" y="3.333" rx="1"
+													class="text-gray-200" fill="currentColor"></rect>
+											</svg>
+											<span>Level - <?= $val->level;?></span>
+										</div>
+									</div>
+									<div class="card-description">
+										<small
+											class="sub-title"><?= $val->deskripsi == "" ? "-" : substr($val->deskripsi, 0, 50);?></small>
+										<div class="d-flex justify-content-between">
+											<div class="course-card__info-item">
+												<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+													viewBox="0 0 16 16" class="course-card__icon text-gray-500" width="16"
+													height="16">
+													<path fill-rule="evenodd"
+														d="M5 2.667a2.333 2.333 0 100 4.666 2.333 2.333 0 000-4.666zM4 5a1 1 0 112 0 1 1 0 01-2 0zM11 2.667a2.333 2.333 0 100 4.666 2.333 2.333 0 000-4.666zM10 5a1 1 0 112 0 1 1 0 01-2 0zM8 9.558a3.667 3.667 0 00-6.667 2.109V14c0 .368.299.667.667.667h12a.667.667 0 00.667-.667v-2.333A3.667 3.667 0 008 9.558zm-.667 3.775v-1.668a2.333 2.333 0 00-4.666.002v1.666h4.666zm1.334-1.668v1.668h4.666v-1.666a2.333 2.333 0 00-4.666-.002z"
+														clip-rule="evenodd"></path>
+												</svg>
+												<span class="mr-3 ms-2"><?= $val->total_peserta;?> Peserta Terdaftar</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<?php endforeach;?>
+							<?php endif;?>
+						</div>
+					</div>
+					<!-- End Row -->
+				</div>
+				<!-- End Col -->
+			</div>
+			<!-- End Row -->
+		</div>
+		<!-- End Card Grid -->
 
 		<!-- Icon Blocks -->
 		<div class="overflow-hidden">

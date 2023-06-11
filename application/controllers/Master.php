@@ -104,7 +104,7 @@ class Master extends CI_Controller
 		$this->pagination->initialize($config);
 		
 		$data['start'] = $this->uri->segment(3);
-		$data['materi'] = $this->M_master->getAllMateri($config['per_page'], $data['start'], $data['search'], $data['status']);
+		$data['materi'] = $this->M_master->getAllMateri([], $config['per_page'], $data['start'], $data['search'], $data['status']);
 
         $this->templateback->view('admin/master/materi/list', $data);
     }
@@ -174,7 +174,7 @@ class Master extends CI_Controller
 		$this->pagination->initialize($config);
 		
 		$data['start'] = $this->uri->segment(3);
-		$data['materi'] = $this->M_master->getAllMateriRiwayat($config['per_page'], $data['start'], $data['search'], $data['status']);
+		$data['materi'] = $this->M_master->getAllMateriRiwayat([], $config['per_page'], $data['start'], $data['search'], $data['status']);
 
         $this->templateback->view('admin/master/materi/riwayat', $data);
     }

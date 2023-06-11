@@ -16,7 +16,7 @@
 	<div class="row justify-content-lg-center">
 		<div class="col-sm-4 col-lg-3 mb-7 mb-sm-0">
 			<div class="text-center">
-				<h2 class="display-4">79854</h2>
+				<h2 class="display-4"><?= number_format($count['pengguna']);?></h2>
 				<p class="small">Pengguna</p>
 			</div>
 		</div>
@@ -24,16 +24,16 @@
 
 		<div class="col-sm-4 col-lg-3 mb-7 mb-sm-0">
 			<div class="text-center">
-				<h2 class="display-4">3,5k+</h2>
-				<p class="small">Materi</p>
+				<h2 class="display-4"><?= number_format($count['soal']);?></h2>
+				<p class="small">Soal</p>
 			</div>
 		</div>
 		<!-- End Col -->
 
 		<div class="col-sm-4 col-lg-3">
 			<div class="text-center">
-				<h2 class="display-4">85</h2>
-				<p class="small">Partner</p>
+				<h2 class="display-4"><?= number_format($count['materi']);?></h2>
+				<p class="small">Materi</p>
 			</div>
 		</div>
 		<!-- End Col -->
@@ -246,16 +246,5 @@
 		</div>
 		<!-- End Col -->
 	</div>	
-
-	<!-- Card Info -->
-	<div class="text-center">
-		<div class="card card-info-link card-sm">
-			<div class="card-body">
-				Want to work with us? <a class="card-link ms-2" href="./page-hire-us.html">We are hiring <span
-						class="bi-chevron-right small ms-1"></span></a>
-			</div>
-		</div>
-	</div>
-	<!-- End Card Info -->
 </div>
 <!-- End Team -->

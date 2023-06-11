@@ -13,14 +13,17 @@ class Home extends CI_Controller
 
     public function index()
     {
-		$data['materi'] = $this->M_master->getAllMateri();
+		$data['materi_overview'] = $this->M_master->getAllMateri([]);
+		$data['materi'] = $this->M_master->getAllMateri(['type' => 1]);
+		$data['materi_soal'] = $this->M_master->getAllMateri(['type' => 0]);
 
         $this->templatefront->view('home/home', $data);
     }
 
     public function materi()
     {
-		$data['materi'] = $this->M_master->getAllMateri();
+		$data['materi'] = $this->M_master->getAllMateri(['type' => 1]);
+		$data['materi_soal'] = $this->M_master->getAllMateri(['type' => 0]);
         $this->templatefront->view('home/materi', $data);
     }
 
@@ -33,7 +36,8 @@ class Home extends CI_Controller
 
     public function tentang_kami()
     {
-        $this->templatefront->view('home/tentang');
+        $data['count'] = $this->M_home->getCount();
+        $this->templatefront->view('home/tentang', $data);
     }
 
     public function ambilMateri($id)

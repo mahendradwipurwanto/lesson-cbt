@@ -59,13 +59,19 @@ class M_master extends CI_Model
         return ($this->db->affected_rows() != 1) ? false : true;
     }
 
-    public function getAllMateri($limit = 12, $offset = 0, $search = null, $status = null)
+    public function getAllMateri($params = [], $limit = 12, $offset = 0, $search = null, $status = null)
     {
-        $this->db->select('m_materi.*, m_categories.categories')
+        $this->db->select('m_materi.*, m_categories.categories, COUNT(tb_peserta.id) as total_peserta, m_materi_level.level')
 		->from('m_materi')
 		->join('m_categories', 'm_materi.m_kategori_id = m_categories.id', 'left')
-		->where(['m_materi.is_deleted' => 0, 'status <'=> 2]);
-		
+		->join('m_materi_level', 'm_materi.m_level_id = m_materi_level.id', 'left')
+		->join('tb_peserta', 'm_materi.id = tb_peserta.m_materi_id', 'left')
+		->where(['m_materi.is_deleted' => 0, 'm_materi.status <'=> 2]);
+        
+        if(!empty($parmas) && isset($parmas['type'])){
+            $this->db->where('m_materi.type', $parmas['type']);
+        }
+
 		if(!is_null($search) && $search != ''){
 			$this->db->like('m_materi.judul', $search);
 			$this->db->or_like('m_materi.deskripsi', $search);
@@ -77,6 +83,8 @@ class M_master extends CI_Model
 		
 		$this->db->limit($limit, $offset);
 
+		$this->db->group_by('m_materi.id');
+		$this->db->order_by('total_peserta DESC');
 		$this->db->order_by('m_materi.created_at DESC');
 
 		$data = $this->db->get()->result();
@@ -85,6 +93,8 @@ class M_master extends CI_Model
 		if(!empty($data)){
 			foreach($data as $key => $val){
 				$arr[$key] = $val;
+                $arr[$key]->categories = !is_null($val->m_kategori_id) && $val->m_kategori_id > 0 ? $val->categories : (!empty($parmas) && isset($parmas['type']) ? ($params['type'] == 0 ? 'Soal' : 'Materi') : 'General');
+                $arr[$key]->harga = $val->is_bayar == 1 ? number_format($val->harga) : '<span class="badge bg-success">gratis</span>';
 				$arr[$key]->konten = $this->countKontenByMateri($val->id);
 				$arr[$key]->soal = $this->countSoalByMateri($val->id);
 				$arr[$key]->peserta = $this->countPesertaByMateri($val->id);
@@ -115,12 +125,18 @@ class M_master extends CI_Model
 		return $data;
     }
 
-    public function getAllMateriRiwayat($limit = 12, $offset = 0, $search = null, $status = null)
+    public function getAllMateriRiwayat($params = [], $limit = 12, $offset = 0, $search = null, $status = null)
     {
-        $this->db->select('m_materi.*, m_categories.categories')
+        $this->db->select('m_materi.*, m_categories.categories, COUNT(tb_peserta.id) as total_peserta, m_materi_level.level')
 		->from('m_materi')
 		->join('m_categories', 'm_materi.m_kategori_id = m_categories.id', 'left')
-		->where(['m_materi.is_deleted' => 0, 'status'=> 2]);
+		->join('m_materi_level', 'm_materi.m_level_id = m_materi_level.id', 'left')
+		->join('tb_peserta', 'm_materi.id = tb_peserta.m_materi_id', 'left')
+		->where(['m_materi.is_deleted' => 0, 'm_materi.status <'=> 2]);
+        
+        if(!empty($parmas) && isset($parmas['type'])){
+            $this->db->where('m_materi.type', $parmas['type']);
+        }
 		
 		if(!is_null($search) && $search != ''){
 			$this->db->like('m_materi.judul', $search);
@@ -133,6 +149,8 @@ class M_master extends CI_Model
 		
 		$this->db->limit($limit, $offset);
 
+		$this->db->group_by('m_materi.id');
+		$this->db->order_by('total_peserta DESC');
 		$this->db->order_by('m_materi.created_at DESC');
 
 		$data = $this->db->get()->result();
@@ -141,6 +159,8 @@ class M_master extends CI_Model
 		if(!empty($data)){
 			foreach($data as $key => $val){
 				$arr[$key] = $val;
+                $arr[$key]->categories = !is_null($val->m_kategori_id) && $val->m_kategori_id > 0 ? $val->categories : (!empty($parmas) && isset($parmas['type']) ? ($params['type'] == 0 ? 'Soal' : 'Materi') : 'Materi');
+                $arr[$key]->harga = $val->is_bayar == 1 ? number_format($val->harga) : '<span class="badge bg-success">gratis</span>';
 				$arr[$key]->konten = $this->countKontenByMateri($val->id);
 				$arr[$key]->soal = $this->countSoalByMateri($val->id);
 				$arr[$key]->peserta = $this->countPesertaByMateri($val->id);

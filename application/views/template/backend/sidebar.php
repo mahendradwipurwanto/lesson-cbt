@@ -117,6 +117,14 @@
 									</div>
 
 									<div class="nav-item">
+										<a class="nav-link <?= ($this->uri->segment(2) == "soal" ? "active" : "") ?>"
+											href="<?= site_url('master/soal');?>" data-placement="left" id="tour-soal">
+											<i class="bi-clipboard nav-icon"></i>
+											<span class="nav-link-title">Soal</span>
+										</a>
+									</div>
+
+									<div class="nav-item">
 										<a class="nav-link <?= ($this->uri->segment(2) == "materi" ? "active" : "") ?>"
 											href="<?= site_url('master/materi');?>" data-placement="left" id="tour-materi">
 											<i class="bi-journal-bookmark nav-icon"></i>

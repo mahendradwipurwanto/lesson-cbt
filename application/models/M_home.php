@@ -30,4 +30,16 @@ class M_home extends CI_Model
 			return false;
 		}
 	}
+
+    function getCount(){
+        $pengguna = $this->db->get_where('tb_auth', ['role' => 2])->num_rows();
+        $soal = $this->db->get_where('m_materi', ['type' => 0, 'is_deleted' => 0])->num_rows();
+        $materi = $this->db->get_where('m_materi', ['type' => 1, 'is_deleted' => 0])->num_rows();
+
+        return [
+            'pengguna' => $pengguna,
+            'soal' => $soal,
+            'materi' => $materi
+        ];
+    }
 }

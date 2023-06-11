@@ -117,7 +117,7 @@
 				<p class="text-white-50 small">&copy; Soalkupedia. 2023 Ngodingin Indonesia. All rights reserved.</p>
 				<p class="text-white-50 small">When you visit or interact with our sites, services or tools, we or our
 					authorised service providers may use cookies for storing information to help provide you with a
-					better, faster and safer experience and for marketing purposes.</p>
+					better, biter and safer experience and for marketing purposes.</p>
 			</div>
 			<!-- End Copyright -->
 		</div>
@@ -147,6 +147,7 @@
 	<!-- ========== END SECONDARY CONTENTS ========== -->
 
 	<!-- JS Global Compulsory  -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="<?= base_url();?>assets-frontend/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 	<!-- JS Implementing Plugins -->
@@ -158,12 +159,32 @@
 	<script src="<?= base_url();?>assets-frontend/vendor/swiper/swiper-bundle.min.js"></script>
 	<script src="<?= base_url();?>assets-frontend/vendor/hs-nav-scroller/dist/hs-nav-scroller.min.js"></script>
 	<script src="<?= base_url();?>assets-frontend/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
 
 	<!-- JS Front -->
 	<script src="<?= base_url();?>assets-frontend/js/theme.min.js"></script>
 
 	<!-- JS Plugins Init. -->
 	<script>
+		$(document).ready(function () {
+			$(".owl-carousel").owlCarousel({
+				items: 2, // Number of cards to display at a time
+				loop: false, // Enable carousel loop
+				margin: 10, // Space between cards
+				nav: true,
+				dots: false,
+				navText: ['<i class="bi bi-chevron-left"></i>', '<i class="bi bi-chevron-right"></i>'],
+				responsive: {
+					0: {
+						items: 1 // Number of cards to display on smaller screens
+					},
+					768: {
+						items: 2 // Number of cards to display on larger screens
+					}
+				}
+			});
+		});
+		
 		(function () {
 			// INITIALIZATION OF HEADER
 			// =======================================================

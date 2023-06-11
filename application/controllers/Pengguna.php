@@ -33,7 +33,7 @@ class Pengguna extends CI_Controller
 		$data['sub_page_title'] = 'Selamat datang';
 
 		$filter = [
-			'limit' => 5
+			'limit' => 3
 		];
 
 		$data['user'] = $this->M_pengguna->getUserProfile($this->session->userdata('user_id'), $filter)['data'];

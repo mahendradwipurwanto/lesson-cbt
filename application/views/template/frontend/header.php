@@ -29,10 +29,15 @@
 	<link rel="stylesheet" href="<?= base_url();?>assets-frontend/vendor/hs-mega-menu/dist/hs-mega-menu.min.css">
 	<link rel="stylesheet" href="<?= base_url();?>assets-frontend/vendor/aos/dist/aos.css">
 	<link rel="stylesheet" href="<?= base_url();?>assets-frontend/vendor/swiper/swiper-bundle.min.css">
-	
+
+	<!-- template -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
 	<!-- CSS Front Template -->
 	<link rel="stylesheet" href="<?= base_url();?>assets-frontend/css/theme.min.css">
-	<link rel="stylesheet" href="<?= base_url();?>assets/css/custom.css?<?= time();?>">
+	<link rel="stylesheet" href="<?= base_url();?>assets-frontend/css/custom.css?<?= time();?>">
 </head>
 
 <body>

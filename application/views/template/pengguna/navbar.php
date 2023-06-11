@@ -1,6 +1,6 @@
 <!-- ========== HEADER ========== -->
 <header id="header" class="navbar navbar-expand-lg navbar-bordered navbar-spacer-y-0 flex-lg-column">
-	<div class="navbar-dark w-100 bg-dark py-2">
+	<div class="navbar-light w-100 bg-white shadow-sm py-2">
 		<div class="container">
 			<div class="navbar-nav-wrap">
 				<!-- Logo -->
@@ -30,11 +30,16 @@
 						<li class="nav-item">
 							<a href="<?= base_url('tentang-kami');?>" class="nav-link">Tentang Kami</a>
 						</li>
+						<!-- Button -->
+						<li class="nav-item">
+							<a class="btn btn-outline-primary btn-sm btn-transition"
+								href="<?= site_url('pengguna');?>">dashboard</a>
+						</li>
 
 						<li class="nav-item">
 							<!-- Style Switcher -->
 							<div class="dropdown ">
-								<button type="button" class="btn btn-ghost-light btn-icon rounded-circle"
+								<button type="button" class="btn btn-light btn-icon rounded-circle"
 									id="selectThemeDropdown" data-bs-toggle="dropdown" aria-expanded="false"
 									data-bs-dropdown-animation>
 
@@ -96,8 +101,6 @@
 									</div>
 
 									<div class="dropdown-divider"></div>
-
-									<a class="dropdown-item" href="<?= site_url('pengguna');?>">Dashboard</a>
 									<a class="dropdown-item"
 										href="<?= site_url('pengguna/pengaturan');?>">Pengaturan</a>
 
@@ -115,3 +118,10 @@
 			</div>
 		</div>
 	</div>
+</header>
+<!-- ========== END HEADER ========== -->
+
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="main">
+	<!-- Content -->
+	<div class="content pt-0">

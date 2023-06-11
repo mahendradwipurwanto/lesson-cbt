@@ -50,27 +50,82 @@
 									Kami</a>
 							</li>
 							<!-- End Landings -->
+							<?php if($this->session->userdata('logged_in')):?>
+							<?php if($this->session->userdata('role') < 2):?>
 
 							<!-- Button -->
 							<li class="nav-item">
-								<?php if($this->session->userdata('logged_in')):?>
-								<?php if($this->session->userdata('role') < 2):?>
 								<a class="btn btn-primary btn-sm btn-transition"
 									href="<?= site_url('admin');?>">dashboard</a>
-								<?php else:?>
-								<a class="btn btn-primary btn-sm btn-transition"
-									href="<?= site_url('pengguna');?>">dashboard</a>
-								<?php endif;?>
+							</li>
+							<!-- Button -->
+							<li class="nav-item">
 								<a class="btn btn-outline-primary btn-sm btn-transition"
 									href="<?= site_url('logout');?>">keluar</a>
-								<?php else:?>
-								<a class="btn btn-primary btn-sm btn-transition"
-									href="<?= site_url('register');?>">Daftar</a>
+							</li>
+							<?php else:?>
+							<!-- Button -->
+							<li class="nav-item">
 								<a class="btn btn-outline-primary btn-sm btn-transition"
-									href="<?= site_url('login');?>">Masuk</a>
-								<?php endif;?>
+									href="<?= site_url('pengguna');?>">dashboard</a>
 							</li>
 							<!-- End Button -->
+							<li class="nav-item ms-3">
+								<!-- Account -->
+								<div class="dropdown">
+									<a class="navbar-dropdown-account-wrapper" href="javascript:;"
+										id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+										data-bs-auto-close="outside" data-bs-dropdown-animation>
+										<div class="avatar avatar-sm avatar-circle">
+											<img class="avatar-img" src="<?= base_url();?>assets/img/avatar-1.png"
+												alt="Image Description" />
+											<span class="avatar-status avatar-sm-status avatar-status-success"></span>
+										</div>
+									</a>
+
+									<div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account"
+										aria-labelledby="accountNavbarDropdown" style="width: 16rem">
+										<div class="dropdown-item-text">
+											<div class="d-flex align-items-center">
+												<div class="avatar avatar-sm avatar-circle">
+													<img class="avatar-img" src="<?= base_url();?>assets/img/avatar-1.png"
+														alt="Image Description" />
+												</div>
+												<div class="flex-grow-1 ms-3">
+													<h5 class="mb-0">
+														<?php $name = explode(" ", $this->session->userdata('name'));echo $name[0]; ?>
+													</h5>
+													<p class="card-text text-body">
+														<?= mb_substr($this->session->userdata('email'), 0, 4) ?>***@<?php $mail = explode("@", $this->session->userdata('email'));echo $mail[1]; ?>
+													</p>
+												</div>
+											</div>
+										</div>
+
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item"
+											href="<?= site_url('pengguna/pengaturan');?>">Pengaturan</a>
+
+										<div class="dropdown-divider"></div>
+
+										<a class="dropdown-item" href="<?= site_url('logout');?>">Logout</a>
+									</div>
+								</div>
+								<!-- End Account -->
+							</li>
+							<?php endif;?>
+							<?php else:?>
+							<!-- Button -->
+							<li class="nav-item">
+								<a class="btn btn-primary btn-sm btn-transition"
+									href="<?= site_url('register');?>">Daftar</a>
+							</li>
+							<!-- Button -->
+							<li class="nav-item">
+								<a class="btn btn-outline-primary btn-sm btn-transition"
+									href="<?= site_url('login');?>">Masuk</a>
+							</li>
+							<?php endif;?>
 						</ul>
 					</div>
 				</div>
