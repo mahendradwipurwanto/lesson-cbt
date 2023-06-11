@@ -6,23 +6,27 @@
 				<div class="col-sm-12 col-md-3 mb-3">
 					<div class="p-2">
 						<img class="card-img shadow-sm" src="<?= base_url();?><?= $materi->poster;?>"
-							onerror="this.onerror=null;this.src='<?= base_url();?><?= 'assets-frontend/img/placeholder.jpg'?>';"
+							onerror="this.onerror=null;this.src='<?= base_url();?><?= 'assets-frontend/img/placeholder-soal.jpg'?>';"
 							alt="Image Description">
 					</div>
 				</div>
 				<div class="col-sm-12 col-md-6">
-					<a class="d-flex gap-1 mb-4" href="#reviewSection">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<span class="ms-1">287 reviews</span>
+					<a class="d-flex gap-1 mb-4" href="#testimoni-siswa">
+						<?php if($materi->rating['rating'] == 0):?>
+						<i class="bi bi-star text-dark"></i>
+						<i class="bi bi-star text-dark"></i>
+						<i class="bi bi-star text-dark"></i>
+						<i class="bi bi-star text-dark"></i>
+						<i class="bi bi-star text-dark"></i>
+						<?php else:?>
+						<?php for($i = 0; $i < $materi->rating['fullStars']; $i++):?>
+						<i class="bi bi-star-fill text-warning"></i>
+						<?php endfor;?>
+						<?php if($materi->rating['halfStar'] >= 0.5):?>
+						<i class="bi bi-star-half text-warning"></i>
+						<?php endif;?>
+						<?php endif;?>
+						<span class="ms-1 text-dark"><?= count($materi->testimoni);?> testimoni</span>
 					</a>
 
 					<div class="mb-5">
@@ -34,9 +38,33 @@
 						<span class="d-block mb-2">Kategori: <span
 								class="btn btn-outline-dark btn-xs"><?= $materi->categories;?></span></span>
 					</div>
+					<div class="mb-5">
+						<div class="course-card__info d-flex align-items-center">
+							<div class="course-card__info-item">
+								<svg width="16" height="16" class="course-card__icon text-gray-500" viewBox="0 0 16 16"
+									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd"
+										d="M1.33334 2.66666C1.33334 1.93028 1.9303 1.33333 2.66668 1.33333H10C10.7364 1.33333 11.3333 1.93028 11.3333 2.66666V3.33333H13.3333C14.0697 3.33333 14.6667 3.93028 14.6667 4.66666V13.3333C14.6667 14.0697 14.0697 14.6667 13.3333 14.6667H2.66668C1.9303 14.6667 1.33334 14.0697 1.33334 13.3333V2.66666ZM10 2.66666V3.33333H2.66668V2.66666H10ZM2.66668 13.3333V4.66666H4.66668V13.3333H2.66668ZM6.00001 13.3333H13.3333V4.66666H6.00001V13.3333Z">
+									</path>
+								</svg>
+								<span class="mr-3 ms-2"><?= $materi->total_module;?> Modul</span>
+							</div>
+
+							<div class="course-card__info-item">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
+									class="course-card__icon text-gray-500" width="16" height="16">
+									<path fill-rule="evenodd"
+										d="M5 2.667a2.333 2.333 0 100 4.666 2.333 2.333 0 000-4.666zM4 5a1 1 0 112 0 1 1 0 01-2 0zM11 2.667a2.333 2.333 0 100 4.666 2.333 2.333 0 000-4.666zM10 5a1 1 0 112 0 1 1 0 01-2 0zM8 9.558a3.667 3.667 0 00-6.667 2.109V14c0 .368.299.667.667.667h12a.667.667 0 00.667-.667v-2.333A3.667 3.667 0 008 9.558zm-.667 3.775v-1.668a2.333 2.333 0 00-4.666.002v1.666h4.666zm1.334-1.668v1.668h4.666v-1.666a2.333 2.333 0 00-4.666-.002z"
+										clip-rule="evenodd"></path>
+								</svg>
+								<span class="mr-3 ms-2"><?= $materi->peserta;?> Peserta Terdaftar</span>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-sm-12 col-md-3">
 					<div class="card border p-3">
+						<?php if($materi->type == 0):?>
 						<?php if($cek_materi):?>
 						<a href="<?= site_url('pengguna/materi/kerjakan-soal/'.$materi->id);?>"
 							class="btn btn-dark w-100">Belajar
@@ -44,6 +72,9 @@
 						<?php else:?>
 						<a href="<?= site_url('home/ambilMateri/'.$materi->id);?>" class="btn btn-dark w-100">Ambil
 							kelas</a>
+						<?php endif;?>
+						<?php else:?>
+						<a href="#module-materi" class="btn btn-dark w-100">Pelajari materi</a>
 						<?php endif;?>
 						<hr>
 						<a href="#testimoni-siswa" class="btn btn-outline-secondary w-100 mb-3">Testimoni Siswa</a>
@@ -157,6 +188,374 @@
 		</div>
 	</div>
 </div>
+
+<?php if($materi->type == 1):?>
+<div id="module-materi" class="course-facilities pt-0">
+	<div class="container">
+		<!-- Accordion -->
+		<div class="border-top pt-7">
+			<div class="row mb-4">
+				<div class="col-8">
+					<h3 class="mb-0">Course content</h3>
+				</div>
+				<!-- End Col -->
+
+				<div class="col-4 text-end">
+					<div class="row">
+						<div class="col-lg-6">
+							<span class="small">186 lectures</span>
+						</div>
+						<!-- End Col -->
+					</div>
+					<!-- End Row -->
+				</div>
+				<!-- End Col -->
+			</div>
+			<!-- End Row -->
+
+			<!-- Accordion -->
+			<div class="accordion accordion-btn-icon-start">
+				<!-- Accordion Item -->
+				<div class="accordion-item">
+					<div class="accordion-header" id="headingBasicsOne">
+						<a class="accordion-button" role="button" data-bs-toggle="collapse"
+							data-bs-target="#accordionCourseOne" aria-expanded="true"
+							aria-controls="accordionCourseOne">
+							<div class="flex-grow-1 ps-3">
+								<div class="row">
+									<div class="col-8">
+										Course overview
+									</div>
+									<!-- End Col -->
+
+									<div class="col-4 text-end">
+										<div class="row">
+											<div class="col-lg-6">
+												<span class="small text-muted fw-normal">5 lectures</span>
+											</div>
+											<!-- End Col -->
+
+											<div class="col-lg-6">
+												<span class="small text-muted fw-normal">15:32</span>
+											</div>
+											<!-- End Col -->
+										</div>
+										<!-- End Row -->
+									</div>
+									<!-- End Col -->
+								</div>
+								<!-- End Row -->
+							</div>
+						</a>
+					</div>
+					<div id="accordionCourseOne" class="accordion-collapse collapse show"
+						aria-labelledby="headingBasicsOne">
+						<div class="accordion-body">
+							<!-- List Group -->
+							<div class="list-group list-group-flush list-group-no-gutters">
+								<!-- Item -->
+								<div class="list-group-item">
+									<div class="row">
+										<div class="col-8">
+											<a class="d-flex" href="#">
+												<div class="flex-shrink-0">
+													<i class="bi-play-circle-fill small"></i>
+												</div>
+												<div class="flex-grow-1 ms-2">
+													<span class="small">Course introduction</span>
+												</div>
+											</a>
+										</div>
+										<!-- End Col -->
+
+										<div class="col-4 text-end">
+											<div class="row">
+												<div class="col-lg-6">
+													<a class="small" href="#">Preview</a>
+												</div>
+												<!-- End Col -->
+
+												<div class="col-lg-6">
+													<span class="text-primary small">06:39</span>
+												</div>
+												<!-- End Col -->
+											</div>
+											<!-- End Row -->
+										</div>
+										<!-- End Col -->
+									</div>
+								</div>
+								<!-- End Item -->
+
+								<!-- Item -->
+								<div class="list-group-item">
+									<div class="row">
+										<div class="col-8">
+											<a class="d-flex" href="#">
+												<div class="flex-shrink-0">
+													<i class="bi-play-circle-fill small"></i>
+												</div>
+												<div class="flex-grow-1 ms-2">
+													<span class="small">Course curriculum overview</span>
+												</div>
+											</a>
+										</div>
+										<!-- End Col -->
+
+										<div class="col-4 text-end">
+											<div class="row">
+												<div class="col-lg-6">
+													<a class="small" href="#">Preview</a>
+												</div>
+												<!-- End Col -->
+
+												<div class="col-lg-6">
+													<span class="text-primary small">04:00</span>
+												</div>
+												<!-- End Col -->
+											</div>
+											<!-- End Row -->
+										</div>
+										<!-- End Col -->
+									</div>
+								</div>
+								<!-- End Item -->
+
+								<!-- Item -->
+								<div class="list-group-item">
+									<div class="row">
+										<div class="col-8">
+											<a class="d-flex" href="#">
+												<div class="flex-shrink-0">
+													<i class="bi-play-circle-fill small"></i>
+												</div>
+												<div class="flex-grow-1 ms-2">
+													<span class="small">Python 2 versus Python 3</span>
+												</div>
+											</a>
+										</div>
+										<!-- End Col -->
+
+										<div class="col-4 text-end">
+											<div class="row">
+												<div class="col-lg-6">
+													<a class="small" href="#">Preview</a>
+												</div>
+												<!-- End Col -->
+
+												<div class="col-lg-6">
+													<span class="text-primary small">06:39</span>
+												</div>
+												<!-- End Col -->
+											</div>
+											<!-- End Row -->
+										</div>
+										<!-- End Col -->
+									</div>
+								</div>
+								<!-- End Item -->
+							</div>
+							<!-- End List Group -->
+						</div>
+					</div>
+				</div>
+				<!-- End Accordion Item -->
+
+				<!-- Accordion Item -->
+				<div class="accordion-item">
+					<div class="accordion-header" id="headingBasicsTwo">
+						<a class="accordion-button collapsed" role="button" data-bs-toggle="collapse"
+							data-bs-target="#accordionCourseTwo" aria-expanded="false"
+							aria-controls="accordionCourseTwo">
+							<div class="ps-3">Python setup</div>
+						</a>
+					</div>
+					<div id="accordionCourseTwo" class="accordion-collapse collapse" aria-labelledby="headingBasicsTwo">
+						<div class="accordion-body">
+							<!-- List Group -->
+							<div class="list-group list-group-flush list-group-no-gutters">
+								<!-- Item -->
+								<div class="list-group-item">
+									<div class="row">
+										<div class="col-8">
+											<a class="d-flex" href="#">
+												<div class="flex-shrink-0">
+													<i class="bi-play-circle-fill small"></i>
+												</div>
+												<div class="flex-grow-1 ms-2">
+													<span class="small">Course line courses</span>
+												</div>
+											</a>
+										</div>
+										<!-- End Col -->
+
+										<div class="col-4 text-end">
+											<div class="row">
+												<div class="col-lg-6">
+													<a class="small" href="#">Preview</a>
+												</div>
+												<!-- End Col -->
+
+												<div class="col-lg-6">
+													<span class="text-primary small">08:15</span>
+												</div>
+												<!-- End Col -->
+											</div>
+											<!-- End Row -->
+										</div>
+										<!-- End Col -->
+									</div>
+								</div>
+								<!-- End Item -->
+
+								<!-- Item -->
+								<div class="list-group-item">
+									<div class="row">
+										<div class="col-8">
+											<a class="d-flex" href="#">
+												<div class="flex-shrink-0">
+													<i class="bi-play-circle-fill small"></i>
+												</div>
+												<div class="flex-grow-1 ms-2">
+													<span class="small">Installing Python (Step by step)</span>
+												</div>
+											</a>
+										</div>
+										<!-- End Col -->
+
+										<div class="col-4 text-end">
+											<div class="row">
+												<div class="col-lg-6">
+													<a class="small" href="#">Preview</a>
+												</div>
+												<!-- End Col -->
+
+												<div class="col-lg-6">
+													<span class="text-primary small">08:18</span>
+												</div>
+												<!-- End Col -->
+											</div>
+											<!-- End Row -->
+										</div>
+										<!-- End Col -->
+									</div>
+								</div>
+								<!-- End Item -->
+
+								<!-- Item -->
+								<div class="list-group-item">
+									<div class="row">
+										<div class="col-8">
+											<a class="d-flex" href="#">
+												<div class="flex-shrink-0">
+													<i class="bi-play-circle-fill small"></i>
+												</div>
+												<div class="flex-grow-1 ms-2">
+													<span class="small">Running Python code</span>
+												</div>
+											</a>
+										</div>
+										<!-- End Col -->
+
+										<div class="col-4 text-end">
+											<div class="row">
+												<div class="col-lg-6">
+													<a class="small" href="#">Preview</a>
+												</div>
+												<!-- End Col -->
+
+												<div class="col-lg-6">
+													<span class="text-primary small">17:50</span>
+												</div>
+												<!-- End Col -->
+											</div>
+											<!-- End Row -->
+										</div>
+										<!-- End Col -->
+									</div>
+								</div>
+								<!-- End Item -->
+
+								<!-- Item -->
+								<div class="list-group-item text-muted">
+									<div class="row">
+										<div class="col-8">
+											<div class="d-flex">
+												<div class="flex-shrink-0">
+													<i class="bi-play-circle-fill small"></i>
+												</div>
+												<div class="flex-grow-1 ms-2">
+													<span class="small">Getting the notebooks and the course
+														material</span>
+												</div>
+											</div>
+										</div>
+										<!-- End Col -->
+
+										<div class="col-4 text-end">
+											<div class="row">
+												<div class="col-lg-6">
+												</div>
+												<!-- End Col -->
+
+												<div class="col-lg-6">
+													<span class="small">02:22</span>
+												</div>
+												<!-- End Col -->
+											</div>
+											<!-- End Row -->
+										</div>
+										<!-- End Col -->
+									</div>
+								</div>
+								<!-- End Item -->
+
+								<!-- Item -->
+								<div class="list-group-item text-muted">
+									<div class="row">
+										<div class="col-8">
+											<div class="d-flex">
+												<div class="flex-shrink-0">
+													<i class="bi-play-circle-fill small"></i>
+												</div>
+												<div class="flex-grow-1 ms-2">
+													<span class="small">Git and Github overview (Optional)</span>
+												</div>
+											</div>
+										</div>
+										<!-- End Col -->
+
+										<div class="col-4 text-end">
+											<div class="row">
+												<div class="col-lg-6">
+												</div>
+												<!-- End Col -->
+
+												<div class="col-lg-6">
+													<span class="small">02:49</span>
+												</div>
+												<!-- End Col -->
+											</div>
+											<!-- End Row -->
+										</div>
+										<!-- End Col -->
+									</div>
+								</div>
+								<!-- End Item -->
+							</div>
+							<!-- End List Group -->
+						</div>
+					</div>
+				</div>
+				<!-- End Accordion Item -->
+			</div>
+			<!-- End Accordion -->
+		</div>
+		<!-- End Accordion -->
+	</div>
+</div>
+<?php endif;?>
+
 <!-- Testimonials -->
 <div id="testimoni-siswa" class="container content-space-1">
 	<!-- Heading -->
@@ -166,28 +565,30 @@
 	<!-- End Heading -->
 
 	<div class="row">
+		<?php if(!empty($materi->testimoni)):?>
+		<?php foreach($materi->testimoni as $key => $val):?>
 		<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
 			<!-- Card -->
 			<div class="card h-100">
 				<div class="card-body">
 					<!-- Rating -->
 					<div class="d-flex gap-1 mb-2">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
+						<?php if($val->rate == 0):?>
+						<i class="bi bi-star"></i>
+						<i class="bi bi-star"></i>
+						<i class="bi bi-star"></i>
+						<i class="bi bi-star"></i>
+						<i class="bi bi-star"></i>
+						<?php else:?>
+						<?php for($i = 0; $i < $val->rate; $i++):?>
+						<i class="bi bi-star-fill text-warning"></i>
+						<?php endfor;?>
+						<?php endif;?>
 					</div>
 					<!-- End Rating -->
 
 					<div class="mb-auto">
-						<p class="card-text">With Front Pay, you can check out across the web and in apps without having
-							to enter any payment information.</p>
+						<p class="card-text"><?= $val->komentar;?></p>
 					</div>
 				</div>
 
@@ -195,12 +596,12 @@
 					<!-- Media -->
 					<div class="d-flex align-items-center">
 						<div class="flex-shrink-0">
-							<img class="avatar avatar-circle"
-								src="<?= base_url();?>assets-frontend/img/160x160/img8.jpg" alt="Image Description">
+							<img class="avatar avatar-circle" src="<?= base_url();?><?= $val->photo;?>"
+								alt="Image Description">
 						</div>
 						<div class="flex-grow-1 ms-3">
-							<h5 class="card-title mb-0">Christina Kray</h5>
-							<p class="card-text small">Business Manager</p>
+							<h5 class="card-title mb-0"><?= $val->name;?></h5>
+							<p class="card-text small"><?= $val->jobs;?></p>
 						</div>
 					</div>
 					<!-- End Media -->
@@ -208,94 +609,10 @@
 			</div>
 			<!-- End Card -->
 		</div>
-		<!-- End Col -->
-
-		<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
-			<!-- Card -->
-			<div class="card h-100">
-				<div class="card-body">
-					<!-- Rating -->
-					<div class="d-flex gap-1 mb-2">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star-half.svg" alt="Review rating"
-							width="16">
-					</div>
-					<!-- End Rating -->
-
-					<div class="mb-auto">
-						<p class="card-text">From boarding passes to transit and movie tickets, there's pretty much
-							nothing you can't store with Front Pay.</p>
-					</div>
-				</div>
-
-				<div class="card-footer pt-0">
-					<!-- Media -->
-					<div class="d-flex align-items-center">
-						<div class="flex-shrink-0">
-							<img class="avatar avatar-circle"
-								src="<?= base_url();?>assets-frontend/img/160x160/img9.jpg" alt="Image Description">
-						</div>
-						<div class="flex-grow-1 ms-3">
-							<h5 class="card-title mb-0">Andrea Gardy</h5>
-							<p class="card-text small">CEO at Slack</p>
-						</div>
-					</div>
-					<!-- End Media -->
-				</div>
-			</div>
-			<!-- End Card -->
-		</div>
-		<!-- End Col -->
-
-		<div class="col-sm-6 col-lg-4">
-			<!-- Card -->
-			<div class="card h-100">
-				<div class="card-body">
-					<!-- Rating -->
-					<div class="d-flex gap-1 mb-2">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-						<img src="<?= base_url();?>assets-frontend/svg/illustrations/star.svg" alt="Review rating"
-							width="16">
-					</div>
-					<!-- End Rating -->
-
-					<div class="mb-auto">
-						<p class="card-text">I love Front Pay for cash back, reward points and fraud protection – just
-							like when you're swiping your card.</p>
-					</div>
-				</div>
-
-				<div class="card-footer pt-0">
-					<!-- Media -->
-					<div class="d-flex align-items-center">
-						<div class="flex-shrink-0">
-							<img class="avatar avatar-circle"
-								src="<?= base_url();?>assets-frontend/img/160x160/img3.jpg" alt="Image Description">
-						</div>
-						<div class="flex-grow-1 ms-3">
-							<h5 class="card-title mb-0">Philip Williams</h5>
-							<p class="card-text small">Front Pay user</p>
-						</div>
-					</div>
-					<!-- End Media -->
-				</div>
-			</div>
-			<!-- End Card -->
-		</div>
+		<?php endforeach;?>
+		<?php else:?>
+		<span class="divider-center">Belum ada testimoni</span>
+		<?php endif;?>
 		<!-- End Col -->
 	</div>
 	<!-- End Row -->
@@ -317,7 +634,7 @@
 				<div class="accordion-header" id="headingCuriousOne">
 					<a class="accordion-button collapsed" role="button" data-bs-toggle="collapse"
 						data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-						What methods of payments are supported?
+						Bagaimana Cara Belajar di <?= $web_title;?>?
 					</a>
 				</div>
 				<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingCuriousOne"
@@ -335,7 +652,7 @@
 				<div class="accordion-header" id="headingCuriousTwo">
 					<a class="accordion-button collapsed" role="button" data-bs-toggle="collapse"
 						data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-						Can I cancel at anytime?
+						Cara Memberikan Testimoni Kelulusan Kelas
 					</a>
 				</div>
 				<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingCuriousTwo"
@@ -354,7 +671,7 @@
 				<div class="accordion-header" id="headingCuriousThree">
 					<a class="accordion-button collapsed" role="button" data-bs-toggle="collapse"
 						data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-						How do I get a receipt for my purchase?
+						Apa Keuntungan Belajar di <?= $web_title;?>?
 					</a>
 				</div>
 				<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingCuriousThree"

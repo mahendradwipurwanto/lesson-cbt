@@ -25,11 +25,20 @@
 									<span class="tag"><?= $val->categories;?></span>
 									<h2 class="card-course-title"><?= $val->judul;?></h2>
 									<div class="rating">
+										<?php if($val->rating['rating'] == 0):?>
+										<i class="bi bi-star"></i>
+										<i class="bi bi-star"></i>
+										<i class="bi bi-star"></i>
+										<i class="bi bi-star"></i>
+										<i class="bi bi-star"></i>
+										<?php else:?>
+										<?php for($i = 0; $i < $val->rating['fullStars']; $i++):?>
 										<i class="bi bi-star-fill text-warning"></i>
-										<i class="bi bi-star-fill text-warning"></i>
-										<i class="bi bi-star"></i>
-										<i class="bi bi-star"></i>
-										<i class="bi bi-star"></i>
+										<?php endfor;?>
+										<?php if($val->rating['halfStar'] >= 0.5):?>
+										<i class="bi bi-star-half text-warning"></i>
+										<?php endif;?>
+										<?php endif;?>
 									</div>
 									<div class="price-box">
 										<p><?= $val->harga;?></p>

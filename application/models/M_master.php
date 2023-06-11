@@ -95,14 +95,59 @@ class M_master extends CI_Model
 				$arr[$key] = $val;
                 $arr[$key]->categories = !is_null($val->m_kategori_id) && $val->m_kategori_id > 0 ? $val->categories : (!empty($parmas) && isset($parmas['type']) ? ($params['type'] == 0 ? 'Soal' : 'Materi') : 'General');
                 $arr[$key]->harga = $val->is_bayar == 1 ? number_format($val->harga) : '<span class="badge bg-success">gratis</span>';
-				$arr[$key]->konten = $this->countKontenByMateri($val->id);
-				$arr[$key]->soal = $this->countSoalByMateri($val->id);
+				// $arr[$key]->konten = $this->countKontenByMateri($val->id);
+				$arr[$key]->testimoni = $this->getRating($val->id, 3);
+				$arr[$key]->rating = $this->getAverageRating($val->id);
+				$arr[$key]->soal = $this->countSoalByMateri($val->id, $val->type);
 				$arr[$key]->peserta = $this->countPesertaByMateri($val->id);
 			}
 		}
 
 		return $arr;
+    }
 
+    public function getRating($id = null, $limit = null)
+    {
+        $this->db->select('tb_rating.*, tb_user.name, tb_user.photo, tb_user.jobs');
+        $this->db->from('tb_rating');
+        $this->db->join('tb_user', 'tb_rating.user_id = tb_user.user_id', 'left');
+
+        if(!is_null($id)){
+            $this->db->where('m_materi_id', $id);
+        }
+
+        if(!is_null($limit)){
+            $this->db->limit($limit);
+        }
+
+        $results = $this->db->get()->result();
+        
+        return $results;
+    }
+
+    public function getAverageRating($id = null)
+    {
+        $this->db->select_avg('rate');
+        $this->db->from('tb_rating');
+
+        if(!is_null($id)){
+            $this->db->where('m_materi_id', $id);
+        }
+        $result = $this->db->get()->row();
+        
+        $averageRating = $result->rate;
+        $convertedRating = ($averageRating / 5) * 5; // Convert to range 0 to 5
+        // Determine the number of full stars
+        $fullStars = floor($averageRating);
+
+        // Determine the remaining decimal value for half star
+        $halfStar = $averageRating - $fullStars;
+
+        return [
+            'rating' => $convertedRating,
+            'fullStars' => $fullStars,
+            'halfStar' => $halfStar
+        ];
     }
 
     public function countAllMateri($search = null, $status = null)
@@ -127,7 +172,7 @@ class M_master extends CI_Model
 
     public function getAllMateriRiwayat($params = [], $limit = 12, $offset = 0, $search = null, $status = null)
     {
-        $this->db->select('m_materi.*, m_categories.categories, COUNT(tb_peserta.id) as total_peserta, m_materi_level.level')
+        $this->db->select('m_materi.*, m_categories.categories, COUNT(tb_peserta.id) as z, m_materi_level.level')
 		->from('m_materi')
 		->join('m_categories', 'm_materi.m_kategori_id = m_categories.id', 'left')
 		->join('m_materi_level', 'm_materi.m_level_id = m_materi_level.id', 'left')
@@ -161,8 +206,10 @@ class M_master extends CI_Model
 				$arr[$key] = $val;
                 $arr[$key]->categories = !is_null($val->m_kategori_id) && $val->m_kategori_id > 0 ? $val->categories : (!empty($parmas) && isset($parmas['type']) ? ($params['type'] == 0 ? 'Soal' : 'Materi') : 'Materi');
                 $arr[$key]->harga = $val->is_bayar == 1 ? number_format($val->harga) : '<span class="badge bg-success">gratis</span>';
-				$arr[$key]->konten = $this->countKontenByMateri($val->id);
-				$arr[$key]->soal = $this->countSoalByMateri($val->id);
+				// $arr[$key]->konten = $this->countKontenByMateri($val->id);
+				$arr[$key]->testimoni = $this->getRating($val->id, 3);
+				$arr[$key]->rating = $this->getAverageRating($val->id);
+				$arr[$key]->soal = $this->countSoalByMateri($val->id, $val->type);
 				$arr[$key]->peserta = $this->countPesertaByMateri($val->id);
 			}
 		}
@@ -201,8 +248,13 @@ class M_master extends CI_Model
 		$data = $this->db->get()->row();
 
 		if(!is_null($data)){
-			$soal = $this->countSoalByMateri($id);
+			$soal = $this->countSoalByMateri($id, $data->type);
+			$data->total_module = $soal;
+			$data->testimoni = $this->getRating($id, 3);
+			$data->rating = $this->getAverageRating($id);
+			$data->peserta = $this->countPesertaByMateri($id);
 			$data->is_soal = $soal > 0 ? true : false;
+            $data->categories = !is_null($data->m_kategori_id) && $data->m_kategori_id > 0 ? $data->categories : (($data->type == 0 ? 'Soal' : 'Materi'));
 			if($data->harga > 0 || is_null($data->harga)){
 				$harga = number_format($data->harga,0,",",".");
 				$data->harga_txt = "Rp. {$harga}";
@@ -210,30 +262,30 @@ class M_master extends CI_Model
 				$data->harga_txt = '<span class="badge bg-success">gratis</span>';
 			}
 		}
-
 		return $data;
 	}
 
-    public function countKontenByMateri($m_materi_id = null)
+    // public function countKontenByMateri($m_materi_id = null)
+    // {
+    //     $this->db->select('m_materi_konten.*')
+	// 	->from('m_materi_konten')
+	// 	->where(['m_materi_konten.m_materi_id' => $m_materi_id, 'm_materi_konten.is_deleted' => 0]);
+
+	// 	$data = $this->db->get()->num_rows();
+
+	// 	return $data;
+    // }
+
+    public function countSoalByMateri($m_materi_id = null, $type = null)
     {
-        $this->db->select('m_materi_konten.*')
-		->from('m_materi_konten')
-		->where(['m_materi_konten.m_materi_id' => $m_materi_id, 'm_materi_konten.is_deleted' => 0]);
+		if($type == 0){
+			$table_module = 'm_materi_soal';
+		}else{
+			$table_module = 'm_materi_konten';
+		}
+		$total_module = $this->db->get_where($table_module, ['m_materi_id' => $m_materi_id, 'is_deleted' => 0])->num_rows();
 
-		$data = $this->db->get()->num_rows();
-
-		return $data;
-    }
-
-    public function countSoalByMateri($m_materi_id = null)
-    {
-        $this->db->select('m_materi_soal.*')
-		->from('m_materi_soal')
-		->where(['m_materi_soal.m_materi_id' => $m_materi_id, 'm_materi_soal.is_deleted' => 0]);
-
-		$data = $this->db->get()->num_rows();
-
-		return $data;
+		return $total_module;
     }
 
     public function countPesertaByMateri($m_materi_id = null)
@@ -372,7 +424,7 @@ class M_master extends CI_Model
 
 	public function tambahSoal($materi_id = null){
 		
-		$order = $this->countSoalByMateri($materi_id);
+		$order = $this->countSoalByMateri($materi_id, 0);
 
 		$data = [
 			'm_materi_id' => $materi_id,

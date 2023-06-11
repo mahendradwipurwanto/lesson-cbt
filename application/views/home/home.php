@@ -23,11 +23,20 @@
 									<span class="tag"><?= $val->categories;?></span>
 									<h2 class="card-course-title"><?= $val->judul;?></h2>
 									<div class="rating">
+										<?php if($val->rating['rating'] == 0):?>
+										<i class="bi bi-star"></i>
+										<i class="bi bi-star"></i>
+										<i class="bi bi-star"></i>
+										<i class="bi bi-star"></i>
+										<i class="bi bi-star"></i>
+										<?php else:?>
+										<?php for($i = 0; $i < $val->rating['fullStars']; $i++):?>
 										<i class="bi bi-star-fill text-warning"></i>
-										<i class="bi bi-star-fill text-warning"></i>
-										<i class="bi bi-star"></i>
-										<i class="bi bi-star"></i>
-										<i class="bi bi-star"></i>
+										<?php endfor;?>
+										<?php if($val->rating['halfStar'] >= 0.5):?>
+										<i class="bi bi-star-half text-warning"></i>
+										<?php endif;?>
+										<?php endif;?>
 									</div>
 									<div class="price-box">
 										<p><?= $val->harga;?></p>
@@ -109,7 +118,8 @@
 		<div class="container content-space-2">
 			<div class="row justify-content-lg-between align-items-center" style="background: #f4f4f5; padding: 10px">
 				<div class="col-sm-12 col-lg-5 mb-9 mb-lg-0">
-					<img class="avatar avatar-xxl avatar-4x3 mb-4 d-none d-sm-none d-md-block" src="<?= base_url();?>assets-frontend/svg/illustrations/app-wreath.svg" alt="SVG">
+					<img class="avatar avatar-xxl avatar-4x3 mb-4 d-none d-sm-none d-md-block"
+						src="<?= base_url();?>assets-frontend/svg/illustrations/app-wreath.svg" alt="SVG">
 
 					<!-- Heading -->
 					<div class="mb-5">
@@ -141,11 +151,20 @@
 											<span class="tag"><?= $val->categories;?></span>
 											<h2 class="card-course-title"><?= $val->judul;?></h2>
 											<div class="rating">
+												<?php if($val->rating['rating'] == 0):?>
+												<i class="bi bi-star"></i>
+												<i class="bi bi-star"></i>
+												<i class="bi bi-star"></i>
+												<i class="bi bi-star"></i>
+												<i class="bi bi-star"></i>
+												<?php else:?>
+												<?php for($i = 0; $i < $val->rating['fullStars']; $i++):?>
 												<i class="bi bi-star-fill text-warning"></i>
-												<i class="bi bi-star-fill text-warning"></i>
-												<i class="bi bi-star"></i>
-												<i class="bi bi-star"></i>
-												<i class="bi bi-star"></i>
+												<?php endfor;?>
+												<?php if($val->rating['halfStar'] >= 0.5):?>
+												<i class="bi bi-star-half text-warning"></i>
+												<?php endif;?>
+												<?php endif;?>
 											</div>
 											<div class="price-box">
 												<p><?= $val->harga;?></p>
