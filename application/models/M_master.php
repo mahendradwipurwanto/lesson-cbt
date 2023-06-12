@@ -138,7 +138,7 @@ class M_master extends CI_Model
         $averageRating = $result->rate;
         $convertedRating = ($averageRating / 5) * 5; // Convert to range 0 to 5
         // Determine the number of full stars
-        $fullStars = floor($averageRating);
+        $fullStars = $averageRating > 0 ? floor($averageRating) : 0;
 
         // Determine the remaining decimal value for half star
         $halfStar = $averageRating - $fullStars;
