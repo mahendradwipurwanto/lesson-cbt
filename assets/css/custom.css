@@ -695,6 +695,7 @@ pre[class*=language-] {
 	font-size: 20px;
 	background-color: #fff;
 	color: #71869d;
+	border: 1px solid;
 	border-radius: 5px;
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
@@ -991,4 +992,63 @@ pre[class*=language-] {
 	cursor: pointer;
 	background: #70bee6;
 	color: #fff;
+}
+
+.splitted-content-mini.offcanvas,
+.splitted-content-small.offcanvas {
+	z-index: 98 !important;
+}
+
+.splitted-content-fluid {
+	background-color: #f5f5f5;
+}
+
+.offcanvas.offcanvas-start {
+	width: 350px !important;
+}
+
+.module-list__study-progress {
+	background-color: #fafafa;
+	border-bottom: 1px solid #e4e4e7;
+	border-top: 1px solid #e4e4e7;
+	padding: 20px 25px;
+}
+
+.module-list__study-progress .progress-module {
+	height: 4px;
+}
+
+.progress-module {
+	display: flex;
+	height: 1rem;
+	overflow: hidden;
+	line-height: 0;
+	font-size: .75rem;
+	background-color: #e9ecef;
+	border-radius: 0.25rem;
+}
+
+.custom-divider {
+	font-size: .8rem !important;
+	padding-left: 0 !important
+}
+
+.module-list__header {
+	align-items: center;
+	color: #3f3f46;
+	display: flex;
+	font-weight: 700;
+	justify-content: space-between;
+	padding: 1.5rem;
+}
+
+.module-list__header--title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.25rem !important;
+}
+
+.toast {
+	background-color: white !important;
 }

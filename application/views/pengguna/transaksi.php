@@ -12,7 +12,7 @@
 <!-- End Page Header -->
 
 <!-- Card -->
-<div class="card">
+<div class="card card-body">
 	<!-- Header -->
 	<div class="card-header card-header-content-md-between">
 		<div class="mb-2 mb-md-0">

@@ -2,9 +2,33 @@
 <div class="main-course-detail mt-5 mt-md-0">
 	<div class="course-header">
 		<div class="container content-space-t-md-3">
+			<div class="row mb-2">
+				<div class="col-12">
+					<?php if($proses_pengerjaan['total'] > 0):?>
+					<div class="alert alert-soft-warning">
+						Anda masih belum menyelesaikan soal ini!
+					</div>
+					<?php elseif($cek_pengerjaan['total'] > 0):?>
+					<?php if($materi->type == 0 && $materi->retake == 1):?>
+					<div class="alert alert-soft-success">
+						Selamat, anda telah mengerjakan soal ini! anda dapat mengerjakan soal ini kembali dengan menekan
+						tombol "Belajar Sekarang"
+					</div>
+					<?php elseif($materi->type == 0):?>
+					<div class="alert alert-soft-success">
+						Selamat, anda telah mengerjakan soal ini!
+					</div>
+					<?php elseif($materi->type == 1):?>
+					<div class="alert alert-soft-success">
+						Selamat, anda telah mengambil materi ini!
+					</div>
+					<?php endif;?>
+					<?php endif;?>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-sm-12 col-md-3 mb-3">
-					<div class="p-2">
+					<div class="p-2 ps-0">
 						<img class="card-img shadow-sm" src="<?= base_url();?><?= $materi->poster;?>"
 							onerror="this.onerror=null;this.src='<?= base_url();?><?= 'assets-frontend/img/placeholder-soal.jpg'?>';"
 							alt="Image Description">
@@ -47,7 +71,8 @@
 										d="M1.33334 2.66666C1.33334 1.93028 1.9303 1.33333 2.66668 1.33333H10C10.7364 1.33333 11.3333 1.93028 11.3333 2.66666V3.33333H13.3333C14.0697 3.33333 14.6667 3.93028 14.6667 4.66666V13.3333C14.6667 14.0697 14.0697 14.6667 13.3333 14.6667H2.66668C1.9303 14.6667 1.33334 14.0697 1.33334 13.3333V2.66666ZM10 2.66666V3.33333H2.66668V2.66666H10ZM2.66668 13.3333V4.66666H4.66668V13.3333H2.66668ZM6.00001 13.3333H13.3333V4.66666H6.00001V13.3333Z">
 									</path>
 								</svg>
-								<span class="mr-3 ms-2"><?= $materi->total_module;?> Modul</span>
+								<span class="mr-3 ms-2"><?= $materi->total_module;?>
+									<?= $materi->type == 0 ? 'Soal' : 'Modul';?></span>
 							</div>
 
 							<div class="course-card__info-item">
@@ -65,13 +90,24 @@
 				<div class="col-sm-12 col-md-3">
 					<div class="card border p-3">
 						<?php if($materi->type == 0):?>
-						<?php if($cek_materi):?>
-						<a href="<?= site_url('pengguna/materi/kerjakan-soal/'.$materi->id);?>"
-							class="btn btn-dark w-100">Belajar
-							sekarang</a>
+						<?php if($proses_pengerjaan['total'] > 0):?>
+						<a href="<?= site_url('pengguna/materi/peraturan/'.$materi->id);?>"
+							class="btn btn-dark w-100">Lanjut mengerjakan</a>
+						<?php elseif($cek_pengerjaan['total'] > 0):?>
+						<?php if($materi->type == 0 && $materi->retake == 1):?>
+						<a href="<?= site_url('home/ambilMateri/'.$materi->id);?>" class="btn btn-dark w-100">Mengulang
+							soal</a>
+						<?php else:?>
+						<button type="button" class="btn btn-success w-100" disabled>Selesai Dikerjakan</button>
+						<?php endif;?>
+						<?php else:?>
+						<?php if($cek_pengambilan['total'] > 0):?>
+						<a href="<?= site_url('pengguna/materi/peraturan/'.$materi->id);?>"
+							class="btn btn-dark w-100">Kerjakan sekarang</a>
 						<?php else:?>
 						<a href="<?= site_url('home/ambilMateri/'.$materi->id);?>" class="btn btn-dark w-100">Ambil
-							kelas</a>
+							Soal</a>
+						<?php endif;?>
 						<?php endif;?>
 						<?php else:?>
 						<a href="#module-materi" class="btn btn-dark w-100">Pelajari materi</a>

@@ -9,6 +9,8 @@ class M_home extends CI_Model
     }
 
 	function ambilMateri($id = null){
+		$this->db->where(['user_id' => $this->session->userdata('user_id'), 'm_materi_id' => $id, 'status' => 0]);
+		$this->db->update('tb_peserta', ['status' => 1]);
 
         $materi = [
             'user_id' => $this->session->userdata('user_id'),

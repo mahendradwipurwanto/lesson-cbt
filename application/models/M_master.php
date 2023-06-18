@@ -61,11 +61,10 @@ class M_master extends CI_Model
 
     public function getAllMateri($params = [], $limit = 12, $offset = 0, $search = null, $status = null)
     {
-        $this->db->select('m_materi.*, m_categories.categories, COUNT(tb_peserta.id) as total_peserta, m_materi_level.level')
+        $this->db->select('m_materi.*, m_categories.categories, m_materi_level.level')
 		->from('m_materi')
 		->join('m_categories', 'm_materi.m_kategori_id = m_categories.id', 'left')
 		->join('m_materi_level', 'm_materi.m_level_id = m_materi_level.id', 'left')
-		->join('tb_peserta', 'm_materi.id = tb_peserta.m_materi_id', 'left')
 		->where(['m_materi.is_deleted' => 0, 'm_materi.status <'=> 2]);
         
         if(!empty($parmas) && isset($parmas['type'])){
@@ -84,7 +83,6 @@ class M_master extends CI_Model
 		$this->db->limit($limit, $offset);
 
 		$this->db->group_by('m_materi.id');
-		$this->db->order_by('total_peserta DESC');
 		$this->db->order_by('m_materi.created_at DESC');
 
 		$data = $this->db->get()->result();
@@ -172,7 +170,7 @@ class M_master extends CI_Model
 
     public function getAllMateriRiwayat($params = [], $limit = 12, $offset = 0, $search = null, $status = null)
     {
-        $this->db->select('m_materi.*, m_categories.categories, COUNT(tb_peserta.id) as z, m_materi_level.level')
+        $this->db->select('m_materi.*, m_categories.categories, m_materi_level.level')
 		->from('m_materi')
 		->join('m_categories', 'm_materi.m_kategori_id = m_categories.id', 'left')
 		->join('m_materi_level', 'm_materi.m_level_id = m_materi_level.id', 'left')
@@ -195,7 +193,6 @@ class M_master extends CI_Model
 		$this->db->limit($limit, $offset);
 
 		$this->db->group_by('m_materi.id');
-		$this->db->order_by('total_peserta DESC');
 		$this->db->order_by('m_materi.created_at DESC');
 
 		$data = $this->db->get()->result();
@@ -292,7 +289,8 @@ class M_master extends CI_Model
     {
         $this->db->select('tb_peserta.*')
 		->from('tb_peserta')
-		->where(['tb_peserta.m_materi_id' => $m_materi_id, 'tb_peserta.is_deleted' => 0]);
+		->where(['tb_peserta.m_materi_id' => $m_materi_id, 'tb_peserta.is_deleted' => 0])
+        ->group_by('tb_peserta.user_id');
 
 		$data = $this->db->get()->num_rows();
 
@@ -326,7 +324,7 @@ class M_master extends CI_Model
     {
         $id = htmlspecialchars($this->input->post('id'), true);
         $is_panduan = htmlspecialchars($this->input->post('is_panduan'), true);
-        $panduan = htmlspecialchars($this->input->post('panduan'), true);
+        $panduan = $this->input->post('panduan_materi');
 		
         $materi = [
             'is_panduan' => ($is_panduan == 'on' ? 1 : 0),
@@ -400,7 +398,7 @@ class M_master extends CI_Model
         return ($this->db->affected_rows() != 1) ? false : true;
     }
 
-	public function getListSoalByMateri($materi_id = null){
+	public function getListSoalByMateri($materi_id = null, $t_peserta_id = null){
 		$this->db->select('*')
 		->from('m_materi_soal')
 		->where(['m_materi_soal.m_materi_id' => $materi_id, 'm_materi_soal.is_deleted' => 0]);
@@ -409,8 +407,22 @@ class M_master extends CI_Model
 
 		$data = $this->db->get()->result();
 
-		return $data;
+        $arr = [];
+        foreach ($data as $key => $val) {
+            $arr[$key] = $val;
+            $arr[$key]->pengerjaan = $this->cek_pengerjaan_soal($t_peserta_id, $val->id);
+        }
+
+		return $arr;
 	}
+
+    function cek_pengerjaan_soal($t_peserta_id = null, $soal_id = null){
+        if($soal_id > 0){
+            return $this->db->get_where('tb_peserta_jawaban', ['t_peserta_id' => $t_peserta_id, 'user_id' => $this->session->userdata('user_id'), 'm_soal_id' => $soal_id, 'pilihan !=' => 0])->row();
+        }else{
+            return $this->db->get_where('tb_peserta_jawaban', ['t_peserta_id' => $t_peserta_id, 'user_id' => $this->session->userdata('user_id'), 'm_soal_id' => $soal_id])->row();
+        }
+    }
 
 	public function getDetailSoalById($materi_id = null, $id = null){
 		$this->db->select('*')

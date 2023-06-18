@@ -20,6 +20,8 @@ $route['admin/dashboard'] = 'admin';
 
 // PENGGUNA
 $route['pengguna/materi/(:any)'] = 'pengguna/detail_materi/$1';
+$route['pengguna/materi/peraturan/(:any)'] = 'pengguna/peraturan_soal/$1';
+$route['pengguna/materi/panduan-soal/(:any)'] = 'pengguna/panduan_soal/$1';
 $route['pengguna/materi/kerjakan-soal/(:any)'] = 'pengguna/kerjakan_soal/$1';
 $route['pengguna/materi/kerjakan-soal/(:any)/(:num)'] = 'pengguna/kerjakan_soal/$1/$2';
 

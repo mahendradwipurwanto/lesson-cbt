@@ -53,7 +53,8 @@ class M_pengguna extends CI_Model
 		->join('m_materi', 'tb_peserta.m_materi_id = m_materi.id', 'left')
 		->join('m_categories', 'm_materi.m_kategori_id = m_categories.id', 'left')
 		->join('m_materi_level', 'm_materi.m_level_id = m_materi_level.id', 'left')
-		->where('tb_peserta.user_id', $user_id);
+		->where('tb_peserta.user_id', $user_id)
+		->group_by('tb_peserta.m_materi_id', 'tb_peserta.user_id');
 
 		if(!is_null($filter)){
 			if(isset($filter['limit']) && $filter['limit'] > 0){
@@ -233,10 +234,10 @@ class M_pengguna extends CI_Model
 	}
 
 	public function getJawabanPeserta($user_id, $materi_id, $id){
-		$this->db->select('tb_peserta.*, tb_jawaban.*')
+		$this->db->select('tb_peserta.*, tb_peserta_jawaban.*')
 		->from('tb_peserta')
-		->join('tb_jawaban' , 'tb_peserta.id = tb_jawaban.t_peserta_id')
-		->where(['tb_peserta.user_id' => $user_id, 'tb_peserta.m_materi_id' => $materi_id, 'tb_jawaban.m_soal_id' => $id]);
+		->join('tb_peserta_jawaban' , 'tb_peserta.id = tb_peserta_jawaban.t_peserta_id')
+		->where(['tb_peserta.user_id' => $user_id, 'tb_peserta.m_materi_id' => $materi_id, 'tb_peserta_jawaban.m_soal_id' => $id]);
 		$data = $this->db->get()->row();
 
 		return $data;
@@ -262,6 +263,8 @@ class M_pengguna extends CI_Model
 			$benar = 4;
 		}else if($jawaban_benar == 'jawaban_e'){
 			$benar = 5;
+		}else{
+			$benar = null;
 		}
 
 		if($pilihan == $benar){
@@ -287,7 +290,7 @@ class M_pengguna extends CI_Model
 			];
 
 			$this->db->where('id', $cekPengerjaan->id);
-			$this->db->update('tb_jawaban', $jawaban);
+			$this->db->update('tb_peserta_jawaban', $jawaban);
 		}else{
 		
 			$jawaban = [
@@ -302,16 +305,64 @@ class M_pengguna extends CI_Model
 				'created_by' => $this->session->userdata('user_id')
 			];
 
-			$this->db->insert('tb_jawaban', $jawaban);
+			$this->db->insert('tb_peserta_jawaban', $jawaban);
 		}
         return ($this->db->affected_rows() != 1) ? false : true;
     }
 
 	function cekPengerjaanSoal($t_peserta_id = null, $user_id = null, $soal_id = null){
-		return $this->db->get_where('tb_jawaban', ['t_peserta_id' => $t_peserta_id, 'user_id' => $user_id, 'm_soal_id' => $soal_id])->row();
+		return $this->db->get_where('tb_peserta_jawaban', ['t_peserta_id' => $t_peserta_id, 'user_id' => $user_id, 'm_soal_id' => $soal_id])->row();
 	}
 
 	function getPesertaMateri($user_id = null, $materi_id = null){
-		return $this->db->get_where('tb_peserta', ['user_id' => $user_id, 'm_materi_id' => $materi_id])->row();
+		return $this->db->get_where('tb_peserta', ['user_id' => $user_id, 'm_materi_id' => $materi_id, 'status' => 0])->row();
+	}
+
+	function cekPengerjaan($materi_id = null){
+		$models = $this->db->get_where('tb_peserta', ['user_id' => $this->session->userdata('user_id'), 'm_materi_id' => $materi_id, 'status >' => 0])->result();
+
+		return [
+			'data' => $models,
+			'total' => count($models)
+		];
+	}
+
+	function cekProsesPengerjaan($materi_id = null){
+		$this->db->select('tb_peserta.*')
+		->from('tb_peserta')
+		->join('tb_peserta_jawaban', 'tb_peserta.id = tb_peserta_jawaban.t_peserta_id', 'inner')
+		->where(['tb_peserta.user_id' => $this->session->userdata('user_id'), 'tb_peserta.status' => 0, 'tb_peserta.m_materi_id' => $materi_id, 'waktu_pengambilan >' => 0]);
+
+		$models = $this->db->get()->result();
+
+		return [
+			'data' => $models,
+			'total' => count($models)
+		];
+	}
+
+	function cekPengambilan($materi_id = null){
+		$models = $this->db->get_where('tb_peserta', ['user_id' => $this->session->userdata('user_id'), 'm_materi_id' => $materi_id])->result();
+
+		return [
+			'data' => $models,
+			'total' => count($models)
+		];
+	}
+
+	function set_timer($t_peserta_id, $m_materi_id){
+		$this->db->where(['id' => $t_peserta_id, 'm_materi_id' => $m_materi_id]);
+		$this->db->update('tb_peserta', ['waktu_pengambilan' => time()]);
+	}
+
+	function selesaikan_peserta($t_peserta_id, $m_materi_id, $status = 1){
+
+		$cek_selesai = $this->db->get_where('tb_peserta', ['id' => $t_peserta_id, 'm_materi_id' => $m_materi_id])->row();
+		if($cek_selesai->status == 1 && $status == 2){
+			return true;
+		}
+		$this->db->where(['id' => $t_peserta_id, 'm_materi_id' => $m_materi_id]);
+		$this->db->update('tb_peserta', ['status' => $status, 'modified_at' => time()]);
+		return true;
 	}
 }

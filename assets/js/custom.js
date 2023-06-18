@@ -166,3 +166,36 @@ function prettyJson() {
 	var pretty = JSON.stringify(obj, undefined, 4);
 	document.getElementById('textJson').value = pretty;
 }
+
+function initCountdown(targetDateStr, targetElementId) {
+  const targetElement = document.getElementById(targetElementId);
+
+  const countdownInterval = setInterval(updateCountdown, 1000);
+
+  function updateCountdown() {
+    const currentDate = new Date().getTime();
+    const remainingTime = targetDate - currentDate;
+
+    if (remainingTime <= 0) {
+      clearInterval(countdownInterval);
+      targetElement.innerHTML = '<span class="text-danger">Waktu berakhir!</span>';
+      return;
+    }
+
+    const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    targetElement.innerHTML = formattedTime;
+  }
+
+  // Parse the target date string in "dd/mm/yyyy H:i:s" format
+  const [datePart, timePart] = targetDateStr.split(' ');
+  const [day, month, year] = datePart.split('/');
+  const [hour, minute, second] = timePart.split(':');
+
+  // Create a new Date object with the parsed values
+  const targetDate = new Date(year, month - 1, day, hour, minute, second).getTime();
+}
+

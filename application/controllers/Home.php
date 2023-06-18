@@ -8,7 +8,7 @@ class Home extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(['M_home', 'M_master']);
+        $this->load->model(['M_pengguna', 'M_home', 'M_master']);
     }
 
     public function index()
@@ -29,8 +29,17 @@ class Home extends CI_Controller
 
     public function detail_materi($id = null)
     {
-		$data['materi'] = $this->M_master->getMateriById($id);
+        
+        $data['materi'] = $this->M_master->getMateriById($id);
+        if(is_null($data['materi'])){
+			$this->session->set_flashdata('toast', 'Tidak dapat menemukan materi !');
+			redirect(site_url('materi'));
+        }
 		$data['cek_materi'] = $this->M_home->cekAmbilMateri($id);
+		$data['proses_pengerjaan'] = $this->M_pengguna->cekProsesPengerjaan($id);
+		$data['retake'] = $data['materi']->retake == 1 && !$data['cek_materi'];
+		$data['cek_pengerjaan'] = $this->M_pengguna->cekPengerjaan($id);
+		$data['cek_pengambilan'] = $this->M_pengguna->cekPengambilan($id);
         $this->templatefront->view('home/detail_materi', $data);
     }
 
@@ -52,7 +61,14 @@ class Home extends CI_Controller
             $this->session->set_flashdata('notif_warning', "Harap login untuk melanjutkan aktivitas anda");
             redirect('login');
 		}
+
+		$materi = $this->M_master->getMateriById($id);
+		$cek_materi = $this->M_home->cekAmbilMateri($id);
         if ($this->M_home->ambilMateri($id) == true) {
+            if($materi->retake == 1 && $cek_materi){
+                $this->session->set_flashdata('toast', 'Berhasil mengulang soal');
+                redirect(site_url('pengguna/materi/peraturan/'.$id));
+            }
             $this->session->set_flashdata('toast', 'Berhasil mengambil materi');
             redirect(site_url('materi/'.$id));
         } else {

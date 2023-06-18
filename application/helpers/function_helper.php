@@ -290,3 +290,37 @@ if(!function_exists('base64ToImage')){
     }
 }
 
+if(!function_exists('convertMinutesToHours')){
+    function convertMinutesToHours($minutes) {
+    $hours = floor($minutes / 60);
+    $remainingMinutes = $minutes % 60;
+    $seconds = 0; // Assuming we don't have seconds in the input
+
+    $formattedTime = sprintf('%02d:%02d:%02d', $hours, $remainingMinutes, $seconds);
+    return $formattedTime;
+    }
+}
+
+if(!function_exists('addMinutesToTimestamp')){
+    function addMinutesToTimestamp($timestamp, $minutes) {
+    $targetTimestamp = $timestamp + ($minutes * 60);
+    $formattedTime = date('d/m/Y H:i:s', $targetTimestamp);
+    return $formattedTime;
+    }
+}
+
+if(!function_exists('getTimeRemaining')){
+    function getTimeRemaining($targetDateTime) {
+    $targetTimestamp = DateTime::createFromFormat('d/m/Y H:i:s', $targetDateTime)->getTimestamp();
+    $currentTimestamp = time();
+    $remainingSeconds = $targetTimestamp - $currentTimestamp;
+
+    // Check if the target <span class="text-danger">Waktu berakhir!</span>
+    if ($remainingSeconds <= 0) {
+        return '<span class="text-danger">Waktu berakhir!</span>';
+    }
+
+    $remainingTime = gmdate('H:i:s', $remainingSeconds);
+    return $remainingTime;
+    }
+}

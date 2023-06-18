@@ -930,3 +930,7 @@ pre[class*=language-] {
 	font-size: 1rem;
 	border-radius: 5px;
 }
+
+.toast {
+	background-color: white !important;
+}
