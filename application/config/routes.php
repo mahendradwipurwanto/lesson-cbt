@@ -32,6 +32,7 @@ $route['master/buat-materi/(:num)/soal'] = 'master/buatSoal/$1';
 $route['master/buat-materi/(:num)/soal/(:num)'] = 'master/buatSoal/$1/$2';
 $route['master/buat-materi/(:num)'] = 'master/buatMateri/$1';
 $route['master/edit-materi/(:num)'] = 'master/buatMateri/$1';
+$route['download/(:any)'] = 'home/download/$1';
 
 $route['default_controller'] = 'home';
 $route['404_override'] = 'utility/not_found';

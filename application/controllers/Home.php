@@ -64,16 +64,32 @@ class Home extends CI_Controller
 
 		$materi = $this->M_master->getMateriById($id);
 		$cek_materi = $this->M_home->cekAmbilMateri($id);
-        if ($this->M_home->ambilMateri($id) == true) {
-            if($materi->retake == 1 && $cek_materi){
-                $this->session->set_flashdata('toast', 'Berhasil mengulang soal');
-                redirect(site_url('pengguna/materi/peraturan/'.$id));
+
+        if($materi->type == 0){
+            if ($this->M_home->ambilMateri($id) == true) {
+                if($materi->retake == 1 && $cek_materi){
+                    $this->session->set_flashdata('toast', 'Berhasil mengulang soal');
+                    redirect(site_url('pengguna/materi/peraturan/'.$id));
+                }
+                $this->session->set_flashdata('toast', 'Berhasil mengambil materi');
+                redirect(site_url('materi/'.$id));
+            } else {
+                $this->session->set_flashdata('toast', 'Terjadi kesalahan saat mencoba mengambil materi');
+                redirect($this->agent->referrer());
             }
-            $this->session->set_flashdata('toast', 'Berhasil mengambil materi');
-            redirect(site_url('materi/'.$id));
-        } else {
-            $this->session->set_flashdata('toast', 'Terjadi kesalahan saat mencoba mengambil materi');
-            redirect($this->agent->referrer());
+        }else{
+            if ($this->M_home->ambilMateri($id) == true) {
+                $this->session->set_flashdata('toast', 'Berhasil mengambil materi');
+                redirect(site_url('materi/'.$id));
+            } else {
+                $this->session->set_flashdata('toast', 'Terjadi kesalahan saat mencoba mengambil materi');
+                redirect($this->agent->referrer());
+            }
         }
+    }
+
+    public function download($url = null){
+        force_download(base64_decode($url));
+        redirect($this->agent->referrer());
     }
 }

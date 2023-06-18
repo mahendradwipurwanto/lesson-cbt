@@ -324,3 +324,75 @@ if(!function_exists('getTimeRemaining')){
     return $remainingTime;
     }
 }
+
+if(!function_exists('convertToEmbedUrl')){
+    function convertToEmbedUrl($url) {
+    $videoId = '';
+    $startSeconds = '';
+    
+    // Extract video ID from the URL
+    $pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|[^\/]+\?v=)|youtu\.be\/)([^"&?\/ ]{11})/';
+    preg_match($pattern, $url, $matches);
+    
+    if (isset($matches[1])) {
+        $videoId = $matches[1];
+    } else {
+        // Invalid YouTube URL
+        return '';
+    }
+    
+    // Extract start time parameter if available
+    $parsedUrl = parse_url($url);
+    
+    if (isset($parsedUrl['query'])) {
+        parse_str($parsedUrl['query'], $query);
+        if (isset($query['t'])) {
+        $startSeconds = getSecondsFromTimeString($query['t']);
+        }
+    }
+    
+    // Construct embeddable URL
+    $embedUrl = "https://www.youtube.com/embed/$videoId";
+    
+    if ($startSeconds) {
+        $embedUrl .= "?start=$startSeconds";
+    }
+    
+    return $embedUrl;
+    }
+}
+
+if(!function_exists('getSecondsFromTimeString')){
+    // Function to convert time string (e.g., "194s", "3m25s") to seconds
+    function getSecondsFromTimeString($timeString) {
+    $matches = array();
+    $pattern = '/(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/';
+    preg_match($pattern, $timeString, $matches);
+    
+    $hours = isset($matches[1]) ? intval($matches[1]) : 0;
+    $minutes = isset($matches[2]) ? intval($matches[2]) : 0;
+    $seconds = isset($matches[3]) ? intval($matches[3]) : 0;
+    
+    return ($hours * 3600) + ($minutes * 60) + $seconds;
+    }
+}
+
+if(!function_exists('force_download')){
+    function force_download($fileUrl) {
+
+        // Get the file name from the URL
+        $filename = basename($fileUrl);
+
+        // Set the appropriate headers
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+
+        // Read the file and output it to the browser
+        readfile($fileUrl);
+        exit;
+    }
+}

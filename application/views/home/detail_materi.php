@@ -4,6 +4,7 @@
 		<div class="container content-space-t-md-3">
 			<div class="row mb-2">
 				<div class="col-12">
+					<?php if($materi->type == 0):?>
 					<?php if($proses_pengerjaan['total'] > 0):?>
 					<div class="alert alert-soft-warning">
 						Anda masih belum menyelesaikan soal ini!
@@ -19,6 +20,13 @@
 						Selamat, anda telah mengerjakan soal ini!
 					</div>
 					<?php elseif($materi->type == 1):?>
+					<div class="alert alert-soft-success">
+						Selamat, anda telah mengambil materi ini!
+					</div>
+					<?php endif;?>
+					<?php endif;?>
+					<?php else:?>
+					<?php if($cek_materi):?>
 					<div class="alert alert-soft-success">
 						Selamat, anda telah mengambil materi ini!
 					</div>
@@ -110,7 +118,12 @@
 						<?php endif;?>
 						<?php endif;?>
 						<?php else:?>
+						<?php if(!$cek_materi):?>
+						<a href="<?= site_url('home/ambilMateri/'.$materi->id);?>" class="btn btn-dark w-100">Ambil
+							materi</a>
+						<?php else:?>
 						<a href="#module-materi" class="btn btn-dark w-100">Pelajari materi</a>
+						<?php endif;?>
 						<?php endif;?>
 						<hr>
 						<a href="#testimoni-siswa" class="btn btn-outline-secondary w-100 mb-3">Testimoni Siswa</a>
@@ -232,14 +245,14 @@
 		<div class="border-top pt-7">
 			<div class="row mb-4">
 				<div class="col-8">
-					<h3 class="mb-0">Course content</h3>
+					<h3 class="mb-0">Modul materi</h3>
 				</div>
 				<!-- End Col -->
 
 				<div class="col-4 text-end">
 					<div class="row">
-						<div class="col-lg-6">
-							<span class="small">186 lectures</span>
+						<div class="col-lg-12">
+							<span class="small"><?= $materi->total_module;?> module</span>
 						</div>
 						<!-- End Col -->
 					</div>
@@ -253,52 +266,30 @@
 			<div class="accordion accordion-btn-icon-start">
 				<!-- Accordion Item -->
 				<div class="accordion-item">
-					<div class="accordion-header" id="headingBasicsOne">
-						<a class="accordion-button" role="button" data-bs-toggle="collapse"
-							data-bs-target="#accordionCourseOne" aria-expanded="true"
-							aria-controls="accordionCourseOne">
-							<div class="flex-grow-1 ps-3">
-								<div class="row">
-									<div class="col-8">
-										Course overview
-									</div>
-									<!-- End Col -->
-
-									<div class="col-4 text-end">
-										<div class="row">
-											<div class="col-lg-6">
-												<span class="small text-muted fw-normal">5 lectures</span>
-											</div>
-											<!-- End Col -->
-
-											<div class="col-lg-6">
-												<span class="small text-muted fw-normal">15:32</span>
-											</div>
-											<!-- End Col -->
-										</div>
-										<!-- End Row -->
-									</div>
-									<!-- End Col -->
-								</div>
-								<!-- End Row -->
-							</div>
-						</a>
-					</div>
 					<div id="accordionCourseOne" class="accordion-collapse collapse show"
 						aria-labelledby="headingBasicsOne">
-						<div class="accordion-body">
+						<div class="accordion-body py-0">
 							<!-- List Group -->
 							<div class="list-group list-group-flush list-group-no-gutters">
+								<?php foreach($materi->list_module as $key => $val):?>
 								<!-- Item -->
 								<div class="list-group-item">
 									<div class="row">
 										<div class="col-8">
-											<a class="d-flex" href="#">
+											<a class="d-flex">
 												<div class="flex-shrink-0">
+													<?php if(!is_null($val->url_file)):?>
+													<i class="bi-bookmark small"></i>
+													<?php else:?>
 													<i class="bi-play-circle-fill small"></i>
+													<?php endif;?>
 												</div>
 												<div class="flex-grow-1 ms-2">
-													<span class="small">Course introduction</span>
+													<?php if(!$cek_materi && $key > 0):?>
+													<span class="small blur-text"><?= $val->judul;?></span>
+													<?php else:?>
+													<span class="small"><?= $val->judul;?></span>
+													<?php endif;?>
 												</div>
 											</a>
 										</div>
@@ -306,47 +297,25 @@
 
 										<div class="col-4 text-end">
 											<div class="row">
-												<div class="col-lg-6">
-													<a class="small" href="#">Preview</a>
-												</div>
-												<!-- End Col -->
-
-												<div class="col-lg-6">
-													<span class="text-primary small">06:39</span>
-												</div>
-												<!-- End Col -->
-											</div>
-											<!-- End Row -->
-										</div>
-										<!-- End Col -->
-									</div>
-								</div>
-								<!-- End Item -->
-
-								<!-- Item -->
-								<div class="list-group-item">
-									<div class="row">
-										<div class="col-8">
-											<a class="d-flex" href="#">
-												<div class="flex-shrink-0">
-													<i class="bi-play-circle-fill small"></i>
-												</div>
-												<div class="flex-grow-1 ms-2">
-													<span class="small">Course curriculum overview</span>
-												</div>
-											</a>
-										</div>
-										<!-- End Col -->
-
-										<div class="col-4 text-end">
-											<div class="row">
-												<div class="col-lg-6">
-													<a class="small" href="#">Preview</a>
-												</div>
-												<!-- End Col -->
-
-												<div class="col-lg-6">
-													<span class="text-primary small">04:00</span>
+												<div class="col-lg-12">
+													<?php if(!$cek_materi && $key > 0):?>
+													<span class="small blur-text cursor">Preview</span>
+													<?php if(!is_null($val->url_file)):?>
+													<span class="small blur-text text-danger ms-2 cursor">Download</span>
+													<?php else:?>
+													<span class="small blur-text text-danger ms-2 cursor">Pelajari</span>
+													<?php endif;?>
+													<?php else:?>
+													<a class="small cursor" data-bs-toggle="modal"
+														data-bs-target="#preview-module-<?= $key;?>">Preview</a>
+													<?php if(!is_null($val->url_file)):?>
+													<a class="small text-danger ms-2 cursor"
+														href="<?= site_url('download/'.$val->url_file);?>">Download</a>
+													<?php else:?>
+													<a class="small text-danger ms-2 cursor" data-bs-toggle="modal"
+														data-bs-target="#pelajari-module-<?= $key;?>">Pelajari</a>
+													<?php endif;?>
+													<?php endif;?>
 												</div>
 												<!-- End Col -->
 											</div>
@@ -357,227 +326,47 @@
 								</div>
 								<!-- End Item -->
 
-								<!-- Item -->
-								<div class="list-group-item">
-									<div class="row">
-										<div class="col-8">
-											<a class="d-flex" href="#">
-												<div class="flex-shrink-0">
-													<i class="bi-play-circle-fill small"></i>
-												</div>
-												<div class="flex-grow-1 ms-2">
-													<span class="small">Python 2 versus Python 3</span>
-												</div>
-											</a>
-										</div>
-										<!-- End Col -->
-
-										<div class="col-4 text-end">
-											<div class="row">
-												<div class="col-lg-6">
-													<a class="small" href="#">Preview</a>
-												</div>
-												<!-- End Col -->
-
-												<div class="col-lg-6">
-													<span class="text-primary small">06:39</span>
-												</div>
-												<!-- End Col -->
+								<!-- Modal -->
+								<div id="preview-module-<?= $key;?>" class="modal fade" tabindex="-1" role="dialog"
+									aria-labelledby="preview-module-<?= $key;?>Title" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="preview-module-<?= $key;?>Title">
+													<?= $val->judul;?></h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"
+													aria-label="Close"></button>
 											</div>
-											<!-- End Row -->
+											<div class="modal-body">
+												<p><?= $val->deskripsi;?></p>
+											</div>
 										</div>
-										<!-- End Col -->
 									</div>
 								</div>
-								<!-- End Item -->
-							</div>
-							<!-- End List Group -->
-						</div>
-					</div>
-				</div>
-				<!-- End Accordion Item -->
+								<!-- End Modal -->
 
-				<!-- Accordion Item -->
-				<div class="accordion-item">
-					<div class="accordion-header" id="headingBasicsTwo">
-						<a class="accordion-button collapsed" role="button" data-bs-toggle="collapse"
-							data-bs-target="#accordionCourseTwo" aria-expanded="false"
-							aria-controls="accordionCourseTwo">
-							<div class="ps-3">Python setup</div>
-						</a>
-					</div>
-					<div id="accordionCourseTwo" class="accordion-collapse collapse" aria-labelledby="headingBasicsTwo">
-						<div class="accordion-body">
-							<!-- List Group -->
-							<div class="list-group list-group-flush list-group-no-gutters">
-								<!-- Item -->
-								<div class="list-group-item">
-									<div class="row">
-										<div class="col-8">
-											<a class="d-flex" href="#">
-												<div class="flex-shrink-0">
-													<i class="bi-play-circle-fill small"></i>
-												</div>
-												<div class="flex-grow-1 ms-2">
-													<span class="small">Course line courses</span>
-												</div>
-											</a>
-										</div>
-										<!-- End Col -->
-
-										<div class="col-4 text-end">
-											<div class="row">
-												<div class="col-lg-6">
-													<a class="small" href="#">Preview</a>
-												</div>
-												<!-- End Col -->
-
-												<div class="col-lg-6">
-													<span class="text-primary small">08:15</span>
-												</div>
-												<!-- End Col -->
+								<!-- Modal -->
+								<div id="pelajari-module-<?= $key;?>" class="modal fade" tabindex="-1" role="dialog"
+									aria-labelledby="pelajari-module-<?= $key;?>Title" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="pelajari-module-<?= $key;?>Title">
+													<?= $val->judul;?></h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"
+													aria-label="Close"></button>
 											</div>
-											<!-- End Row -->
+											<div class="modal-body">
+												<div class="video-container">
+													<iframe src="<?= prep_url($val->video);?>" frameborder="0"
+														allowfullscreen></iframe>
+												</div>
+											</div>
 										</div>
-										<!-- End Col -->
 									</div>
 								</div>
-								<!-- End Item -->
-
-								<!-- Item -->
-								<div class="list-group-item">
-									<div class="row">
-										<div class="col-8">
-											<a class="d-flex" href="#">
-												<div class="flex-shrink-0">
-													<i class="bi-play-circle-fill small"></i>
-												</div>
-												<div class="flex-grow-1 ms-2">
-													<span class="small">Installing Python (Step by step)</span>
-												</div>
-											</a>
-										</div>
-										<!-- End Col -->
-
-										<div class="col-4 text-end">
-											<div class="row">
-												<div class="col-lg-6">
-													<a class="small" href="#">Preview</a>
-												</div>
-												<!-- End Col -->
-
-												<div class="col-lg-6">
-													<span class="text-primary small">08:18</span>
-												</div>
-												<!-- End Col -->
-											</div>
-											<!-- End Row -->
-										</div>
-										<!-- End Col -->
-									</div>
-								</div>
-								<!-- End Item -->
-
-								<!-- Item -->
-								<div class="list-group-item">
-									<div class="row">
-										<div class="col-8">
-											<a class="d-flex" href="#">
-												<div class="flex-shrink-0">
-													<i class="bi-play-circle-fill small"></i>
-												</div>
-												<div class="flex-grow-1 ms-2">
-													<span class="small">Running Python code</span>
-												</div>
-											</a>
-										</div>
-										<!-- End Col -->
-
-										<div class="col-4 text-end">
-											<div class="row">
-												<div class="col-lg-6">
-													<a class="small" href="#">Preview</a>
-												</div>
-												<!-- End Col -->
-
-												<div class="col-lg-6">
-													<span class="text-primary small">17:50</span>
-												</div>
-												<!-- End Col -->
-											</div>
-											<!-- End Row -->
-										</div>
-										<!-- End Col -->
-									</div>
-								</div>
-								<!-- End Item -->
-
-								<!-- Item -->
-								<div class="list-group-item text-muted">
-									<div class="row">
-										<div class="col-8">
-											<div class="d-flex">
-												<div class="flex-shrink-0">
-													<i class="bi-play-circle-fill small"></i>
-												</div>
-												<div class="flex-grow-1 ms-2">
-													<span class="small">Getting the notebooks and the course
-														material</span>
-												</div>
-											</div>
-										</div>
-										<!-- End Col -->
-
-										<div class="col-4 text-end">
-											<div class="row">
-												<div class="col-lg-6">
-												</div>
-												<!-- End Col -->
-
-												<div class="col-lg-6">
-													<span class="small">02:22</span>
-												</div>
-												<!-- End Col -->
-											</div>
-											<!-- End Row -->
-										</div>
-										<!-- End Col -->
-									</div>
-								</div>
-								<!-- End Item -->
-
-								<!-- Item -->
-								<div class="list-group-item text-muted">
-									<div class="row">
-										<div class="col-8">
-											<div class="d-flex">
-												<div class="flex-shrink-0">
-													<i class="bi-play-circle-fill small"></i>
-												</div>
-												<div class="flex-grow-1 ms-2">
-													<span class="small">Git and Github overview (Optional)</span>
-												</div>
-											</div>
-										</div>
-										<!-- End Col -->
-
-										<div class="col-4 text-end">
-											<div class="row">
-												<div class="col-lg-6">
-												</div>
-												<!-- End Col -->
-
-												<div class="col-lg-6">
-													<span class="small">02:49</span>
-												</div>
-												<!-- End Col -->
-											</div>
-											<!-- End Row -->
-										</div>
-										<!-- End Col -->
-									</div>
-								</div>
-								<!-- End Item -->
+								<!-- End Modal -->
+								<?php endforeach;?>
 							</div>
 							<!-- End List Group -->
 						</div>

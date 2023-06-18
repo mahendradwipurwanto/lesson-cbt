@@ -96,7 +96,7 @@ class M_master extends CI_Model
 				// $arr[$key]->konten = $this->countKontenByMateri($val->id);
 				$arr[$key]->testimoni = $this->getRating($val->id, 3);
 				$arr[$key]->rating = $this->getAverageRating($val->id);
-				$arr[$key]->soal = $this->countSoalByMateri($val->id, $val->type);
+				$arr[$key]->soal = $this->countSoalByMateri($val->id, $val->type)['total'];
 				$arr[$key]->peserta = $this->countPesertaByMateri($val->id);
 			}
 		}
@@ -206,7 +206,7 @@ class M_master extends CI_Model
 				// $arr[$key]->konten = $this->countKontenByMateri($val->id);
 				$arr[$key]->testimoni = $this->getRating($val->id, 3);
 				$arr[$key]->rating = $this->getAverageRating($val->id);
-				$arr[$key]->soal = $this->countSoalByMateri($val->id, $val->type);
+				$arr[$key]->soal = $this->countSoalByMateri($val->id, $val->type)['total'];
 				$arr[$key]->peserta = $this->countPesertaByMateri($val->id);
 			}
 		}
@@ -246,11 +246,12 @@ class M_master extends CI_Model
 
 		if(!is_null($data)){
 			$soal = $this->countSoalByMateri($id, $data->type);
-			$data->total_module = $soal;
+			$data->total_module = $soal['total'];
+            $data->list_module = $soal['data'];
 			$data->testimoni = $this->getRating($id, 3);
 			$data->rating = $this->getAverageRating($id);
 			$data->peserta = $this->countPesertaByMateri($id);
-			$data->is_soal = $soal > 0 ? true : false;
+			$data->is_soal = $soal['total'] > 0 ? true : false;
             $data->categories = !is_null($data->m_kategori_id) && $data->m_kategori_id > 0 ? $data->categories : (($data->type == 0 ? 'Soal' : 'Materi'));
 			if($data->harga > 0 || is_null($data->harga)){
 				$harga = number_format($data->harga,0,",",".");
@@ -280,9 +281,25 @@ class M_master extends CI_Model
 		}else{
 			$table_module = 'm_materi_konten';
 		}
-		$total_module = $this->db->get_where($table_module, ['m_materi_id' => $m_materi_id, 'is_deleted' => 0])->num_rows();
-
-		return $total_module;
+		$total_module = $this->db->get_where($table_module, ['m_materi_id' => $m_materi_id, 'is_deleted' => 0])->result();
+        
+        $arr = [];
+        if(!empty($total_module)){
+            foreach($total_module as $key => $val){
+                $arr[$key] = $val;
+                if($type == 1 && !is_null($val->video)){
+                    $arr[$key]->video = convertToEmbedUrl($val->video);
+                }
+                if($type == 1 && !is_null($val->url_file)){
+                    $arr[$key]->url_file = base64_encode($val->url_file);
+                }
+            }
+        }
+        
+		return [
+            'data' => $total_module,
+            'total' => count($total_module)
+        ];
     }
 
     public function countPesertaByMateri($m_materi_id = null)
@@ -436,7 +453,7 @@ class M_master extends CI_Model
 
 	public function tambahSoal($materi_id = null){
 		
-		$order = $this->countSoalByMateri($materi_id, 0);
+		$order = $this->countSoalByMateri($materi_id, 0)['total'];
 
 		$data = [
 			'm_materi_id' => $materi_id,
