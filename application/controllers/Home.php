@@ -40,6 +40,12 @@ class Home extends CI_Controller
 		$data['retake'] = $data['materi']->retake == 1 && !$data['cek_materi'];
 		$data['cek_pengerjaan'] = $this->M_pengguna->cekPengerjaan($id);
 		$data['cek_pengambilan'] = $this->M_pengguna->cekPengambilan($id);
+
+        if($data['materi']->type == 1 && $data['cek_materi']){
+            $data['peserta'] = $this->M_pengguna->getPesertaMateri($this->session->userdata('user_id'), $id);
+            $this->M_pengguna->selesaikan_peserta($data['peserta']->id, $id);
+        }
+        
         $this->templatefront->view('home/detail_materi', $data);
     }
 

@@ -28,13 +28,13 @@
 	<link rel="stylesheet" href="<?= base_url();?>assets/vendor/bootstrap-icons/font/bootstrap-icons.css" />
 	<link rel="stylesheet" href="<?= base_url();?>assets/vendor/tom-select/dist/css/tom-select.bootstrap5.css">
 	<link rel="stylesheet" href="<?= base_url();?>assets/vendor/quill/dist/quill.snow.css">
-
+	
 	<!-- plugin styel -->
 	<link rel="stylesheet" href="<?= base_url();?>assets/plugin/sweetalert2/sweetalert2.min.css">
 	<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intro.js@5.0.0/minified/introjs.min.css">
 	<link rel="stylesheet" href="<?= base_url(); ?>assets/plugin/intro-js-modern.css">
-
+	
 	<!-- CSS Front Template -->
 	<link rel="preload" href="<?= base_url();?>assets/css/theme.min.css" data-hs-appearance="default" as="style" />
 	<link rel="preload" href="<?= base_url();?>assets/css/theme-dark.min.css" data-hs-appearance="dark" as="style" />
@@ -50,6 +50,7 @@
 		body {
 			opacity: 0;
 		}
+
 	</style>
 	<script src="<?= base_url();?>assets/js/main.js"></script>
 
@@ -65,7 +66,7 @@
 	<script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
 	<!-- introjs -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/intro.js@5.0.0/minified/intro.min.js"></script>
-	</head>
+</head>
 
-<body class="has-navbar-vertical-aside navbar-vertical-aside-show-xl">
+<body class="bg-light">
 	<script src="<?= base_url();?>assets/js/hs.theme-appearance.js"></script>
