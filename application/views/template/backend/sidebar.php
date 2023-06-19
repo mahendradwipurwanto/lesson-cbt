@@ -61,6 +61,9 @@
 						</a>
 					</div>
 
+					<span class="dropdown-header mt-4">Master</span>
+					<small class="bi-three-dots nav-subtitle-replacer"></small>
+
 					<div class="nav-item">
 						<a class="nav-link <?= ($this->uri->segment(2) == "kategori" ? "active" : "") ?>"
 							href="<?= site_url('master/kategori');?>" data-placement="left" id="tour-kategori">
@@ -185,4 +188,4 @@
 <!-- End Navbar Vertical -->
 
 <!-- Content -->
-<div class="content container">
+<div class="content container-fluid">

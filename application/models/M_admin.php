@@ -29,6 +29,24 @@ class M_admin extends CI_Model
         ];
     }
 
+    function getChartDaily()
+    {
+        $this->db->select("id, FROM_UNIXTIME(created_at, '%Y-%m-%d') AS created_at, COUNT(FROM_UNIXTIME(created_at, '%Y-%m-%d')) AS count");
+        $this->db->from('tb_peserta');
+        $this->db->where('status', 2);
+        $this->db->group_by("FROM_UNIXTIME(created_at, '%Y-%m-%d')");
+        return $this->db->get()->result();
+    }
+
+    function getChartDailyAccount()
+    {
+        $this->db->select("FROM_UNIXTIME(created_at, '%Y-%m-%d') AS created_at, COUNT(FROM_UNIXTIME(created_at, '%Y-%m-%d')) AS count");
+        $this->db->from('tb_auth');
+        $this->db->where(['role' => 2, 'is_deleted' => 0]);
+        $this->db->group_by("FROM_UNIXTIME(created_at, '%Y-%m-%d')");
+        return $this->db->get()->result();
+    }
+
     public function getAllMemberNative(){
         $this->db->select('a.status as auth_status, a.email, b.*')
         ->from('tb_auth a')
@@ -55,6 +73,7 @@ class M_admin extends CI_Model
 
         $offset = $this->input->post('start');
         $limit  = $this->input->post('length'); // Rows display per page
+        $order  = $this->input->post('order')[0];
         
         $filter = [];
 
@@ -77,7 +96,33 @@ class M_admin extends CI_Model
         ;
 
         $this->db->where($filter);
-        $this->db->order_by('b.name ASC');
+
+        if(!is_null($order)){
+
+            switch ($order['column']) {
+                case 0:
+                    $columnName = 'b.name';
+                    break;
+                    
+                case 2:
+                    $columnName = 'b.name';
+                    break;
+                    
+                case 3:
+                    $columnName = 'a.email';
+                    break;
+                    
+                case 4:
+                    $columnName = 'b.phone';
+                    break;
+                
+                default:
+                    $columnName = 'a.name';
+                    break;
+            }
+            
+            $this->db->order_by("{$columnName} {$order['dir']}");
+        }
 
         // $this->db->limit($limit)->offset($offset);
 

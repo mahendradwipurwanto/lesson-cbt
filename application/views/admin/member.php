@@ -1,3 +1,19 @@
+<!-- Page Header -->
+<div class="page-header pb-3">
+	<div class="row align-items-end">
+		<div class="col-sm mb-2 mb-sm-0">
+			<h1 class="docs-page-header-title"><?= $page_title;?></h1>
+			<p class="docs-page-header-text"><?= $sub_page_title;?></p>
+		</div>
+		<!-- End Col -->
+
+		<div class="col-sm-auto">
+		</div>
+		<!-- End Col -->
+	</div>
+	<!-- End Row -->
+</div>
+<!-- End Page Header -->
 <div class="row">
 	<div class="col-12">
 		<div class="card">
@@ -130,11 +146,14 @@
 		'processing': true,
 		'serverSide': true,
 		'destroy': true,
-		'ordering': false,
-		'searching': false,
-		'scrollX': true,
+		'searching': true,
+		'scrollX': false,
 		'responsive': true,
 		'serverMethod': 'post',
+		"columnDefs": [{
+			"orderable": false,
+			"targets": [0, 1]
+		}],
 		'ajax': {
 			'url': "<?= site_url('ajax/admin/getAjaxMember')?>",
 			'data': function (d) {

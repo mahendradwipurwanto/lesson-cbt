@@ -1,3 +1,19 @@
+<!-- Page Header -->
+<div class="page-header pb-3">
+	<div class="row align-items-end">
+		<div class="col-sm mb-2 mb-sm-0">
+			<h1 class="docs-page-header-title"><?= $page_title;?></h1>
+			<p class="docs-page-header-text"><?= $sub_page_title;?></p>
+		</div>
+		<!-- End Col -->
+
+		<div class="col-sm-auto">
+		</div>
+		<!-- End Col -->
+	</div>
+	<!-- End Row -->
+</div>
+<!-- End Page Header -->
 <!-- Stats -->
 <div class="row">
 	<div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">

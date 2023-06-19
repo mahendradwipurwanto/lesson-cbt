@@ -48,7 +48,8 @@
 							<!-- List Striped -->
 							<ul class="list-group list-group-lg">
 								<li class="list-group-item p-2 active">
-									<span style="margin-top: -20px; margin-left: 5px" class="fw-bold">Data pribadi</span>
+									<span style="margin-top: -20px; margin-left: 5px" class="fw-bold">Data
+										pribadi</span>
 								</li>
 								<li class="list-group-item p-3">
 									<div class="row">
@@ -114,8 +115,37 @@
 							<!-- List Striped -->
 							<ul class="list-group list-group-lg">
 								<li class="list-group-item p-2 active">
-									<span style="margin-top: -20px; margin-left: 5px" class="fw-bold">Riwayat materi member</span>
+									<span style="margin-top: -20px; margin-left: 5px" class="fw-bold">Riwayat materi
+										member</span>
 								</li>
+								<?php if($materi['totalItem'] > 0):?>
+								<?php foreach ($materi['list'] as $key => $val):?>
+								<li class="list-group-item p-3">
+									<div class="row">
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<span class="h6"><?= $val->judul;?></span>
+										</div>
+										<!-- End Col -->
+
+										<div class="col-sm-8 mb-2 mb-sm-0">
+											<span>diambil pada, <?= $val->tanggal_txt;?></span>
+										</div>
+										<!-- End Col -->
+									</div>
+									<!-- End Row -->
+								</li>
+								<?php endforeach;?>
+								<?php else:?>
+								<li class="list-group-item p-3">
+									<div class="row">
+										<div class="col-sm-12 mb-2 mb-sm-0 text-center">
+											<span class="h6">Belum mengambil materi</span>
+										</div>
+										<!-- End Col -->
+									</div>
+									<!-- End Row -->
+								</li>
+								<?php endif;?>
 							</ul>
 						</div>
 
@@ -123,7 +153,8 @@
 							<!-- List Striped -->
 							<ul class="list-group list-group-lg">
 								<li class="list-group-item p-2 active">
-									<span style="margin-top: -20px; margin-left: 5px" class="fw-bold">Akses log member</span>
+									<span style="margin-top: -20px; margin-left: 5px" class="fw-bold">Akses log
+										member</span>
 								</li>
 							</ul>
 						</div>

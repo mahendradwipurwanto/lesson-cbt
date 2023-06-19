@@ -117,11 +117,23 @@ class Settings extends CI_Controller
 
     public function ubahGeneral()
     {
-        if ($this->M_settings->ubahGeneral() == true) {
-            $this->session->set_flashdata('toast', 'Successfully changes general information');
-            redirect(site_url('settings?p=general'));
+        $logo = null;
+        $splash = null;
+        if (isset($_FILES['image']) && $_FILES['image']['size'] > 0) {
+            $path = "assets/images/";
+            $upload = $this->uploader->uploadImage($_FILES['image'], $path, 'logo');
+            if ($upload == true) {
+                $logo = $upload['filename'];
+            } else {
+                $this->session->set_flashdata('notif_warning', $upload['message']);
+                redirect($this->agent->referrer());
+            }
+        }
+        if ($this->M_website->ubahGeneral($logo, $splash) == true) {
+            $this->session->set_flashdata('notif_success', 'Successfully changes general information');
+            redirect(site_url('admin/pengaturan?p=general'));
         } else {
-            $this->session->set_flashdata('toast', 'There is something wrong, when trying to changes general information');
+            $this->session->set_flashdata('notif_warning', 'There is something wrong, when trying to changes general information');
             redirect($this->agent->referrer());
         }
     }

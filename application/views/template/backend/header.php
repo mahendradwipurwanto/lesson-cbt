@@ -65,6 +65,7 @@
 	<script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
 	<!-- introjs -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/intro.js@5.0.0/minified/intro.min.js"></script>
+	<script src="<?= base_url();?>assets/js/apexchart.js"></script>
 	</head>
 
 <body class="has-navbar-vertical-aside navbar-vertical-aside-show-xl">

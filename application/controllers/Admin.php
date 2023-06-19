@@ -43,6 +43,27 @@ class Admin extends CI_Controller
 		$data['page_title'] = 'Statistik';
 		$data['sub_page_title'] = 'Seluruh statistik tentang website anda';
 
+        // daiily chart
+        $data['arrChartDaily']['created_at'] = [];
+        $data['arrChartDaily']['jmlPeserta'] = [];
+        $statChartDaily = $this->M_admin->getChartDaily();
+        foreach ($statChartDaily as $val):
+            $data['arrChartDaily']['created_at'][] = "'".$val->created_at."'";
+            $data['arrChartDaily']['jmlPeserta'][] = $val->count;
+        endforeach;
+
+        // daily  account chart
+        $statChartDailyAccount = $this->M_admin->getChartDailyAccount();
+        foreach ($statChartDailyAccount as $val):
+            $data['arrChartDailyAccount']['created_at'][] = "'".$val->created_at."'";
+            $data['arrChartDailyAccount']['jmlPeserta'][] = $val->count;
+        endforeach;
+        if(!empty($data['arrChartDaily']['created_at'])) {
+            $data['arrChartDailyDate'] = array_unique(array_merge($data['arrChartDailyAccount']['created_at'], $data['arrChartDaily']['created_at']), SORT_REGULAR);
+        } else {
+            $data['arrChartDailyDate'] = array_unique($data['arrChartDailyAccount']['created_at'], SORT_REGULAR);
+        }
+
 		$data['count'] = $this->M_admin->getCountOverview();
         $this->templateback->view('admin/statistik', $data);
     }

@@ -26,6 +26,7 @@ $route['pengguna/materi/kerjakan-soal/(:any)'] = 'pengguna/kerjakan_soal/$1';
 $route['pengguna/materi/kerjakan-soal/(:any)/(:num)'] = 'pengguna/kerjakan_soal/$1/$2';
 
 // MATERI
+$route['master/soal'] = 'master/bank_soal';
 $route['master/riwayat-materi'] = 'master/riwayatMateri';
 $route['master/buat-materi'] = 'master/buatMateri';
 $route['master/buat-materi/(:num)/soal'] = 'master/buatSoal/$1';

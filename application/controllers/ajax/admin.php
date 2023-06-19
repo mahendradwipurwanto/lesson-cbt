@@ -8,7 +8,7 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(['M_admin']);
+        $this->load->model(['M_admin', 'M_pengguna']);
 
         // cek apakah user sudah login
         if ($this->session->userdata('logged_in') == false || !$this->session->userdata('logged_in')) {
@@ -61,9 +61,11 @@ class Admin extends CI_Controller
     public function getDetailMember(){
 
         $member = $this->M_admin->getDetailMember($this->input->post('user_id'));
+        $materi = $this->M_pengguna->getMateriUser($this->input->post('user_id'));
 		if (!empty($member)) {
         
-            $data['member']   = $member;
+            $data['member'] = $member;
+            $data['materi'] = $materi;
 
             $this->load->view('admin/ajax/detail_member', $data);
 
